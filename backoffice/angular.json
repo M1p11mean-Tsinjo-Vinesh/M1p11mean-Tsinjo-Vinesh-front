@@ -6,7 +6,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "boba-bee-backoffice": {
+    "m1p11mean-tsinjo-vinesh": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -23,7 +23,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/boba-bee-backoffice",
+            "outputPath": "dist/m1p11mean-tsinjo-vinesh",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -92,10 +92,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "prod": {
-              "browserTarget": "boba-bee-backoffice:build:prod"
+              "browserTarget": "m1p11mean-tsinjo-vinesh:build:prod"
             },
             "dev": {
-              "browserTarget": "boba-bee-backoffice:build:dev"
+              "browserTarget": "m1p11mean-tsinjo-vinesh:build:dev"
             }
           },
           "defaultConfiguration": "dev"
@@ -103,7 +103,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "boba-bee-backoffice:build"
+            "browserTarget": "m1p11mean-tsinjo-vinesh:build"
           }
         },
         "test": {
