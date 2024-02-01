@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>{{data.title}}</h2>
+<mat-dialog-content>
+  <app-form
+    inputClass="col-md-12 my-2"
+    [inputs]="data.inputs"
+    [default]="default"
+    #editableForm
+  />
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <app-action-buttons
+    (validate)="validate()"
+    (reinitialize)="reinitialize()"
+  />
+</mat-dialog-actions>

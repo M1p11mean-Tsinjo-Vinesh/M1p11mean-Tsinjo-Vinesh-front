@@ -1,0 +1,20 @@
+<h2 mat-dialog-title>{{data.title}}</h2>
+
+<mat-dialog-content>
+  <app-form
+    [inputs]="data.inputs"
+    [inputClass]="inputClass"
+    [default]="data.value || {}"
+    [method]="data.method"
+    [service]="data.service"
+    [onsuccess]="success"
+    #modalForm
+  />
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <app-action-buttons
+    (reinitialize)="reinitialize()"
+    (validate)="validate()"
+  />
+</mat-dialog-actions>

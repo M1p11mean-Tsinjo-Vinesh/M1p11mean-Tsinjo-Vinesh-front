@@ -1,0 +1,1 @@
+export const CONTACT_REGEX = /^(0|(\+261))\s*(3[3428])\s*(\d{2})\s*(\d{3})\s*(\d{2})$/;

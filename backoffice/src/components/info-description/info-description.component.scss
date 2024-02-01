@@ -1,0 +1,25 @@
+.title {
+  min-width: 170px;
+}
+.info-container {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 14px;
+}
+
+.value {
+  color: #0075FF;
+  font-weight: 200;
+  display: flex;
+}
+
+mat-icon {
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 400px){
+  .info-container {
+    margin: 15px 0;
+  }
+}

@@ -1,0 +1,131 @@
+// Here you can add other styles
+
+//// sidebar changes
+
+.sidebar {
+  //--cui-sidebar-color: black;
+  --cui-sidebar-nav-title-color: #000;
+  --cui-sidebar-nav-link-color: #000;
+
+  --cui-sidebar-nav-link-border-color: #000;
+
+  --cui-sidebar-nav-link-active-color: #000;
+  --cui-sidebar-nav-link-active-icon-color: #000;
+
+  --cui-sidebar-nav-link-icon-color: #000;
+  --cui-sidebar-nav-link-disabled-color: #000;
+  --cui-sidebar-nav-link-disabled-icon-color: #000;
+  --cui-sidebar-nav-link-hover-color: #000;
+  --cui-sidebar-nav-link-hover-icon-color: #000;
+  --cui-sidebar-nav-group-toggle-show-color: #000;
+
+  ///// backgrounds
+
+  --cui-sidebar-bg: #F0E5D9;
+
+  --cui-sidebar-brand-bg: #FFF1E4;
+  --cui-sidebar-toggler-bg: #FFF1E4;
+
+  --cui-sidebar-toggler-hover-bg: #DECDBA;
+
+  // --cui-sidebar-nav-link-bg: unset;
+
+  --cui-sidebar-nav-link-active-bg: #DECDBA;
+  --cui-sidebar-nav-link-hover-bg: #DECDBA;
+
+  --cui-sidebar-nav-group-bg: #FFF1E4;
+  --cui-sidebar-nav-group-indicator: url("/assets/down-arrow-svgrepo-com.svg");
+  --cui-sidebar-nav-group-indicator-hover: url("/assets/down-arrow-svgrepo-com.svg");
+}
+
+
+///// button changes
+
+.btn-primary {
+  --cui-btn-color: #000;
+  --cui-btn-hover-color: #000;
+  --cui-btn-bg: #F1C31A;
+  --cui-btn-border-color: #F1C31A;
+  --cui-btn-hover-bg: rgba(241, 195, 26, 0.8);
+  --cui-btn-hover-border-color: rgb(131, 106, 14);
+}
+
+:root {
+  --primary-color: #F1C31A;
+}
+
+.btn-secondary {
+  transition: all linear 100ms;
+}
+
+.btn-secondary {
+  --cui-btn-color: #000;
+  --cui-btn-hover-color: #000;
+  --cui-btn-bg: #FAFAFA;
+  --cui-btn-border-color: #3361FF;
+  --cui-btn-hover-bg: #c9c8c8;
+  --cui-backdrop-zindex: 99;
+}
+
+
+a::after {
+  border-color: black !important;
+}
+
+/*
+.mat-mdc-form-field-error-wrapper {
+  padding: 0!important;
+}
+*/
+
+mat-form-field {
+  width: 100%;
+}
+
+app-crud-modal {
+  z-index: 121 !important;
+}
+
+.profile-pic {
+  width: 40px;
+  border-radius: 40px;
+  margin: 5px;
+}
+
+app-employee-form form .col-md-6:last-child {
+  @extend .col-md-12;
+}
+
+app-search-select-modal input, app-search-select-modal mat-label {
+  padding-left: 25px !important;
+}
+
+.label-multi-select {
+  transition: all ease-in-out 200ms;
+}
+
+.label-multi-select:hover {
+  cursor: pointer;
+  text-decoration: underline;
+  color: var(--primary-color);
+}
+
+.header.header-sticky {
+  z-index: 106;
+}
+
+@media (max-width: 768px) {
+  .sidebar-backdrop {
+    z-index: 1;
+  }
+
+  .header.header-sticky {
+    z-index: 0;
+  }
+}
+
+@media (min-width: 768px) {
+  .sidebar.sidebar-fixed {
+    z-index: 107;
+  }
+}

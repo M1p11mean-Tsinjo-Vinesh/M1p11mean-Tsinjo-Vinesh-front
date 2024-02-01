@@ -1,0 +1,9 @@
+{
+  "backendUrl": "https://api.bobabee-mg.com/",
+  "webServerUrl": "https://cdn.bobabee-mg.com/uploads",
+  "headerKey": "API_KEY",
+  "userKey": "user",
+  "tokenKey": "token",
+  "landingPage":["/"],
+  "loginUrl": ["/login"]
+}

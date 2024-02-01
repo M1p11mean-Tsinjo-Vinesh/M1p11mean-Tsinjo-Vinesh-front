@@ -1,0 +1,11 @@
+<div class="mt-4 d-flex buttons-container">
+    <ng-container *ngFor="let button of buttons" >
+        <app-crud-button
+            [text]="button.text"
+            [icon]="button.icon"
+            [color]="button.color"
+            [variant]="button.variant"
+            (click)="onclick(button)"
+        />
+    </ng-container>
+</div>

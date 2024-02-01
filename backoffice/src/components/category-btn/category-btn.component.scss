@@ -1,0 +1,17 @@
+.category-btn {
+  padding: 10px;
+  background-color: #d2d2d2;
+  border-radius: 10px;
+  white-space: nowrap;
+  cursor: pointer;
+  display: flex;
+  transition: all ease-in-out 300ms;
+}
+
+.category-name {
+  margin: auto 0 auto 10px;
+}
+
+.category-on {
+  background-color: var(--primary-color);
+}

@@ -1,0 +1,24 @@
+<c-card>
+  <c-card-header>
+    <div class="d-flex justify-content-between">
+      <h2>{{title}}</h2>
+      <app-crud-button
+        icon="add"
+        text="Ajouter"
+        (click)="add()"
+      />
+    </div>
+  </c-card-header>
+  <c-card-body>
+    <app-list
+      [titles]="titles"
+      [getters]="getters"
+      [data]="data"
+      [sorts]="sorts"
+      [actions]="actions"
+    />
+    <div>
+      <ng-content />
+    </div>
+  </c-card-body>
+</c-card>

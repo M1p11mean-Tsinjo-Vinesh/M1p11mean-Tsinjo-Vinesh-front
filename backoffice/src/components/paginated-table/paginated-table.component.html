@@ -1,0 +1,16 @@
+<app-table
+    [actions]="actions"
+    [getters]="getters"
+    (onRowClick)="this.onRowClick.emit($event)"
+    [data]="data"
+    [titles]="titles"
+    [showCheckBox]="showCheckBox"
+    (emitChecked)="emitChecked.emit($event)"
+/>
+
+<mat-paginator
+    [length]="count || data.length"
+    [pageSize]="pageSize || data.length"
+    aria-label="Select page"
+    (page)="pageChange($event)"
+/>

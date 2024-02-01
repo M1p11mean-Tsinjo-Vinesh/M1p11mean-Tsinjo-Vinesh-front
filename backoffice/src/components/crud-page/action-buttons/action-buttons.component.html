@@ -1,0 +1,21 @@
+<div class="d-flex justify-content-end">
+  <app-crud-button
+    icon="refresh"
+    text="Réinitialiser"
+    color="light"
+    class="ms-auto"
+    (click)="reinitialize.emit()"
+  />
+  <app-crud-button
+    icon="close"
+    text="Annuler"
+    mat-dialog-close="cancel"
+    color="light"
+  />
+  <app-crud-button
+    icon="done"
+    text="Valider"
+    (click)="validate.emit()"
+  />
+</div>
+

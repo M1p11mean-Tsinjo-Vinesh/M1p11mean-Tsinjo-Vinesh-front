@@ -1,0 +1,37 @@
+<c-card>
+  <c-card-header>
+    <h3>{{title}}</h3>
+  </c-card-header>
+  <c-card-body>
+    <div class="d-flex"
+         [class.justify-content-between]="showAddButton && showFilterButton"
+         [class.justify-content-end]="!showFilterButton && showAddButton"
+    >
+      <app-crud-button [class.d-none]="!showFilterButton" text="Recherche" icon="search" (click)="search()" />
+      <app-crud-button [class.d-none]="!showAddButton" text="Ajouter" icon="add" (click)="add()" />
+    </div>
+    <c-row style="padding-top: 16px;">
+      <app-list-checkbox
+        class="col-md-12"
+        [showCheckBox]="showCheckBox"
+        [data]="res['elements'] ?? []"
+        [titles]="titles"
+        [getters]="getters"
+        [actions]="rowActions"
+        [sorts]="sorts"
+        (sort)="sort($event)"
+        (emitChecked)="emitChecked.emit($event)"
+        #list
+      />
+      <mat-paginator
+        [length]="res['count'] || 10"
+        [pageSize]="res.pageSize || 0"
+        aria-label="Select page"
+        (page)="pageChange($event)"
+      />
+    </c-row>
+    <div>
+      <ng-content />
+    </div>
+  </c-card-body>
+</c-card>

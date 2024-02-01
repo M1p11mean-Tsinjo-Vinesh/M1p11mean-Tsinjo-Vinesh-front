@@ -1,0 +1,20 @@
+<div class="image-uploader">
+
+  <div class="icon-container" [class.mb-4]="getImages() && getImages().length > 0">
+    <label (click)="fileInput.click()" [class.is-disabled]="disabled">
+      <mat-icon>add_photo_alternate</mat-icon>
+      <span><ng-content /></span>
+    </label>
+  </div>
+
+  <input type="file" (change)="fileChangeEvent($event)" [disabled]="disabled" #fileInput />
+
+  <div class="d-flex justify-content-center">
+    <div class="image-element m-2" *ngFor="let image of getImages(); index as i" >
+      <img src="{{image}}" width="100" alt="">
+      <span (click)="remove(i)"><mat-icon>close</mat-icon></span>
+    </div>
+  </div>
+
+</div>
+

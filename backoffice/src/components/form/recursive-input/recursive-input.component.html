@@ -1,0 +1,48 @@
+<ng-container *ngIf="!isForm(props); else self" >
+  <ng-container *ngIf="props.searchKey; else inputTemplate">
+      <ng-container [formGroup]="form">
+          <app-auto-complete
+              [props]="props"
+              [formControlName]="key"
+              [form]="form"
+              [key]="key"
+              (selectionChange)="onChange($event)"
+          />
+      </ng-container>
+  </ng-container>
+
+  <ng-template #inputTemplate>
+    <ng-container *ngIf="props.type==='hidden'" [formGroup]="form">
+      <input type="hidden" [formArrayName]="key" />
+    </ng-container>
+
+    <app-input
+      *ngIf="['image', 'hidden', 'map'].indexOf(props.type) < 0"
+      [props]="props"
+      [key]="key"
+      [form]="form"
+      (change)="onChange($event)"
+    />
+
+    <app-image-input
+      *ngIf="props.type === 'image'"
+      [props]="props"
+      [key]="key"
+      [form]="form"
+      (change)="onChange($event)"
+    />
+
+  </ng-template>
+</ng-container>
+
+<ng-template #self>
+  <ng-container [formGroup]="form" >
+    <ng-container [formGroupName]="key">
+      <app-recursive-input
+        [key]="getNext().key"
+        [props]="getNext().props"
+        [form]="get(key)"
+      />
+    </ng-container>
+  </ng-container>
+</ng-template>

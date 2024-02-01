@@ -1,0 +1,22 @@
+<mat-form-field appearance="outline">
+  <mat-label>{{props.label}}</mat-label>
+  <input type="text"
+         placeholder="Recherche"
+         aria-label="Number"
+         matInput
+         (keyup)="doSearch($event)"
+         [formControl]="control"
+         [matAutocomplete]="auto"
+         (click)="markAsTouched()"
+  >
+
+  <mat-autocomplete (optionSelected)="onSelect($event)" autoActiveFirstOption #auto="matAutocomplete">
+    <mat-option>Veuillez choisir</mat-option>
+    <mat-option *ngFor="let option of options" [value]="props.getValue(option)">
+      {{props.getText(option)}}
+    </mat-option>
+  </mat-autocomplete>
+
+
+  <mat-error>{{readError()}}</mat-error>
+</mat-form-field>

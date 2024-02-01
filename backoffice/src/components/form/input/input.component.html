@@ -1,0 +1,7 @@
+<ng-container [formGroup]="form">
+  <mat-form-field appearance="outline" >
+    <mat-label>{{props.label}}</mat-label>
+    <input [formControlName]="key" type="{{props.type}}" matInput>
+    <mat-error>{{readError()}}</mat-error>
+  </mat-form-field>
+</ng-container>

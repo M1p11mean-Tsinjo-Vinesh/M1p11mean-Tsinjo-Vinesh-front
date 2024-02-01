@@ -1,0 +1,9 @@
+{
+  "backendUrl": "http://localhost:8080/",
+  "webServerUrl": "https://cdn.bobabee-mg.com/uploads",
+  "headerKey": "API_KEY",
+  "userKey": "user",
+  "tokenKey": "token",
+  "landingPage":["/"],
+  "loginUrl": ["/login"]
+}

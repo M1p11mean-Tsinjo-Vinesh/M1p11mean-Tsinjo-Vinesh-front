@@ -1,0 +1,48 @@
+<div
+        class="mat-elevation-z2 table-responsive mb-4"
+        *ngIf="titles!==undefined && getters!==undefined && data !== undefined"
+>
+    <table mat-table [dataSource]="dataSource">
+
+      <ng-container matColumnDef="checkboxes" >
+        <th [class.d-none]="!showCheckBox" mat-header-cell *matHeaderCellDef>
+          <mat-checkbox
+            [checked]="allChecked"
+            (click)="checkAll()"
+            color="primary"
+          />
+        </th>
+        <td [class.d-none]="!showCheckBox" mat-cell *matCellDef="let element; index as i">
+          <mat-checkbox
+            [checked]="isChecked(element)"
+            (click)="checkIndex(element)"
+            color="primary"
+          />
+        </td>
+      </ng-container>
+
+
+        <ng-container *ngFor="let title of titlesCopy; index as i">
+            <ng-container [matColumnDef]="title">
+                <th mat-header-cell *matHeaderCellDef>{{title}}</th>
+                <td mat-cell *matCellDef="let element" [innerHTML]="getters[i](element)" ></td>
+            </ng-container>
+        </ng-container>
+
+        <ng-container matColumnDef="Actions">
+            <th [class.d-none]="actions && actions.length <= 0" mat-header-cell *matHeaderCellDef>Actions</th>
+            <td [class.d-none]="actions && actions.length <= 0" mat-cell *matCellDef="let element; index as i">
+                <ng-container *ngFor="let action of actions">
+                    <button mat-icon-button [color]="action.color" (click)="action.onclick(element, i)">
+                        <mat-icon>{{action.icon}}</mat-icon>
+                    </button>
+                </ng-container>
+            </td>
+        </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="getTitles()"></tr>
+      <tr mat-row *matRowDef="let row; columns: getTitles();" (click)="this.onRowClick.emit(row)"></tr>
+
+    </table>
+</div>
+<ng-content></ng-content>

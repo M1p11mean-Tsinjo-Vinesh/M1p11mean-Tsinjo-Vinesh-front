@@ -1,0 +1,25 @@
+<form [formGroup]="form" class="row">
+  <ng-container *ngFor="let key of Object.keys(inputs)">
+    <div [class.d-none]="inputs[key]?.type === 'hidden'" class="{{inputClass}}" >
+      <app-recursive-input
+        [form]="form"
+        [props]="inputs[key]"
+        [key]="key"
+      />
+    </div>
+  </ng-container>
+  <ng-content />
+</form>
+
+<div *ngIf="actions && actions.length > 0" class="col-md-12">
+  <ng-container *ngFor="let action of actions">
+    <button
+      class="margin-right"
+      cButton
+      [color]="action.color"
+      (click)="validate(action.onClick, action.validDataOnly)"
+    >
+      {{action.label}}
+    </button>
+  </ng-container>
+</div>
