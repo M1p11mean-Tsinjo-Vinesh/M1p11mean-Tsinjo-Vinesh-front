@@ -108,7 +108,7 @@ export class CrudPageComponent {
 
   // Delete method for a row
   delete(row: any) {
-    startApiCall(close => this.service.delete(row.id).subscribe(ObserverObject(() => {
+    startApiCall(close => this.service.delete(row._id).subscribe(ObserverObject(() => {
       close()
       this.fetchList();
     })))
