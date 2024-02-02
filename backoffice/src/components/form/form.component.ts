@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {FormActionProps, InputProps, isForm} from "../interfaces";
+import {FormActionProps, InputList, InputProps, isForm} from "../interfaces";
 import {startApiCall} from "@common-components/services/sweet-alert.util";
 import {ObserverObject} from "@common-components/services/util";
 import {ICRUDService} from "@common-components/services/crud/interfaces";
@@ -29,7 +29,7 @@ export class FormComponent {
   /** css class for each inputs */
   @Input() inputClass : string = "col-md-6 mb-4";
 
-  private _inputs!: any[];
+  private _inputs!: InputList;
   private _default!: any;
   form !: FormGroup;
 
@@ -38,11 +38,11 @@ export class FormComponent {
    * the inputs of the form,
    * each key of the object should be an InputProps or a SelectProps.
    * let's suppose we want to have an object like this on the success
-   *  {key: {key: value} }
+   *  {key: value}
    *  in that case the structure of the inputs object should be
-   *  {key: {key: InputProps | SelectProps}}
+   *  {key: InputProps | SelectProps}
    */
-  @Input() set inputs (val: any) {
+  @Input() set inputs (val: InputList) {
     this.form = this.buildForm(val);
     if (this.default) {
       this.form.patchValue(this.default);
@@ -78,12 +78,12 @@ export class FormComponent {
     private builder: FormBuilder
   ) {}
 
-  private buildForm (inputs: any) {
+  private buildForm (inputs: InputList) {
     let form = this.builder.group({});
     Object.keys(inputs).forEach(key => {
       let value = inputs[key];
       if (isForm(value)) {
-        form.addControl(key, this.buildForm(value));
+        form.addControl(key, this.buildForm(value as unknown as InputList));
       }
       else {
         form.addControl(key, this.buildControl(value));

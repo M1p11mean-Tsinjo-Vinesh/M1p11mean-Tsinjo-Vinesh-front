@@ -1,15 +1,16 @@
-import {Component, Input} from '@angular/core';
+import { Component, Input } from '@angular/core';
 
+// Define interface for User data
 export interface User {
-  name: string,
-  path: string
+  name: string; // User's name
+  path: string; // Path to user's avatar
 }
 
 @Component({
-  selector: 'app-avatar',
-  templateUrl: './avatar.component.html',
-  styleUrls: ['./avatar.component.scss']
+  selector: 'app-avatar', // Component selector
+  templateUrl: './avatar.component.html', // HTML template for the component
+  styleUrls: ['./avatar.component.scss'] // Styles for the component
 })
 export class AppAvatarComponent {
-  @Input() user !: User;
+  @Input() user !: User; // Input property to receive User data
 }

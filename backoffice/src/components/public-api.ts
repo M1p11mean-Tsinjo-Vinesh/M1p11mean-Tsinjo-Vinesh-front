@@ -13,7 +13,6 @@ export * from "./list-checkbox/list-checkbox.component";
 export * from "./buttons/buttons.component";
 export * from "./crud-page/action-buttons/action-buttons.component";
 export * from "./form/recursive-input/recursive-input.component";
-export * from "./category-btn/category-btn.component";
 export * from "./paginated-table/paginated-table.component";
 export * from './common-components.module';
 export * from './interfaces';
