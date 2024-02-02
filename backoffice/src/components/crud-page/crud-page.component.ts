@@ -35,11 +35,6 @@ export class CrudPageComponent {
   /** title of the page */
   @Input() title!: string;
 
-  /**
-   * criteria for search,
-   * each key of the object should be an InputProps or SelectProps
-   * you can check those at src/app/common-components/interfaces.ts
-   */
   private _criteria!: InputList;
 
   @Input() set criteria(input: InputList) {
@@ -53,11 +48,6 @@ export class CrudPageComponent {
     return this._criteria;
   }
 
-  /**
-   * inputs for create and modification,
-   * each key of the object should be an InputProps or SelectProps
-   * you can check those at src/app/common-components/interfaces.ts
-   */
   @Input() inputs!: InputList;
 
   /** titles of the columns to be shown on the list */
@@ -66,10 +56,6 @@ export class CrudPageComponent {
   /** functions to get each value of the columns on the list */
   @Input() getters!: GetterFn[]
 
-  /**
-   * object that register each ordering key of each title,
-   * SortParam at src/app/common-components/interfaces.ts
-   */
   @Input() sorts!: SortParam;
 
   /** css class for inputs */
@@ -140,7 +126,7 @@ export class CrudPageComponent {
   }
 
   edit (row: any) {
-    this._openModel({
+    this._openModal({
       title: "Modification",
       inputs: this.inputs,
       value: row,
@@ -152,7 +138,7 @@ export class CrudPageComponent {
   }
 
   search () {
-    this._openModel({
+    this._openModal({
       title: "Recherche",
       inputs: this.criteria,
       value: this.params,
@@ -170,7 +156,7 @@ export class CrudPageComponent {
   }
 
   add () {
-    this._openModel({
+    this._openModal({
       title: "Enregistrement",
       inputs: this.inputs,
       service: this._service,
@@ -185,7 +171,7 @@ export class CrudPageComponent {
   }
 
 
-  private _openModel (data: CRUDModalData) {
+  private _openModal (data: CRUDModalData) {
     const dialogRef = this.dialog.open(CrudModalComponent, {
       data: {...data, inputClass: this.inputClass},
       maxWidth: "600px"

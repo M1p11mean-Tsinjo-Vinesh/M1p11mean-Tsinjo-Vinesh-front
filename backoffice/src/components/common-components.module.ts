@@ -47,7 +47,6 @@ import {ListEditableComponent} from './list-editable/list-editable.component';
 import {EditableModalComponent} from './list-editable/editable-modal/editable-modal.component';
 import {ListCheckboxComponent} from './list-checkbox/list-checkbox.component';
 import {CommonToastComponent} from './common-toast/common-toast.component';
-import {CategoryBtnComponent} from './category-btn/category-btn.component';
 import {PaginatedTableComponent} from "./paginated-table/paginated-table.component";
 import {TableComponent} from "./table/table.component";
 import {ButtonsComponent} from "./buttons/buttons.component";
@@ -75,7 +74,6 @@ import {ButtonsComponent} from "./buttons/buttons.component";
     ListCheckboxComponent,
     ButtonsComponent,
     CommonToastComponent,
-    CategoryBtnComponent,
     PaginatedTableComponent,
     TableComponent
   ],
@@ -95,7 +93,6 @@ import {ButtonsComponent} from "./buttons/buttons.component";
     ButtonsComponent,
     ActionButtonsComponent,
     RecursiveInputComponent,
-    CategoryBtnComponent,
     PaginatedTableComponent
   ],
 
