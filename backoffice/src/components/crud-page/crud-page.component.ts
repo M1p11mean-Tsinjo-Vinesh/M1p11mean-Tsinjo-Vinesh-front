@@ -1,11 +1,11 @@
-import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
-import {MatDialog} from "@angular/material/dialog";
-import {CrudModalComponent} from "./crud-modal/crud-modal.component";
-import {askConfirmation, showSuccess, startApiCall} from "../services/sweet-alert.util";
-import {ObserverElt, ObserverObject} from "../services/util";
-import {CRUDModalData, GetterFn, InputList, RowAction, SortParam, SortResult} from "../interfaces";
-import {ListCheckboxComponent} from "../list-checkbox/list-checkbox.component";
-import {ICRUDService} from "../services/crud/interfaces";
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { MatDialog } from "@angular/material/dialog";
+import { CrudModalComponent } from "./crud-modal/crud-modal.component";
+import { askConfirmation, showSuccess, startApiCall } from "../services/sweet-alert.util";
+import { ObserverElt, ObserverObject } from "../services/util";
+import { CRUDModalData, GetterFn, InputList, RowAction, SortParam, SortResult } from "../interfaces";
+import { ListCheckboxComponent } from "../list-checkbox/list-checkbox.component";
+import { ICRUDService } from "../services/crud/interfaces";
 
 @Component({
   selector: 'app-crud-page',
@@ -15,19 +15,21 @@ import {ICRUDService} from "../services/crud/interfaces";
 export class CrudPageComponent {
 
   @Input() showCheckBox: boolean = false;
-  @Input() showAddButton : boolean = true;
+  @Input() showAddButton: boolean = true;
   @Input() showFilterButton: boolean = true;
-  @Output() emitChecked : EventEmitter<any[]> = new EventEmitter<any[]>();
+  @Output() emitChecked: EventEmitter<any[]> = new EventEmitter<any[]>();
 
   private _service!: ICRUDService;
 
-  @Input() set service (input: ICRUDService) {
+  // Setter for the 'service' input property
+  @Input() set service(input: ICRUDService) {
     if (input) {
       this._service = input;
-      this.fetchList();
+      this.fetchList(); // Fetch initial list when 'service' is set
     }
   }
 
+  // Getter for the 'service' input property
   get service() {
     return this._service;
   }
@@ -37,6 +39,7 @@ export class CrudPageComponent {
 
   private _criteria!: InputList;
 
+  // Setter for the 'criteria' input property
   @Input() set criteria(input: InputList) {
     if (!input || Object.keys(input).length == 0) {
       this.showFilterButton = false;
@@ -44,6 +47,7 @@ export class CrudPageComponent {
     this._criteria = input;
   }
 
+  // Getter for the 'criteria' input property
   get criteria() {
     return this._criteria;
   }
@@ -54,16 +58,17 @@ export class CrudPageComponent {
   @Input() titles!: string[];
 
   /** functions to get each value of the columns on the list */
-  @Input() getters!: GetterFn[]
+  @Input() getters!: GetterFn[];
 
   @Input() sorts!: SortParam;
 
   /** css class for inputs */
-  @Input() inputClass !: string;
+  @Input() inputClass!: string;
 
   @Input() offset = 10;
 
-  @Input() set defaultParams (val: any) {
+  // Setter for the 'defaultParams' input property
+  @Input() set defaultParams(val: any) {
     this.params = val;
   }
 
@@ -89,35 +94,41 @@ export class CrudPageComponent {
 
   private _validActionTypes = ["edit", "delete"];
 
-  @Input() set validActionType  (val: string[]) {
+  // Setter for the 'validActionType' input property
+  @Input() set validActionType(val: string[]) {
     this._validActionTypes = val;
+    // Filter row actions based on valid action types
     this.rowActions = this.defaultRowActions.filter(action => action.type && this._validActionTypes.indexOf(action.type) >= 0)
     console.log(this.rowActions);
   }
 
   @ViewChild("list") list!: ListCheckboxComponent;
 
-  constructor (public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog) { }
 
-  delete (row: any) {
+  // Delete method for a row
+  delete(row: any) {
     startApiCall(close => this.service.delete(row.id).subscribe(ObserverObject(() => {
       close()
       this.fetchList();
     })))
   }
 
+  // Callback method for page change event
   pageChange(e: any) {
     this.params.page = e.pageIndex + 1;
     this.fetchList();
   }
 
-  fetchList () {
+  // Fetch list based on current parameters
+  fetchList() {
     const params = this.params;
     params.offset = this.offset;
     if (this.list) {
       this.list.checkedList = [];
     }
     startApiCall(close => {
+      // Call the CRUD service to fetch data with current parameters
       this.service.findAllWithParams(params).subscribe(ObserverElt(res => {
         this.res = res;
         close();
@@ -125,7 +136,8 @@ export class CrudPageComponent {
     })
   }
 
-  edit (row: any) {
+  // Edit method for a row
+  edit(row: any) {
     this._openModal({
       title: "Modification",
       inputs: this.inputs,
@@ -137,14 +149,16 @@ export class CrudPageComponent {
     });
   }
 
-  search () {
+  // Method to open the modal for searching
+  search() {
     this._openModal({
       title: "Recherche",
       inputs: this.criteria,
       value: this.params,
       next: (res: any) => {
         if (!(res && res !== "cancel")) return;
-        Object.keys(res).forEach(key =>{
+        // Remove empty criteria before sending for search
+        Object.keys(res).forEach(key => {
           if (!res[key]) {
             delete res[key]
           }
@@ -155,7 +169,8 @@ export class CrudPageComponent {
     });
   }
 
-  add () {
+  // Method to open the modal for adding a new entry
+  add() {
     this._openModal({
       title: "Enregistrement",
       inputs: this.inputs,
@@ -166,19 +181,21 @@ export class CrudPageComponent {
     });
   }
 
-  private _onSuccess =  (res: any) => {
+  // Success callback method after a CRUD operation
+  private _onSuccess = (res: any) => {
     return res !== "cancel" && showSuccess(() => this.fetchList())
   }
 
-
-  private _openModal (data: CRUDModalData) {
+  // Method to open the CRUD modal
+  private _openModal(data: CRUDModalData) {
     const dialogRef = this.dialog.open(CrudModalComponent, {
-      data: {...data, inputClass: this.inputClass},
+      data: { ...data, inputClass: this.inputClass },
       maxWidth: "600px"
     });
     dialogRef.afterClosed().subscribe(data.next);
   }
 
+  // Method to handle sorting of the list
   sort(event: SortResult) {
     this.params = (this.params || {});
     this.params.column = event.field;

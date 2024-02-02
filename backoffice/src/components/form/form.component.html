@@ -1,6 +1,6 @@
 <form [formGroup]="form" class="row">
   <ng-container *ngFor="let key of Object.keys(inputs)">
-    <div [class.d-none]="inputs[key]?.type === 'hidden'" class="{{inputClass}}" >
+    <div [class.d-none]="inputs[key].type === 'hidden'" class="{{inputClass}}" >
       <app-recursive-input
         [form]="form"
         [props]="inputs[key]"

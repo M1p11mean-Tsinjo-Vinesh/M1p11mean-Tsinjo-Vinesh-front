@@ -3,9 +3,15 @@ import {ValidatorFn} from "@angular/forms";
 import {PipeTransform} from "@angular/core";
 import {ICRUDService, IReadService} from "./services/crud/interfaces";
 
+/**
+ * Interface representing a list of inputs for a form.
+ * Each key is a string representing the input name, and the value is an InputProps object.
+ */
 export interface InputList {
-  [key: string]: InputProps
+  [key: string]: InputProps;
 }
+
+
 
 
 export interface CRUDModalData {
