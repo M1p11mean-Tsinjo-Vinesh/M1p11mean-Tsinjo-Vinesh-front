@@ -1,9 +1,13 @@
-
 .headroom {
+    position: fixed ;
+    width: 100%;
+    z-index: 10;
+    color: black !important;
     will-change: transform;
-    background-color: inherit;
+    background-color: theme-color("default");
     @include transition($transition-base);
 }
+
 .headroom--pinned {
 	@extend .position-fixed;
     transform: translateY(0%);
@@ -14,8 +18,8 @@
 }
 
 .headroom--not-top {
-	padding-top: .5rem;
-	padding-bottom: .5rem;
+	padding-top: .2rem;
+	padding-bottom: .2rem;
     background-color: theme-color("default") !important;
     box-shadow: 0 1px 10px rgba(130, 130, 134, 0.1);
 }

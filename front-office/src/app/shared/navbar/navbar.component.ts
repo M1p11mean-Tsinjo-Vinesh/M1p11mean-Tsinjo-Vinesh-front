@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { Location, PopStateEvent } from '@angular/common';
+import {faUser} from "@fortawesome/free-regular-svg-icons";
 
 @Component({
     selector: 'app-navbar',
@@ -11,6 +12,7 @@ export class NavbarComponent implements OnInit {
     public isCollapsed = true;
     private lastPoppedUrl: string;
     private yScrollStack: number[] = [];
+    @ViewChild('menu') menu: any;
 
     constructor(public location: Location, private router: Router) {
     }
@@ -32,6 +34,7 @@ export class NavbarComponent implements OnInit {
      this.location.subscribe((ev:PopStateEvent) => {
          this.lastPoppedUrl = ev.url;
      });
+
     }
 
     isHome() {
@@ -53,4 +56,6 @@ export class NavbarComponent implements OnInit {
             return false;
         }
     }
+
+    protected readonly faUser = faUser;
 }
