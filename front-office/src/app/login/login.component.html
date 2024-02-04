@@ -14,68 +14,78 @@
       <div class="row justify-content-center">
         <div class="col-lg-5">
           <div class="card bg-secondary shadow border-0">
-            <div class="card-header bg-white pb-5">
-              <div class="text-muted text-center mb-3">
-                <small>Sign in with</small>
-              </div>
-              <div class="btn-wrapper text-center">
-                <a href="javascript:void(0)" class="btn btn-neutral btn-icon">
-                  <span class="btn-inner--icon">
-                    <img src="./assets/img/icons/common/github.svg">
-                  </span>
-                  <span class="btn-inner--text">Github</span>
-                </a>
-                <a href="javascript:void(0)" class="btn btn-neutral btn-icon">
-                  <span class="btn-inner--icon">
-                    <img src="./assets/img/icons/common/google.svg">
-                  </span>
-                  <span class="btn-inner--text">Google</span>
-                </a>
-              </div>
-            </div>
             <div class="card-body px-lg-5 py-lg-5">
               <div class="text-center text-muted mb-4">
-                <small>Or sign in with credentials</small>
+                <small>Connectez-vous</small>
               </div>
-              <form role="form">
+              <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" role="form">
                 <div class="form-group mb-3" [ngClass]="{'focused':focus===true}">
-                  <div class="input-group input-group-alternative">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-email-83"></i></span>
-                    </div>
-                    <input class="form-control" placeholder="Email" type="email" (focus)="focus=true" (blur)="focus=false">
+                  <div
+                          class="input-group input-group-alternative"
+                          [class.valid]="loginForm.get('email').valid &&
+                            (loginForm.get('email').dirty || loginForm.get('email').touched)"
+                          [class.invalid]="loginForm.get('email').invalid &&
+                            (loginForm.get('email').dirty || loginForm.get('email').touched)"
+                  >
+                    <input
+                            formControlName="email"
+                            class="form-control"
+                            placeholder="Email"
+                            type="email"
+                            (focus)="focus=true"
+                            (blur)="focus=false"
+                    >
+                  </div>
+
+                  <div *ngIf="loginForm.get('email').invalid &&
+                              loginForm.get('email').errors &&
+                              (loginForm.get('email').dirty || loginForm.get('email').touched)"
+                  >
+                    <small class="text-red-500" *ngIf="loginForm.get('email').hasError('required')">
+                      Ce champs est requis
+                    </small>
+                    <small class="text-red-500" *ngIf="loginForm.get('email').hasError('email')">
+                      Format invalide
+                    </small>
+                    <small class="text-red-500" *ngIf="loginForm.get('email').hasError('uniqueMail')">
+                      Email non disponible
+                    </small>
                   </div>
                 </div>
                 <div class="form-group" [ngClass]="{'focused':focus1===true}">
-                  <div class="input-group input-group-alternative">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
-                    </div>
-                    <input class="form-control" placeholder="Password" type="password" (focus)="focus1=true" (blur)="focus1=false">
+                  <div
+                          class="input-group input-group-alternative"
+                          [class.valid]="loginForm.get('password').valid &&
+                            (loginForm.get('password').dirty || loginForm.get('password').touched)"
+                          [class.invalid]="loginForm.get('password').invalid &&
+                            (loginForm.get('password').dirty || loginForm.get('password').touched)"
+                  >
+                    <input
+                            formControlName="password"
+                            class="form-control"
+                            placeholder="Mot de passe"
+                            type="password"
+                            (focus)="focus1=true"
+                            (blur)="focus1=false"
+                    >
+                  </div>
+                  <div *ngIf="loginForm.get('password').invalid &&
+                              loginForm.get('password').errors &&
+                              (loginForm.get('password').dirty || loginForm.get('password').touched)"
+                  >
+                    <small class="text-red-500" *ngIf="loginForm.get('password').hasError('required')">
+                      Ce champs est requis
+                    </small>
+                    <small class="text-red-500" *ngIf="loginForm.get('password').hasError('pattern')">
+                      Format invalide : 8 caractères minimum, 1 lettre majuscule, 1 lettre minuscule, 1 chiffre
+                    </small>
                   </div>
                 </div>
-                <div class="custom-control custom-control-alternative custom-checkbox">
-                  <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
-                  <label class="custom-control-label" for=" customCheckLogin">
-                    <span>Remember me</span>
-                  </label>
-                </div>
-                <div class="text-center">
-                  <button type="button" class="btn btn-primary my-4">Sign in</button>
+                <div class="flex justify-center flex-col">
+                  <button type="submit" class="btn btn-black bg-black mb-3" [disabled]="!loginForm.valid">Se connecter</button>
+                  <button type="button" class="btn" [routerLink]="['/register']">S'inscrire</button>
                 </div>
               </form>
-            </div>
-          </div>
-          <div class="row mt-3">
-            <div class="col-6">
-              <a href="javascript:void(0)" class="text-light">
-                <small>Forgot password?</small>
-              </a>
-            </div>
-            <div class="col-6 text-right">
-              <a href="javascript:void(0)" class="text-light">
-                <small>Create new account</small>
-              </a>
             </div>
           </div>
         </div>
@@ -83,3 +93,4 @@
     </div>
   </section>
 </main>
+

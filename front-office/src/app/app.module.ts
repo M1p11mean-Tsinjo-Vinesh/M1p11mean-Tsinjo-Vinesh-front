@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app.routing';
@@ -16,6 +16,8 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { HomeModule } from './home/home.module';
 import { LoginComponent } from './login/login.component';
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -34,7 +36,10 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
     RouterModule,
     AppRoutingModule,
     HomeModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    ReactiveFormsModule,
+    MatProgressSpinnerModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

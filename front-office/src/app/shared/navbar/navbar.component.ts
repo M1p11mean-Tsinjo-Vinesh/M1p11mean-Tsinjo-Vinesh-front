@@ -12,7 +12,6 @@ export class NavbarComponent implements OnInit {
     public isCollapsed = true;
     private lastPoppedUrl: string;
     private yScrollStack: number[] = [];
-    @ViewChild('menu') menu: any;
 
     constructor(public location: Location, private router: Router) {
     }

@@ -1,8 +1,4 @@
 .headroom {
-    position: fixed ;
-    width: 100%;
-    z-index: 10;
-    color: black !important;
     will-change: transform;
     background-color: theme-color("default");
     @include transition($transition-base);

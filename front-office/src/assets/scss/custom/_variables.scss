@@ -50,6 +50,7 @@ $cyan:    #2bffc6 !default;
 
 $colors: () !default;
 $colors: map-merge((
+  "primary":    $black,
   "blue":       $blue,
   "indigo":     $indigo,
   "purple":     $purple,
