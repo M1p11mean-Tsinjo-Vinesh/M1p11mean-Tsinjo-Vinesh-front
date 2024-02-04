@@ -18,6 +18,9 @@ import { LoginComponent } from './login/login.component';
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {HttpClientModule} from "@angular/common/http";
+import {StoreModule} from "@ngrx/store";
+import {userReducer} from "./store/user/user.reducer";
+import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 
 @NgModule({
   declarations: [
@@ -31,6 +34,12 @@ import {HttpClientModule} from "@angular/common/http";
   ],
   imports: [
     BrowserModule,
+    StoreModule.forRoot({
+      user: userReducer
+    }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+    }),
     NgbModule,
     FormsModule,
     RouterModule,

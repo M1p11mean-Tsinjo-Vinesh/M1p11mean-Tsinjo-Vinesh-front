@@ -28,6 +28,8 @@
     "@fortawesome/free-regular-svg-icons": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@ng-bootstrap/ng-bootstrap": "15.0.0",
+    "@ngrx/store": "^16.0.0",
+    "@ngrx/store-devtools": "^16.0.0",
     "@popperjs/core": "^2.11.4",
     "@servoy/jw-bootstrap-switch-ng2": "^16.0.0",
     "core-js": "^3.35.1",

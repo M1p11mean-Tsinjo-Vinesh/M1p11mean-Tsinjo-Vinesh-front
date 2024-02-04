@@ -19,7 +19,7 @@
                 <small>Connectez-vous</small>
               </div>
               <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" role="form">
-                <div class="form-group mb-3" [ngClass]="{'focused':focus===true}">
+                <div class="form-group mb-3" >
                   <div
                           class="input-group input-group-alternative"
                           [class.valid]="loginForm.get('email').valid &&
@@ -32,8 +32,6 @@
                             class="form-control"
                             placeholder="Email"
                             type="email"
-                            (focus)="focus=true"
-                            (blur)="focus=false"
                     >
                   </div>
 
@@ -44,15 +42,9 @@
                     <small class="text-red-500" *ngIf="loginForm.get('email').hasError('required')">
                       Ce champs est requis
                     </small>
-                    <small class="text-red-500" *ngIf="loginForm.get('email').hasError('email')">
-                      Format invalide
-                    </small>
-                    <small class="text-red-500" *ngIf="loginForm.get('email').hasError('uniqueMail')">
-                      Email non disponible
-                    </small>
                   </div>
                 </div>
-                <div class="form-group" [ngClass]="{'focused':focus1===true}">
+                <div class="form-group" >
                   <div
                           class="input-group input-group-alternative"
                           [class.valid]="loginForm.get('password').valid &&
@@ -65,8 +57,6 @@
                             class="form-control"
                             placeholder="Mot de passe"
                             type="password"
-                            (focus)="focus1=true"
-                            (blur)="focus1=false"
                     >
                   </div>
                   <div *ngIf="loginForm.get('password').invalid &&
@@ -75,9 +65,6 @@
                   >
                     <small class="text-red-500" *ngIf="loginForm.get('password').hasError('required')">
                       Ce champs est requis
-                    </small>
-                    <small class="text-red-500" *ngIf="loginForm.get('password').hasError('pattern')">
-                      Format invalide : 8 caractères minimum, 1 lettre majuscule, 1 lettre minuscule, 1 chiffre
                     </small>
                   </div>
                 </div>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
-import {UniqueMailValidator} from "../validators/unique-mail-validator";
+import {UniqueMailValidator} from "../validators/unique-mail.validator";
 import {ClientService} from "../services/client/client.service";
 import {Router} from "@angular/router";
 import {showSuccess} from "../../components/services/sweet-alert.util";
@@ -17,20 +17,16 @@ export class LoginComponent implements OnInit {
         {
           updateOn: 'blur',
           validators: [
-            // Validators.required,
-            // Validators.email,
+            Validators.required,
           ],
         },
     ],
     password: [
         '',[
-          // Validators.required,
-          // Validators.pattern('^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]{8,})$')
+          Validators.required,
         ]
     ]
   });
-  focus;
-  focus1;
   constructor(private formBuilder: FormBuilder, private clientService: ClientService, private router: Router) {
 
   }

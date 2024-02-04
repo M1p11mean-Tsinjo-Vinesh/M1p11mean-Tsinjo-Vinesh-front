@@ -6,12 +6,17 @@ import {MailCheckDTO} from "../../dto/client.dto";
 import {DataDto} from "../../dto/data.dto";
 import {IClientService} from "./IClient.service";
 import {AuthDto} from "../../dto/auth.dto";
+import {Store} from "@ngrx/store";
+import AppStore from "../../store/Appstore";
+import {setUser} from "../../store/user/user.action";
+import {JwtDecoderService} from "../decoder/jwt-decoder.service";
+import {UserSignUpDTO} from "../../dto/user.dto";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClientService implements IClientService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private store: Store<AppStore>, private jwtDecoder: JwtDecoderService) { }
 
   isMailAvailable(email: string): Observable<boolean> {
         return new Observable<boolean>(subscriber => {
@@ -32,9 +37,23 @@ export class ClientService implements IClientService {
             email: email,
             password: password
         }).subscribe((response: DataDto<AuthDto>) => {
-            subscriber.next(response);
-            subscriber.complete();
+          const tokenData = this.jwtDecoder.decode(response.data.jwt);
+          this.store.dispatch(setUser(tokenData));
+          subscriber.next(response);
+          subscriber.complete();
         });
     });
   }
+  
+  register(user: UserSignUpDTO): Observable<DataDto<AuthDto>> {
+    return new Observable<DataDto<AuthDto>>( subscriber => {
+        this.http.post(baseUrl('/clients/register'), user).subscribe((response: DataDto<AuthDto>) => {
+          const tokenData = this.jwtDecoder.decode(response.data.jwt);
+          this.store.dispatch(setUser(tokenData));
+          subscriber.next(response);
+          subscriber.complete();
+        });
+    });
+  }
+
 }

@@ -18,50 +18,144 @@
               <div class="text-center text-muted mb-4">
                 <small>Inscrivez-vous</small>
               </div>
-              <form role="form">
-                <div class="form-group" [ngClass]="{'focused':focus===true}">
-                  <div class="input-group input-group-alternative mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
-                    </div>
-                    <input class="form-control" placeholder="Name" type="text" (focus)="focus=true" (blur)="focus=false">
+              <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" role="form">
+                <div class="form-group mb-3">
+                  <div
+                          class="input-group input-group-alternative"
+                          [class.valid]="signupForm.get('lastName').valid &&
+                            (signupForm.get('lastName').dirty || signupForm.get('lastName').touched)"
+                          [class.invalid]="signupForm.get('lastName').invalid &&
+                            (signupForm.get('lastName').dirty || signupForm.get('lastName').touched)"
+                  >
+                    <input class="form-control" placeholder="Nom" type="text" formControlName="lastName">
+                  </div>
+                  <div *ngIf="signupForm.get('lastName').invalid &&
+                            signupForm.get('lastName').errors &&
+                            (signupForm.get('lastName').dirty || signupForm.get('lastName').touched)"
+                  >
+                      <small class="text-red-500" *ngIf="signupForm.get('lastName').hasError('required')">
+                          Ce champs est requis
+                      </small>
                   </div>
                 </div>
-                <div class="form-group" [ngClass]="{'focused':focus1===true}">
-                  <div class="input-group input-group-alternative mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-email-83"></i></span>
-                    </div>
-                    <input class="form-control" placeholder="Email" type="email" (focus)="focus1=true" (blur)="focus1=false">
+                <div class="form-group mb-3">
+                  <div
+                      class="input-group input-group-alternative"
+                      [class.valid]="signupForm.get('firstName').valid &&
+                            (signupForm.get('firstName').dirty || signupForm.get('firstName').touched)"
+                      [class.invalid]="signupForm.get('firstName').invalid &&
+                            (signupForm.get('firstName').dirty || signupForm.get('firstName').touched)"
+                  >
+                    <input class="form-control" placeholder="Prenom" type="text" formControlName="firstName">
+                  </div>
+                  <div *ngIf="signupForm.get('firstName').invalid &&
+                            signupForm.get('firstName').errors &&
+                            (signupForm.get('firstName').dirty || signupForm.get('firstName').touched)"
+                  >
+                    <small class="text-red-500" *ngIf="signupForm.get('firstName').hasError('required')">
+                      Ce champs est requis
+                    </small>
                   </div>
                 </div>
-                <div class="form-group" [ngClass]="{'focused':focus2===true}">
-                  <div class="input-group input-group-alternative">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                <div class="form-group mb-3">
+                  <div
+                      class="input-group input-group-alternative"
+                      [class.valid]="signupForm.get('email').valid &&
+                            (signupForm.get('email').dirty || signupForm.get('email').touched)"
+                      [class.invalid]="signupForm.get('email').invalid &&
+                            (signupForm.get('email').dirty || signupForm.get('email').touched)"
+                  >
+                    <input class="form-control" placeholder="Email" type="email" formControlName="email">
+                    <div *ngIf="signupForm.get('email').pending" class="input-group-append bg-white flex items-center pr-3">
+                      <mat-spinner diameter="30"/>
                     </div>
-                    <input class="form-control" placeholder="Password" type="password" (focus)="focus2=true" (blur)="focus2=false">
+                  </div>
+                  <div *ngIf="signupForm.get('email').invalid &&
+                            signupForm.get('email').errors &&
+                            (signupForm.get('email').dirty || signupForm.get('email').touched)"
+                  >
+                    <small class="text-red-500" *ngIf="signupForm.get('email').hasError('required')">
+                      Ce champs est requis
+                    </small>
+                    <small class="text-red-500" *ngIf="signupForm.get('email').hasError('email')">
+                      Format invalide
+                    </small>
+                    <small class="text-red-500" *ngIf="signupForm.get('email').hasError('uniqueMail')">
+                      Ce mail n'est pas disponible
+                    </small>
                   </div>
                 </div>
-                <div class="text-muted font-italic">
-                  <small>password strength:
-                    <span class="text-success font-weight-700">strong</span>
+                <div class="form-group mb-3">
+                  <div
+                      class="input-group input-group-alternative"
+                      [class.valid]="signupForm.get('phone').valid &&
+                            (signupForm.get('phone').dirty || signupForm.get('phone').touched)"
+                      [class.invalid]="signupForm.get('phone').invalid &&
+                            (signupForm.get('phone').dirty || signupForm.get('phone').touched)"
+                  >
+                    <input class="form-control" placeholder="Numero de telephone" type="text" formControlName="phone">
+                  </div>
+                  <div *ngIf="signupForm.get('phone').invalid &&
+                            signupForm.get('phone').errors &&
+                            (signupForm.get('phone').dirty || signupForm.get('phone').touched)"
+                  >
+                    <small class="text-red-500" *ngIf="signupForm.get('phone').hasError('required')">
+                      Ce champs est requis
+                    </small>
+                    <small class="text-red-500" *ngIf="signupForm.get('phone').hasError('pattern')">
+                      Format invalide : 03X XXX XX XX ou +261XX XXX XX XX
+                    </small>
+                  </div>
+                </div>
+                <div class="form-group mb-3" >
+                  <div
+                      class="input-group input-group-alternative"
+                      [class.valid]="signupForm.get('password').valid && !signupForm.errors?.['passwordConfirmation'] &&
+                            (signupForm.get('password').dirty || signupForm.get('password').touched)"
+                      [class.invalid]="
+                        (signupForm.errors?.['passwordConfirmation'] && (signupForm.dirty || signupForm.touched)) ||
+                        (signupForm.get('password').invalid && (signupForm.get('password').dirty || signupForm.get('password').touched))"
+                  >
+                    <input class="form-control" placeholder="Mot de passe" type="password" formControlName="password">
+                  </div>
+                  <div *ngIf="signupForm.get('password').invalid &&
+                            signupForm.get('password').errors &&
+                            (signupForm.get('password').dirty || signupForm.get('password').touched)"
+                  >
+                    <small class="text-red-500" *ngIf="signupForm.get('password').hasError('required')">
+                      Ce champs est requis
+                    </small>
+                    <small class="text-red-500" *ngIf="signupForm.get('password').hasError('pattern')">
+                      Format invalide : 8 caractères minimum, 1 lettre majuscule, 1 lettre minuscule, 1 chiffre
+                    </small>
+                  </div>
+                </div>
+                <div class="form-group mb-3" >
+                  <div
+                      class="input-group input-group-alternative"
+                      [class.valid]="signupForm.get('confirmPassword').valid && !signupForm.errors?.['passwordConfirmation'] &&
+                            (signupForm.get('confirmPassword').dirty || signupForm.get('confirmPassword').touched)"
+                      [class.invalid]="
+                      (signupForm.errors?.['passwordConfirmation'] && (signupForm.dirty || signupForm.touched)) ||
+                      (signupForm.get('confirmPassword').invalid && ((signupForm.get('confirmPassword').dirty || signupForm.get('confirmPassword').touched)))"
+                  >
+                    <input class="form-control" placeholder="Confirmation du Mot de passe" type="password" formControlName="confirmPassword">
+                  </div>
+                  <div *ngIf="
+                              (signupForm.get('confirmPassword').invalid &&
+                              signupForm.get('confirmPassword').errors &&
+                              (signupForm.get('confirmPassword').dirty || signupForm.get('confirmPassword').touched))"
+                  >
+                    <small class="text-red-500" *ngIf="signupForm.get('confirmPassword').hasError('required')">
+                      Ce champs est requis
+                    </small>
+                  </div>
+                  <small class="text-red-500" *ngIf="signupForm.get('confirmPassword').valid && signupForm.errors?.['passwordConfirmation']">
+                    Les mots de passe ne correspondent pas
                   </small>
                 </div>
-                <div class="row my-4">
-                  <div class="col-12">
-                    <div class="custom-control custom-control-alternative custom-checkbox">
-                      <input class="custom-control-input" id="customCheckRegister" type="checkbox">
-                      <label class="custom-control-label" for="customCheckRegister">
-                        <span>I agree with the
-                          <a href="javascript:void(0)">Privacy Policy</a>
-                        </span>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-                <div class="text-center">
-                  <button type="button" class="btn btn-primary mt-4">Create account</button>
+                <div class="flex justify-center flex-col">
+                  <button type="submit" class="btn btn-black bg-black mb-3" [disabled]="signupForm.invalid">S'inscrire</button>
                 </div>
               </form>
             </div>

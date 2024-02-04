@@ -5,12 +5,12 @@
 export const env = {
   production: false,
   backendUrl: "http://localhost:3000",
-  "webServerUrl": "https://webserver.com",
-  "headerKey": "API_KEY",
-  "userKey": "user",
-  "tokenKey": "token",
-  "landingPage":["/"],
-  "loginUrl": ["/login"]
+  webServerUrl: "https://webserver.com",
+  headerKey: "API_KEY",
+  userKey: "user",
+  tokenKey: "token",
+  landingPage:["/"],
+  loginUrl: ["/login"]
 
 };
 
