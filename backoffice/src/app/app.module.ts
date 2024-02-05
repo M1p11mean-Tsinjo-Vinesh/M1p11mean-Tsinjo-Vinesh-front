@@ -36,6 +36,9 @@ import {paginatorConfig} from "./paginator.config";
 import {MatDialogModule} from "@angular/material/dialog";
 import {CommonComponentsModule} from "@common-components/common-components.module";
 import {CrmModule} from "./pages/crm/crm.module";
+import {StoreDevtoolsModule} from "@ngrx/store-devtools";
+import {userReducer} from "./store/user/user.reducer";
+import {StoreModule} from "@ngrx/store";
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -47,6 +50,12 @@ const APP_CONTAINERS = [
   declarations: [AppComponent, ...APP_CONTAINERS],
   imports: [
     BrowserModule,
+    StoreModule.forRoot({
+      user: userReducer
+    }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+    }),
     BrowserAnimationsModule,
     AppRoutingModule,
     BreadcrumbModule,
