@@ -24,7 +24,9 @@ export class EmployeeService implements IEmployeeService{
         password: password
       }).subscribe((response: DataDto<AuthDto>) => {
         if(response.data) {
-          const tokenData = this.jwtDecoder.decode(response.data.jwt);
+          const {jwt} = response.data;
+          const tokenData = this.jwtDecoder.decode(jwt);
+          tokenData.token = jwt;
           this.store.dispatch(setUser(tokenData));
         }
         subscriber.next(response);

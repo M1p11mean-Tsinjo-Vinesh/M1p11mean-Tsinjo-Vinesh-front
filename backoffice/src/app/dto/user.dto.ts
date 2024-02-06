@@ -5,4 +5,5 @@ export type UserDTO = {
   email: string;
   phone: string;
   role: string;
+  token: string;
 }
