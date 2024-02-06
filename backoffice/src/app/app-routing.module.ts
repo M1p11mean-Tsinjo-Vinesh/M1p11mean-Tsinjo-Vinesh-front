@@ -28,6 +28,10 @@ const routes: Routes = [
       {
         path: 'crm',
         loadChildren: () => import("./pages/crm/crm.module").then(m => m.CrmModule)
+      },
+      {
+        path: 'management',
+        loadChildren: () => import("./pages/admin/admin.module").then(m => m.AdminModule)
       }
     ]
   },
