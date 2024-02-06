@@ -1,1 +1,12 @@
-<p>edit-profile works!</p>
+<c-card>
+    <c-card-header>
+        <h2 class="m-0">Vos informations personnelles</h2>
+    </c-card-header>
+    <c-card-body>
+        <app-form
+            [actions]="editFormActions"
+            [inputs]="editProfileInputs"
+            [default]="connectedUser"
+        />
+    </c-card-body>
+</c-card>
