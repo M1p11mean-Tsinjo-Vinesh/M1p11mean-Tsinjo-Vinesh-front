@@ -76,7 +76,7 @@ export class EditProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.pipe(take(1)).subscribe((appData: AppStore) => {
+    this.store.pipe().subscribe((appData: AppStore) => {
       const {user} = appData;
       this.connectedUser = {
         email: user.email,
