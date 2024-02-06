@@ -10,6 +10,10 @@ import {DataDto} from "../../../dto/data.dto";
 import {setUser} from "../../../store/user/user.action";
 import {UserDTO} from "../../../dto/user.dto";
 import {showSuccess} from "@common-components/services/sweet-alert.util";
+import {CalendarOptions} from "@fullcalendar/core";
+import timegridPlugin from '@fullcalendar/timegrid';
+import bootstrap5Plugin from '@fullcalendar/bootstrap5';
+import frLocale from '@fullcalendar/core/locales/fr';
 
 export interface UserEditableInfo {
   firstName: string;
@@ -77,6 +81,39 @@ export class EditProfileComponent implements OnInit {
 
   method!: Function;
   service!: IEmployeeService;
+
+  // full calendar
+  // TODO: get the events from the server
+  calendarOptions: CalendarOptions = {
+    initialView: 'timeGridWeek',
+    weekends: false,
+    events: [
+      {
+        daysOfWeek: [1, 2, 3, 4, 5],
+        startTime: '08:00',
+        endTime: '12:00'
+      },
+      {
+        daysOfWeek: [1, 2, 3, 4],
+        startTime: '13:00',
+        endTime: '16:00'
+      },
+      {
+        daysOfWeek: [5],
+        startTime: '13:00',
+        endTime: '15:00'
+      }
+    ],
+    locale: frLocale,
+    editable: true,
+    allDaySlot: false,
+    plugins: [timegridPlugin, bootstrap5Plugin],
+    slotMinTime: "06:00:00",
+    slotMaxTime: "18:00:00",
+    themeSystem: "bootstrap5",
+    height: "auto"
+  };
+
   onEditSuccess = (successResponse: DataDto<UserEditableInfo>) => {
     this.store.dispatch(setUser(successResponse.data as UserDTO));
     showSuccess(() => {}, "Vos informations ont bien été mis à jour");

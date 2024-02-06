@@ -40,6 +40,7 @@ import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 import {userReducer} from "./store/user/user.reducer";
 import {StoreModule} from "@ngrx/store";
 import {BearerSetterInterceptor} from "./interceptor/bearer-setter.interceptor";
+import {FullCalendarModule} from "@fullcalendar/angular";
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -77,7 +78,8 @@ const APP_CONTAINERS = [
     CardBodyComponent,
     CardComponent,
     CardHeaderComponent,
-    MatDialogModule
+    MatDialogModule,
+    FullCalendarModule
   ],
   providers: [
     {
