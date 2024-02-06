@@ -41,8 +41,13 @@ export class EditProfileComponent implements OnInit {
       type: "text",
       validators: [Validators.required, Validators.pattern(CONTACT_REGEX)]
     },
+    currentPassword: {
+      label: "Mot de passe actuel",
+      type: "password",
+      validators: Validators.required
+    },
     password: {
-      label: "Mot de passe",
+      label: "Nouveau de passe",
       type: "password",
       validators: Validators.required
     },
