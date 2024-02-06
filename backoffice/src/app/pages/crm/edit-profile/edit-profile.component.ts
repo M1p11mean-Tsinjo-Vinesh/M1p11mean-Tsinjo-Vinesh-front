@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
 import AppStore from "../../../store/Appstore";
-import {take} from "rxjs";
 import {FormActionProps, InputList} from "@common-components/interfaces";
 import {Validators} from "@angular/forms";
 import {CONTACT_REGEX} from "../../../../utils/RegexUtils";
