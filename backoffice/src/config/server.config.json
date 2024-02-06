@@ -5,5 +5,5 @@
   "userKey": "user",
   "tokenKey": "token",
   "landingPage":["/"],
-  "loginUrl": ["/login"]
+  "loginUrl": ["/crm/login"]
 }

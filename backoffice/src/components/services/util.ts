@@ -1,6 +1,9 @@
 import {FormGroup} from "@angular/forms";
 import Swal, {SweetAlertOptions} from 'sweetalert2';
 import {HttpError} from "../../config/interfaces";
+import config from "../../config/server.config.json";
+import {Inject, inject, Injectable} from "@angular/core";
+import {Router} from "@angular/router";
 
 
 /**
@@ -37,7 +40,10 @@ export const ObserverObject = (next: (res: any) => any) => {
     next: next,
     error: (err: HttpError) => {
       console.log(err);
-      let errorData: SweetAlertOptions = {icon: "error", title: "Erreur",};
+      let errorData: SweetAlertOptions = {
+        icon: "error",
+        title: "Erreur"
+      };
       if (err.status === 0) {
         errorData.text = "Êtes-vous connecté a internet ?";
       }

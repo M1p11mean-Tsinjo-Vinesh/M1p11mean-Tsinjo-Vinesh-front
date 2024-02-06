@@ -2,13 +2,13 @@ import {INavData} from '@coreui/angular';
 
 export const navItems: INavData[] = [
   {
-    name: "CRM",
-    url: "/crm",
+    name: "Management",
+    url: "/management",
     iconComponent: { name: 'cil-user' },
     children: [
       {
-        name: "Gestion des utilisateurs",
-        url: "/crm/users"
+        name: "Liste des employés",
+        url: "/management/employee"
       }
     ]
   }
