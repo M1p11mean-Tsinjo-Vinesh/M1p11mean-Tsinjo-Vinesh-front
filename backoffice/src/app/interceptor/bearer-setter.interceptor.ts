@@ -16,7 +16,6 @@ export class BearerSetterInterceptor implements HttpInterceptor {
 
   constructor(private store: Store<AppStore>) {
     this.store.pipe().subscribe((appStore: AppStore) => {
-      console.log(appStore);
       this.tokenValue = appStore.user.token;
     });
   }

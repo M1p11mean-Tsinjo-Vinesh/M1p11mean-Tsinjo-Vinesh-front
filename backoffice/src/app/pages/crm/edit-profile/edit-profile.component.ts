@@ -7,6 +7,10 @@ import {Validators} from "@angular/forms";
 import {CONTACT_REGEX} from "../../../../utils/RegexUtils";
 import {IEmployeeService} from "../../../services/employee/IEmployee.service";
 import {EmployeeService} from "../../../services/employee/employee.service";
+import {DataDto} from "../../../dto/data.dto";
+import {setUser} from "../../../store/user/user.action";
+import {UserDTO} from "../../../dto/user.dto";
+import {showSuccess} from "@common-components/services/sweet-alert.util";
 
 export interface UserEditableInfo {
   firstName: string;
@@ -50,17 +54,15 @@ export class EditProfileComponent implements OnInit {
     },
     password: {
       label: "Nouveau de passe",
-      type: "password",
-      validators: Validators.required
+      type: "password"
     },
     confirmPassword: {
       label: "Confirmez votre mot de passe",
-      type: "password",
-      validators: Validators.required
+      type: "password"
     }
   };
 
-  connectedUser?: UserEditableInfo;
+  connectedUser?: any;
   editFormActions: FormActionProps[] = [
     {
       label: "Enregistrer mes modifications",
@@ -76,6 +78,10 @@ export class EditProfileComponent implements OnInit {
 
   method!: Function;
   service!: IEmployeeService;
+  onEditSuccess = (successResponse: DataDto<UserEditableInfo>) => {
+    this.store.dispatch(setUser(successResponse.data as UserDTO));
+    showSuccess(() => {}, "Vos informations ont bien été mis à jour");
+  }
 
   constructor(
     private store: Store<AppStore>,
@@ -90,7 +96,10 @@ export class EditProfileComponent implements OnInit {
         email: user.email,
         firstName: user.firstName,
         lastName: user.lastName,
-        phone: user.phone
+        phone: user.phone,
+        password: "",
+        confirmPassword: "",
+        currentPassword: ""
       }
     });
   }
