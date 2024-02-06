@@ -3,7 +3,6 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {FormActionProps, InputList, InputProps, isForm} from "../interfaces";
 import {startApiCall} from "@common-components/services/sweet-alert.util";
 import {ObserverObject} from "@common-components/services/util";
-import {ICRUDService} from "@common-components/services/crud/interfaces";
 
 @Component({
   selector: 'app-form',
@@ -22,9 +21,6 @@ export class FormComponent {
 
   /** output for a success submit of the form*/
   @Input() onsuccess!: (httpResponse: any) => any;
-
-  /** method for the API call */
-  @Input() service?: ICRUDService;
 
   /** css class for each inputs */
   @Input() inputClass : string = "col-md-6 mb-4";
@@ -105,7 +101,7 @@ export class FormComponent {
       if (this.method) {
         startApiCall((close: any) => {
           const data = this.default || {};
-          this.method?.call(this.service, {...data, ...this.form.value}).subscribe(ObserverObject(
+          this.method?.call(null, {...data, ...this.form.value}).subscribe(ObserverObject(
           data => {
             close();
             this.onsuccess(data);

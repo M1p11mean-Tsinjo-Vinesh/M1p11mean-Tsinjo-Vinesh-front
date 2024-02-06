@@ -34,4 +34,9 @@ export class EmployeeService implements IEmployeeService{
       });
     });
   }
+
+  updatePersonalInfo(data: object): Observable<any>  {
+    return this.http.put(baseUrl("employees-auth/update-info"), data);
+  }
+
 }

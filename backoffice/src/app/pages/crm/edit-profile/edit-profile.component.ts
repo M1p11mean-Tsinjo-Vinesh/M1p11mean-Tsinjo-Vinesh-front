@@ -5,6 +5,8 @@ import {take} from "rxjs";
 import {FormActionProps, InputList} from "@common-components/interfaces";
 import {Validators} from "@angular/forms";
 import {CONTACT_REGEX} from "../../../../utils/RegexUtils";
+import {IEmployeeService} from "../../../services/employee/IEmployee.service";
+import {EmployeeService} from "../../../services/employee/employee.service";
 
 export interface UserEditableInfo {
   firstName: string;
@@ -72,7 +74,13 @@ export class EditProfileComponent implements OnInit {
     }
   ];
 
-  constructor(private store: Store<AppStore>) {
+  method!: Function;
+  service!: IEmployeeService;
+
+  constructor(
+    private store: Store<AppStore>,
+    private employeeAuthService: EmployeeService) {
+    this.method = this.employeeAuthService.updatePersonalInfo.bind(this.employeeAuthService);
   }
 
   ngOnInit() {

@@ -36,6 +36,7 @@ export const ObserverObject = (next: (res: any) => any) => {
   return {
     next: next,
     error: (err: HttpError) => {
+      console.log(err);
       let errorData: SweetAlertOptions = {icon: "error", title: "Erreur",};
       if (err.status === 0) {
         errorData.text = "Êtes-vous connecté a internet ?";

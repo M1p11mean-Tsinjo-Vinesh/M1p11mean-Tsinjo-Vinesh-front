@@ -30,7 +30,7 @@ import {
 } from '@coreui/angular';
 
 import {IconModule, IconSetService} from '@coreui/icons-angular';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {MatPaginatorIntl} from "@angular/material/paginator";
 import {paginatorConfig} from "./paginator.config";
 import {MatDialogModule} from "@angular/material/dialog";
@@ -39,6 +39,7 @@ import {CrmModule} from "./pages/crm/crm.module";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 import {userReducer} from "./store/user/user.reducer";
 import {StoreModule} from "@ngrx/store";
+import {BearerSetterInterceptor} from "./interceptor/bearer-setter.interceptor";
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -86,6 +87,11 @@ const APP_CONTAINERS = [
     {
       provide: MatPaginatorIntl,
       useValue: paginatorConfig()
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: BearerSetterInterceptor,
+      multi: true
     },
     IconSetService,
     Title,

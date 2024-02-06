@@ -18,7 +18,6 @@ export interface CRUDModalData {
   title: string;
   inputs: InputList;
   value?: object;
-  service?: ICRUDService;
   method?: Function;
   next: (res: any) => any;
   inputClass?: string;

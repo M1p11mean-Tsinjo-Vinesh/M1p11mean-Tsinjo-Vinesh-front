@@ -142,8 +142,7 @@ export class CrudPageComponent {
       title: "Modification",
       inputs: this.inputs,
       value: row,
-      service: this._service,
-      method: this._service.update,
+      method: this._service.update.bind(this._service),
       next: this._onSuccess,
       init: row
     });
@@ -174,8 +173,7 @@ export class CrudPageComponent {
     this._openModal({
       title: "Enregistrement",
       inputs: this.inputs,
-      service: this._service,
-      method: this._service.create,
+      method: this._service.create.bind(this._service),
       next: this._onSuccess,
       inputClass: ""
     });
