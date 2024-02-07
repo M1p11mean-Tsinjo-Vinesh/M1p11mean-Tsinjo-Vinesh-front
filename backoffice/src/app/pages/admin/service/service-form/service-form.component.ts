@@ -1,16 +1,16 @@
 import {Component, OnInit} from '@angular/core';
-import {Uppy} from '@uppy/core';
+import {Uppy, UppyOptions} from '@uppy/core';
 // ignore module non existant for uppy locale
 // @ts-ignore
 import French from '@uppy/locales/lib/fr_FR.js';
 
-import XHR from '@uppy/xhr-upload';
+import XHR, {XHRUploadOptions} from '@uppy/xhr-upload';
 import {baseUrl} from "../../../../../config/server.config";
 import {Store} from "@ngrx/store";
 import AppStore from "../../../../store/Appstore";
 import {DataDto} from "../../../../dto/data.dto";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-
+import {FormBuilder, Validators} from "@angular/forms";
+import {FormActionProps, InputList} from "@common-components/interfaces";
 
 
 @Component({
@@ -21,7 +21,33 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 export class ServiceFormComponent implements OnInit {
 
   uppy!: Uppy;
-  form!: FormGroup;
+  serviceFormActions: FormActionProps[] = [];
+
+  serviceFormInputs: InputList = {
+    name: {
+      label: "Nom du service",
+      type: "text",
+      validators: Validators.required
+    },
+    duration: {
+      label: "Duration du service",
+      type: "number",
+      validators: [Validators.required, Validators.min(1)]
+    },
+    price: {
+      label: "Prix",
+      type: "number",
+      validators: [Validators.required, Validators.min(1)]
+    },
+    commission: {
+      label: "Commission de l'employé",
+      type: "number",
+      validators: [Validators.required, Validators.min(1), Validators.max(100)]
+    }
+  };
+
+  apiCallFunction?: Function;
+  onApiCallSuccess: any;
 
   constructor(
     private store: Store<AppStore>,
@@ -31,30 +57,11 @@ export class ServiceFormComponent implements OnInit {
 
   ngOnInit() {
     this.initUppyUploader();
-    this.initForm();
-  }
-
-  initForm() {
-    this.form = this.formBuilder.group({
-      name: ['', Validators.required],
-      duration: [0, [Validators.required, Validators.min(1)]],
-      price: [0, [Validators.required, Validators.min(1)]],
-      commission: [0, [Validators.required, Validators.min(1), Validators.max(100)]]
-    })
   }
 
   initUppyUploader() {
     this.store.pipe().subscribe((appStore: AppStore) => {
-      this.uppy = new Uppy({
-        debug: true,
-        autoProceed: true,
-        locale: French,
-        restrictions : {
-          maxNumberOfFiles: 1,
-          maxTotalFileSize: 2000000,
-          allowedFileTypes: [".jpg", ".png", ".jpeg"]
-        }
-      }).use(XHR, {
+      const xhrOptions: XHRUploadOptions = {
         endpoint: baseUrl("upload/image"),
         method: "POST",
         formData: true,
@@ -64,8 +71,40 @@ export class ServiceFormComponent implements OnInit {
         headers: {
           Authorization: `Bearer ${appStore.user.token}`
         }
+      }
+
+      const uppyOptions: UppyOptions = {
+        debug: true,
+        autoProceed: false,
+        locale: {
+          strings: {
+            ...French.strings,
+            done: "Changer d'image",
+            uploadXFiles: {
+              '0': 'Valider cet image',
+              '1': 'Valider cet image'
+            }
+          }
+        },
+        restrictions : {
+          maxNumberOfFiles: 1,
+          maxTotalFileSize: 2000000,
+          allowedFileTypes: [".jpg", ".png", ".jpeg"]
+        }
+      }
+
+      // setup uppy uploader
+      this.uppy = new Uppy(uppyOptions)
+      .use(XHR, xhrOptions)
+      .on('complete', () => {
+        // add onclick to the reset button and reset stored url
+        document.querySelector("button.uppy-u-reset")?.addEventListener('click', this.onChangeImage.bind(this));
       });
     })
+  }
+
+  onChangeImage() {
+    console.log("On change image called");
   }
 
   handleFileUploadError (responseText: string, xhr: any) {

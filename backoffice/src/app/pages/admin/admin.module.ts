@@ -7,6 +7,8 @@ import {CommonComponentsModule} from "@common-components/common-components.modul
 import { ServiceFormComponent } from './service/service-form/service-form.component';
 import {UppyAngularDashboardModule} from "@uppy/angular";
 import {ReactiveFormsModule} from "@angular/forms";
+import {CardBodyComponent, CardComponent, CardHeaderComponent} from "@coreui/angular";
+import {FullCalendarModule} from "@fullcalendar/angular";
 
 
 @NgModule({
@@ -19,7 +21,11 @@ import {ReactiveFormsModule} from "@angular/forms";
     AdminRoutingModule,
     CommonComponentsModule,
     UppyAngularDashboardModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CardBodyComponent,
+    CardComponent,
+    CardHeaderComponent,
+    FullCalendarModule
   ]
 })
 export class AdminModule { }
