@@ -59,6 +59,8 @@ export class ServiceFormComponent implements OnInit {
   apiCallFunction?: Function;
   onApiCallSuccess: any;
 
+  imageUrls: string[] = [];
+
   constructor(
     private store: Store<AppStore>
     ) {
@@ -96,8 +98,8 @@ export class ServiceFormComponent implements OnInit {
           }
         },
         restrictions : {
-          maxNumberOfFiles: 1,
-          maxTotalFileSize: 2000000,
+          maxNumberOfFiles: 3,
+          maxFileSize: 2000000,
           allowedFileTypes: [".jpg", ".png", ".jpeg"]
         }
       }
@@ -105,7 +107,8 @@ export class ServiceFormComponent implements OnInit {
       // setup uppy uploader
       this.fileUploader = new Uppy(uppyOptions)
       .use(XHR, xhrOptions)
-      .on('complete', () => {
+      .on('complete', (result) => {
+        this.imageUrls = result.successful.map(oneSuccess => oneSuccess.uploadURL);
         // add onclick to the reset button and reset stored url
         document.querySelector("button.uppy-u-reset")?.addEventListener('click', this.onChangeImage.bind(this));
       });
