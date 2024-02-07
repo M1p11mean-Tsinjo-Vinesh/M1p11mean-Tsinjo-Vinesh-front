@@ -20,8 +20,18 @@ import {FormActionProps, InputList} from "@common-components/interfaces";
 })
 export class ServiceFormComponent implements OnInit {
 
-  uppy!: Uppy;
-  serviceFormActions: FormActionProps[] = [];
+  fileUploader!: Uppy;
+  serviceFormActions: FormActionProps[] = [
+    {
+      label: "Enregistrer",
+      color: "primary",
+      validDataOnly: true
+    },
+    {
+      label: "Retour",
+      color: ""
+    }
+  ];
 
   serviceFormInputs: InputList = {
     name: {
@@ -93,7 +103,7 @@ export class ServiceFormComponent implements OnInit {
       }
 
       // setup uppy uploader
-      this.uppy = new Uppy(uppyOptions)
+      this.fileUploader = new Uppy(uppyOptions)
       .use(XHR, xhrOptions)
       .on('complete', () => {
         // add onclick to the reset button and reset stored url

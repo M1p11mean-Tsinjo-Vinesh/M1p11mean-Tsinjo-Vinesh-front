@@ -8,13 +8,14 @@
             [inputs]="serviceFormInputs"
             [method]="apiCallFunction"
             [onsuccess]="onApiCallSuccess"
-        />
-        <div class="col-lg-6">
-            <uppy-dashboard
-                *ngIf="uppy"
-                [uppy]="uppy"
-            />
-        </div>
+        >
+            <div class="col-lg-6 mb-4">
+                <uppy-dashboard
+                    *ngIf="fileUploader"
+                    [uppy]="fileUploader"
+                />
+            </div>
+        </app-form>
     </c-card-body>
 </c-card>
 
