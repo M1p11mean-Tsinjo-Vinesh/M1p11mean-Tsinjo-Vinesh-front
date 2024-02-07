@@ -7,14 +7,24 @@ import {DecimalPipe} from "@angular/common";
 
 @Component({
   selector: 'app-service-list',
-	templateUrl: '../../../templates/crud.template.html',
+	template: `
+		<app-crud-page
+			[title]="title"
+			[criteria]="{}"
+			[urlCommandToAddPage]="urlToAddPage"
+			[inputs]="{}"
+			[titles]="titles"
+			[getters]="getters"
+			[sorts]="sorts"
+			[service]="service"
+		/>
+	`,
   styleUrls: []
 })
 export class ServiceListComponent {
 
 	title = "Liste des services";
-	criteria: InputList = {};
-	inputs: InputList = {}
+	urlToAddPage = ["management", "service", "ajout"];
 
 	titles: string[] = ["Nom", "Duration", "Prix(Ar)", "Commission"]
 	getters: GetterFn[] = [

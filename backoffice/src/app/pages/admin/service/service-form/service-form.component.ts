@@ -35,7 +35,8 @@ export class ServiceFormComponent implements OnInit {
     },
     {
       label: "Retour",
-      color: ""
+      color: "",
+			onClick: async () => await this.router.navigate(["management", "service", "liste"])
     }
   ];
 
