@@ -101,7 +101,7 @@ export class ServiceFormComponent implements OnInit {
             done: "Modifier",
             uploadXFiles: {
               '0': 'Valider mon image',
-              '1': 'Valider mes image'
+              '1': 'Valider mes images'
             }
           }
         },
@@ -124,7 +124,7 @@ export class ServiceFormComponent implements OnInit {
   }
 
   onChangeImage() {
-    console.log("On change image called");
+    this.imageUrls = [];
   }
 
   handleFileUploadError (responseText: string, xhr: any) {
