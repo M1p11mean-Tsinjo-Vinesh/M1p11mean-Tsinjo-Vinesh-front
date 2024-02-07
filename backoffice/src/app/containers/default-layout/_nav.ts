@@ -9,6 +9,10 @@ export const navItems: INavData[] = [
       {
         name: "Liste des employés",
         url: "/management/employee"
+      },
+      {
+        name: "Ajout de service",
+        url: "/management/service/ajout"
       }
     ]
   }
