@@ -11,6 +11,12 @@ import AppStore from "../../../../store/Appstore";
 import {DataDto} from "../../../../dto/data.dto";
 import {Validators} from "@angular/forms";
 import {FormActionProps, InputList} from "@common-components/interfaces";
+import {HttpClient} from "@angular/common/http";
+import {ICRUDService} from "@common-components/services/crud/interfaces";
+import {CrudService} from "../../../../services/base-crud";
+import {Observable} from "rxjs";
+import {Router} from "@angular/router";
+import {showSuccess} from "@common-components/services/sweet-alert.util";
 
 
 @Component({
@@ -21,7 +27,7 @@ import {FormActionProps, InputList} from "@common-components/interfaces";
 export class ServiceFormComponent implements OnInit {
 
   fileUploader!: Uppy;
-  serviceFormActions: FormActionProps[] = [
+  formActions: FormActionProps[] = [
     {
       label: "Enregistrer",
       color: "primary",
@@ -33,7 +39,7 @@ export class ServiceFormComponent implements OnInit {
     }
   ];
 
-  serviceFormInputs: InputList = {
+  formInputs: InputList = {
     name: {
       label: "Nom du service",
       type: "text",
@@ -56,14 +62,15 @@ export class ServiceFormComponent implements OnInit {
     }
   };
 
-  apiCallFunction?: Function;
-  onApiCallSuccess: any;
-
   imageUrls: string[] = [];
+  crudService: ICRUDService;
 
   constructor(
-    private store: Store<AppStore>
+    private store: Store<AppStore>,
+    private http: HttpClient,
+    private router: Router
     ) {
+    this.crudService = new CrudService("services", http);
   }
 
   ngOnInit() {
@@ -90,10 +97,10 @@ export class ServiceFormComponent implements OnInit {
         locale: {
           strings: {
             ...French.strings,
-            done: "Changer d'image",
+            done: "Modifier",
             uploadXFiles: {
-              '0': 'Valider cet image',
-              '1': 'Valider cet image'
+              '0': 'Valider mon image',
+              '1': 'Valider mes image'
             }
           }
         },
@@ -127,6 +134,35 @@ export class ServiceFormComponent implements OnInit {
   handleFileUploadSuccess(responseText: string, response: unknown) {
     const successResponse: DataDto<{url: string}> = JSON.parse(responseText);
     return successResponse.data;
+  }
+
+  apiCallFunctionOnSubmit(data: any) {
+    if (this.imageUrls.length == 0) {
+      return new Observable(subscriber => {
+        const error = new Error() as any;
+        error.message = "Veuillez insérer et valider vos images";
+        error.status = 400;
+        error.error = {
+          error: {
+            code: 400,
+            message: error.message
+          }
+        }
+        throw error;
+      })
+    }
+    const body = {
+      ...data,
+      commission: data.commission / 100,
+      pictureUrls: this.imageUrls
+    }
+    return this.crudService.create(body);
+  }
+
+  onApiCallSuccess() {
+    showSuccess(async () => {
+      await this.router.navigate(["management", "service", "liste"]);
+    }, "Enregistré avec succès");
   }
 
 
