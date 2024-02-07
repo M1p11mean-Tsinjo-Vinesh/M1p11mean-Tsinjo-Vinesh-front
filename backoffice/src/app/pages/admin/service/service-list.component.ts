@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {extract, extractAndPipe, GetterFn, InputList, RowAction, SortParam} from "@common-components/interfaces";
+import {extract, extractAndPipe, GetterFn, RowAction, SortParam} from "@common-components/interfaces";
 import {ICRUDService} from "@common-components/services/crud/interfaces";
 import {HttpClient} from "@angular/common/http";
 import {CrudService} from "../../../services/base-crud";
