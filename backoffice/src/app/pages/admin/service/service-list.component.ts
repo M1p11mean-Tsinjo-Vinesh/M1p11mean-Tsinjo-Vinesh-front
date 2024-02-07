@@ -31,12 +31,12 @@ export class ServiceListComponent {
 	title = "Liste des services";
 	urlToAddPage = ["management", "service", "ajout"];
 
-	titles: string[] = ["Nom", "Duration", "Prix(Ar)", "Commission"]
+	titles: string[] = ["Nom", "Duration", "Prix(Ar)", "Commission(%)"]
 	getters: GetterFn[] = [
 		extract("name"),
 		extractAndPipe("duration", this.decimalPipe),
 		extractAndPipe("price", this.decimalPipe),
-		extractAndPipe("commission", this.decimalPipe)
+		row => this.decimalPipe.transform(row.commission * 100)
 	]
 
 	sorts: SortParam = {}
