@@ -9,7 +9,7 @@ import {baseUrl} from "../../../../../config/server.config";
 import {Store} from "@ngrx/store";
 import AppStore from "../../../../store/Appstore";
 import {DataDto} from "../../../../dto/data.dto";
-import {FormBuilder, Validators} from "@angular/forms";
+import {Validators} from "@angular/forms";
 import {FormActionProps, InputList} from "@common-components/interfaces";
 
 
@@ -50,8 +50,7 @@ export class ServiceFormComponent implements OnInit {
   onApiCallSuccess: any;
 
   constructor(
-    private store: Store<AppStore>,
-    private formBuilder: FormBuilder
+    private store: Store<AppStore>
     ) {
   }
 
