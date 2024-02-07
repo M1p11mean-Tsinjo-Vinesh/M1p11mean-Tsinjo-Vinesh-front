@@ -14,9 +14,10 @@ import {FormActionProps, InputList} from "@common-components/interfaces";
 import {HttpClient} from "@angular/common/http";
 import {ICRUDService} from "@common-components/services/crud/interfaces";
 import {CrudService} from "../../../../services/base-crud";
-import {Observable} from "rxjs";
-import {Router} from "@angular/router";
-import {showSuccess} from "@common-components/services/sweet-alert.util";
+import {firstValueFrom, Observable} from "rxjs";
+import {ActivatedRoute, Navigation, Router} from "@angular/router";
+import {showSuccess, startApiCall} from "@common-components/services/sweet-alert.util";
+import {ObserverObject} from "@common-components/services/util";
 
 
 @Component({
@@ -65,17 +66,70 @@ export class ServiceFormComponent implements OnInit {
 
   imageUrls: string[] = [];
   crudService: ICRUDService;
+  formDefaultValue: any = {};
+  currentId?: string;
+  title: string = "Création de service";
 
   constructor(
     private store: Store<AppStore>,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
     ) {
     this.crudService = new CrudService("services", http);
+    const {id} = this.route.snapshot.params;
+    const navigation = this.router.getCurrentNavigation();
+    if (id) {
+      this.currentId = id;
+      this.setUpdateMode(navigation);
+    }
   }
 
-  ngOnInit() {
+  setUpdateMode(navigation: Navigation | null) {
+    this.title = "Modification d'un service";
+    const apiCall = async (close: Function) => {
+      if (!this.currentId) return close();
+      try {
+        let service: any = navigation?.extras.state;
+        if (!service) {
+          service = (await firstValueFrom(this.crudService.findById<DataDto<any>>(this.currentId))).data;
+        }
+        const {pictureUrls, commission, ...rest} = service;
+        rest.commission = commission * 100;
+        this.formDefaultValue = rest;
+        this.imageUrls = await this.addImages(pictureUrls);
+        close();
+      }
+      catch (e) {
+        new Observable(subscriber => {
+          throw e
+        }).subscribe(ObserverObject(() => {}))
+      }
+    }
+    startApiCall(apiCall);
+  }
+
+  async ngOnInit() {
     this.initUppyUploader();
+  }
+
+  async addImages(images: string[]): Promise<string[]> {
+    return await Promise.all(images.map(this.addImage.bind(this)));
+  }
+
+  async addImage(image: string) {
+    const array = image.split(".");
+    const ext = array.pop();
+    const name = array.pop();
+    const blob = await fetch(image).then(response => response.blob());
+    this.fileUploader.addFile({
+      name: `${name}.${ext}`,
+      data: blob,
+      meta: {
+        type: blob.type
+      }
+    })
+    return image;
   }
 
   initUppyUploader() {

@@ -48,7 +48,7 @@ export class ServiceListComponent {
 		{
 			color: "primary",
 			icon: "edit",
-			onclick: async (row) => this.router.navigate(["management", "service", "modification", row._id], {
+			onclick: async (row) => await this.router.navigate(["management", "service", "modification", row._id], {
         state: row
       }),
 			type: "edit"

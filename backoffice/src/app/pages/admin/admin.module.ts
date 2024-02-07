@@ -7,9 +7,10 @@ import {CommonComponentsModule} from "@common-components/common-components.modul
 import { ServiceFormComponent } from './service/service-form/service-form.component';
 import {UppyAngularDashboardModule} from "@uppy/angular";
 import {ReactiveFormsModule} from "@angular/forms";
-import {CardBodyComponent, CardComponent, CardHeaderComponent} from "@coreui/angular";
+import {AlertComponent, CardBodyComponent, CardComponent, CardHeaderComponent} from "@coreui/angular";
 import {FullCalendarModule} from "@fullcalendar/angular";
 import { ServiceListComponent } from './service/service-list.component';
+import {MatIconModule} from "@angular/material/icon";
 
 
 @NgModule({
@@ -27,7 +28,9 @@ import { ServiceListComponent } from './service/service-list.component';
     CardBodyComponent,
     CardComponent,
     CardHeaderComponent,
-    FullCalendarModule
+    FullCalendarModule,
+    AlertComponent,
+    MatIconModule
   ]
 })
 export class AdminModule { }

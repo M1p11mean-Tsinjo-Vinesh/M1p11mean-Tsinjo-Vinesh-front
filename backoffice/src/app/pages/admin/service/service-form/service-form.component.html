@@ -1,11 +1,20 @@
 <c-card class="mb-5">
     <c-card-header>
-        <h2 class="m-0">Création de service</h2>
+        <h2 class="m-0">{{title}}</h2>
     </c-card-header>
     <c-card-body>
+        <c-alert
+            color="danger"
+        >
+            <div class="d-flex">
+                <mat-icon>error</mat-icon>
+                <span class="ms-2 my-auto">Ne pas valider les photos si vous voulez les mêmes photos !</span>
+            </div>
+        </c-alert>
         <app-form
             [actions]="formActions"
             [inputs]="formInputs"
+            [default]="formDefaultValue"
             [method]="apiCallFunctionOnSubmit.bind(this)"
             [onsuccess]="onApiCallSuccess.bind(this)"
         >
