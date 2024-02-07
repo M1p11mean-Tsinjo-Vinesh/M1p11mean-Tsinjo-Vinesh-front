@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {EmployeeCrudComponent} from "./employee-crud.component";
 import {ServiceFormComponent} from "./service/service-form/service-form.component";
+import {ServiceListComponent} from "./service/service-list/service-list.component";
 
 const routes: Routes = [
   {
@@ -13,6 +14,11 @@ const routes: Routes = [
     path: "service/ajout",
     component: ServiceFormComponent,
     pathMatch: "full"
+  },
+  {
+    path: "service/liste",
+		component: ServiceListComponent,
+		pathMatch: "full"
   }
 ];
 

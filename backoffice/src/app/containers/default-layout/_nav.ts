@@ -13,7 +13,11 @@ export const navItems: INavData[] = [
       {
         name: "Ajout de service",
         url: "/management/service/ajout"
-      }
+      },
+			{
+				name: "Liste des services",
+				url: "/management/service/liste"
+			}
     ]
   }
 ];

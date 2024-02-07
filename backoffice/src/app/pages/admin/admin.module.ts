@@ -9,12 +9,14 @@ import {UppyAngularDashboardModule} from "@uppy/angular";
 import {ReactiveFormsModule} from "@angular/forms";
 import {CardBodyComponent, CardComponent, CardHeaderComponent} from "@coreui/angular";
 import {FullCalendarModule} from "@fullcalendar/angular";
+import { ServiceListComponent } from './service/service-list/service-list.component';
 
 
 @NgModule({
   declarations: [
     EmployeeCrudComponent,
-    ServiceFormComponent
+    ServiceFormComponent,
+    ServiceListComponent
   ],
   imports: [
     CommonModule,
