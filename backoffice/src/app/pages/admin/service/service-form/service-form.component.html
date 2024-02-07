@@ -4,7 +4,8 @@
     </c-card-header>
     <c-card-body>
         <c-alert
-            color="danger"
+            *ngIf="currentId"
+            color="warning"
         >
             <div class="d-flex">
                 <mat-icon>error</mat-icon>

@@ -211,6 +211,10 @@ export class ServiceFormComponent implements OnInit {
       commission: data.commission / 100,
       pictureUrls: this.imageUrls
     }
+    if (this.currentId) {
+      body._id = this.currentId;
+      return this.crudService.update(body);
+    }
     return this.crudService.create(body);
   }
 
