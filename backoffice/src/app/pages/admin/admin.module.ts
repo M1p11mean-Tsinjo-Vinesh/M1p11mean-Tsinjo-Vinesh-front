@@ -5,6 +5,8 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { EmployeeCrudComponent } from './employee-crud.component';
 import {CommonComponentsModule} from "@common-components/common-components.module";
 import { ServiceFormComponent } from './service/service-form/service-form.component';
+import {UppyAngularDashboardModule} from "@uppy/angular";
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -15,7 +17,9 @@ import { ServiceFormComponent } from './service/service-form/service-form.compon
   imports: [
     CommonModule,
     AdminRoutingModule,
-    CommonComponentsModule
+    CommonComponentsModule,
+    UppyAngularDashboardModule,
+    ReactiveFormsModule
   ]
 })
 export class AdminModule { }

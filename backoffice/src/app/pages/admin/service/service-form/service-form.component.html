@@ -1,1 +1,6 @@
-<p>service-form works!</p>
+<form [formGroup]="form">
+    <uppy-dashboard
+        *ngIf="uppy"
+        [uppy]="uppy"
+    > </uppy-dashboard>
+</form>
