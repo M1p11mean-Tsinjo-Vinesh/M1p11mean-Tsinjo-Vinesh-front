@@ -17,8 +17,13 @@ const routes: Routes = [
   },
   {
     path: "service/liste",
-		component: ServiceListComponent,
-		pathMatch: "full"
+    component: ServiceListComponent,
+    pathMatch: "full"
+  },
+  {
+	  path: "service/modification/:id",
+	  component: ServiceFormComponent,
+	  pathMatch: "full"
   }
 ];
 
