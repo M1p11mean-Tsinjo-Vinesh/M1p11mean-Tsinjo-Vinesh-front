@@ -6,6 +6,7 @@ import { ObserverElt, ObserverObject } from "../services/util";
 import { CRUDModalData, GetterFn, InputList, RowAction, SortParam, SortResult } from "../interfaces";
 import { ListCheckboxComponent } from "../list-checkbox/list-checkbox.component";
 import { ICRUDService } from "../services/crud/interfaces";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-crud-page',
@@ -18,6 +19,7 @@ export class CrudPageComponent {
   @Input() showAddButton: boolean = true;
   @Input() showFilterButton: boolean = true;
   @Output() emitChecked: EventEmitter<any[]> = new EventEmitter<any[]>();
+	@Input() urlCommandToAddPage?: string[];
 
   private _service!: ICRUDService;
 
@@ -104,7 +106,10 @@ export class CrudPageComponent {
 
   @ViewChild("list") list!: ListCheckboxComponent;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(
+		private router: Router,
+		public dialog: MatDialog) {
+	}
 
   // Delete method for a row
   delete(row: any) {
@@ -170,6 +175,10 @@ export class CrudPageComponent {
 
   // Method to open the modal for adding a new entry
   add() {
+		if(this.urlCommandToAddPage) {
+			this.router.navigate(this.urlCommandToAddPage);
+			return;
+		}
     this._openModal({
       title: "Enregistrement",
       inputs: this.inputs,
