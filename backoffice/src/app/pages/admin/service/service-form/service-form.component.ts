@@ -70,6 +70,26 @@ export class ServiceFormComponent implements OnInit {
   currentId?: string;
   title: string = "Création de service";
 
+  uppyOptions: UppyOptions = {
+    debug: true,
+    autoProceed: false,
+    locale: {
+      strings: {
+        ...French.strings,
+        done: "Modifier",
+        uploadXFiles: {
+          '0': 'Valider mon image',
+          '1': 'Valider mes images'
+        }
+      }
+    },
+    restrictions : {
+      maxNumberOfFiles: 3,
+      maxFileSize: 2000000,
+      allowedFileTypes: [".jpg", ".png", ".jpeg"]
+    }
+  }
+
   constructor(
     private store: Store<AppStore>,
     private http: HttpClient,
@@ -87,36 +107,52 @@ export class ServiceFormComponent implements OnInit {
 
   setUpdateMode(navigation: Navigation | null) {
     this.title = "Modification d'un service";
-    const findServiceToUpdate = async (close: Function) => {
-      if (!this.currentId) return close();
-      try {
-        let service: any = navigation?.extras.state;
-        if (!service) {
-          const response = await firstValueFrom(this.crudService.findById<DataDto<any>>(this.currentId));
-          service = response.data;
-        }
-        const {pictureUrls, commission, ...rest} = service;
-        rest.commission = commission * 100;
-        this.formDefaultValue = rest;
-        this.imageUrls = await this.addImages(pictureUrls);
-        // hide  validate button on update form first load
-        document.querySelector("button.uppy-u-reset.uppy-c-btn")?.classList.add("d-none");
-        close();
-      }
-      catch (e) {
-        new Observable(subscriber => {
-          throw e
-        }).subscribe(ObserverObject());
-      }
+    startApiCall(async (close) => {
+      await this.findServiceToUpdate(navigation);
+      close();
+    });
+  }
+
+  async findServiceToUpdate(navigation: Navigation | null){
+    if (!this.currentId) return;
+    try {
+      let service: any = await this.findService(navigation);
+      const {pictureUrls, commission, ...rest} = service;
+      rest.commission = commission * 100;
+      this.formDefaultValue = rest;
+      this.imageUrls = await this.loadImagesIntoUploader(pictureUrls);
+      // hide  validate button on update form first load
+      this.displayUploaderValidateButton(false);
     }
-    startApiCall(findServiceToUpdate);
+    catch (e) {
+      new Observable(subscriber => {
+        throw e
+      }).subscribe(ObserverObject());
+    }
+  }
+
+  async findService(navigation: Navigation | null) {
+    if (!this.currentId) throw new Error("update mode is not set");
+    let service = navigation?.extras.state;
+    if (service) return service;
+    // find service from API if it was not passed through the url state.
+    const response = await firstValueFrom(this.crudService.findById<DataDto<any>>(this.currentId));
+    return response.data;
+  }
+
+  displayUploaderValidateButton(display: boolean) {
+    const classList = document.querySelector("button.uppy-u-reset.uppy-c-btn")?.classList
+    if (classList) {
+      const displayFn = display ? classList.remove : classList.add;
+      displayFn.call(classList, "d-none");
+    }
   }
 
   async ngOnInit() {
     this.initUppyUploader();
   }
 
-  async addImages(images: string[]): Promise<string[]> {
+  async loadImagesIntoUploader(images: string[]): Promise<string[]> {
     return await Promise.all(images.map(this.addImage.bind(this)));
   }
 
@@ -149,34 +185,15 @@ export class ServiceFormComponent implements OnInit {
         }
       }
 
-      const uppyOptions: UppyOptions = {
-        debug: true,
-        autoProceed: false,
-        locale: {
-          strings: {
-            ...French.strings,
-            done: "Modifier",
-            uploadXFiles: {
-              '0': 'Valider mon image',
-              '1': 'Valider mes images'
-            }
-          }
-        },
-        restrictions : {
-          maxNumberOfFiles: 3,
-          maxFileSize: 2000000,
-          allowedFileTypes: [".jpg", ".png", ".jpeg"]
-        }
-      }
-
       // setup uppy uploader
-      this.fileUploader = new Uppy(uppyOptions)
+      this.fileUploader = new Uppy(this.uppyOptions)
       .use(XHR, xhrOptions)
       .on('complete', (result) => {
         this.imageUrls = result.successful.map(oneSuccess => oneSuccess.uploadURL);
         // add onclick to the reset button and reset stored url
         document.querySelector("button.uppy-u-reset")?.addEventListener('click', this.onChangeImage.bind(this));
       })
+      // if the form is on update mode, we should show the validate button on file changes
       .on('cancel-all', this.showValidationButton.bind(this))
       .on('file-removed', this.showValidationButton.bind(this))
       .on('files-added', this.showValidationButton.bind(this))
@@ -186,7 +203,7 @@ export class ServiceFormComponent implements OnInit {
 
   showValidationButton() {
     if (this.currentId) {
-      document.querySelector("button.uppy-u-reset.uppy-c-btn")?.classList.remove("d-none");
+      this.displayUploaderValidateButton(true);
     }
   }
 
@@ -206,6 +223,7 @@ export class ServiceFormComponent implements OnInit {
 
   apiCallFunctionOnSubmit(data: any) {
     if (this.imageUrls.length == 0) {
+      // simulate http error for util fn
       return new Observable(subscriber => {
         const error = new Error() as any;
         error.message = "Veuillez insérer et valider vos images";
@@ -236,6 +254,5 @@ export class ServiceFormComponent implements OnInit {
       await this.router.navigate(["management", "service", "liste"]);
     }, "Enregistré avec succès");
   }
-
 
 }
