@@ -35,7 +35,7 @@ export const ObserverList = (next: (res: any[]) => any) : any => {
  * @param next the callback on success call, and the parameter is the Http Response.
  * @constructor
  */
-export const ObserverObject = (next: (res: any) => any) => {
+export const ObserverObject = (next: (res: any) => any = () => {}) => {
   return {
     next: next,
     error: (err: HttpError) => {

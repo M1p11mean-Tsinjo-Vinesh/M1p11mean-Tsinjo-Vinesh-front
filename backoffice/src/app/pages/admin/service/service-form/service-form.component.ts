@@ -87,26 +87,29 @@ export class ServiceFormComponent implements OnInit {
 
   setUpdateMode(navigation: Navigation | null) {
     this.title = "Modification d'un service";
-    const apiCall = async (close: Function) => {
+    const findServiceToUpdate = async (close: Function) => {
       if (!this.currentId) return close();
       try {
         let service: any = navigation?.extras.state;
         if (!service) {
-          service = (await firstValueFrom(this.crudService.findById<DataDto<any>>(this.currentId))).data;
+          const response = await firstValueFrom(this.crudService.findById<DataDto<any>>(this.currentId));
+          service = response.data;
         }
         const {pictureUrls, commission, ...rest} = service;
         rest.commission = commission * 100;
         this.formDefaultValue = rest;
         this.imageUrls = await this.addImages(pictureUrls);
+        // hide  validate button on update form first load
+        document.querySelector("button.uppy-u-reset.uppy-c-btn")?.classList.add("d-none");
         close();
       }
       catch (e) {
         new Observable(subscriber => {
           throw e
-        }).subscribe(ObserverObject(() => {}))
+        }).subscribe(ObserverObject());
       }
     }
-    startApiCall(apiCall);
+    startApiCall(findServiceToUpdate);
   }
 
   async ngOnInit() {
@@ -173,8 +176,18 @@ export class ServiceFormComponent implements OnInit {
         this.imageUrls = result.successful.map(oneSuccess => oneSuccess.uploadURL);
         // add onclick to the reset button and reset stored url
         document.querySelector("button.uppy-u-reset")?.addEventListener('click', this.onChangeImage.bind(this));
-      });
+      })
+      .on('cancel-all', this.showValidationButton.bind(this))
+      .on('file-removed', this.showValidationButton.bind(this))
+      .on('files-added', this.showValidationButton.bind(this))
     })
+  }
+
+
+  showValidationButton() {
+    if (this.currentId) {
+      document.querySelector("button.uppy-u-reset.uppy-c-btn")?.classList.remove("d-none");
+    }
   }
 
   onChangeImage() {
