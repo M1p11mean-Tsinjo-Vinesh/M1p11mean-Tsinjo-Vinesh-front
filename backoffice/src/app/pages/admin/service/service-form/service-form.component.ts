@@ -125,7 +125,7 @@ export class ServiceFormComponent implements OnInit {
       this.displayUploaderValidateButton(false);
     }
     catch (e) {
-      new Observable(subscriber => {
+      new Observable(() => {
         throw e
       }).subscribe(ObserverObject());
     }
@@ -212,12 +212,12 @@ export class ServiceFormComponent implements OnInit {
     this.imageUrls = [];
   }
 
-  handleFileUploadError (responseText: string, xhr: any) {
+  handleFileUploadError (responseText: string) {
     const errorResponse: DataDto<any> = JSON.parse(responseText);
     return new Error(errorResponse.error?.message);
   }
 
-  handleFileUploadSuccess(responseText: string, response: unknown) {
+  handleFileUploadSuccess(responseText: string) {
     const successResponse: DataDto<{url: string}> = JSON.parse(responseText);
     return successResponse.data;
   }
