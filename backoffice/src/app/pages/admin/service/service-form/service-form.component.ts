@@ -225,18 +225,7 @@ export class ServiceFormComponent implements OnInit {
   apiCallFunctionOnSubmit(data: any) {
     if (this.imageUrls.length == 0) {
       // simulate http error for util fn
-      return new Observable(subscriber => {
-        const error = new Error() as any;
-        error.message = "Veuillez insérer et valider vos images";
-        error.status = 400;
-        error.error = {
-          error: {
-            code: 400,
-            message: error.message
-          }
-        }
-        throw error;
-      })
+      return this.onEmptyImages();
     }
     const body = {
       ...data,
@@ -248,6 +237,22 @@ export class ServiceFormComponent implements OnInit {
       return this.crudService.update(body);
     }
     return this.crudService.create(body);
+  }
+
+  onEmptyImages() {
+    const errorFunction = () => {
+      const error = new Error() as any;
+      error.message = "Veuillez insérer et valider vos images";
+      error.status = 400;
+      error.error = {
+        error: {
+          code: 400,
+          message: error.message
+        }
+      }
+      throw error;
+    }
+    return new Observable(errorFunction)
   }
 
   onApiCallSuccess() {
