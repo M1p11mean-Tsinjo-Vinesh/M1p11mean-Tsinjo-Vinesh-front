@@ -39,6 +39,7 @@ export const ObserverObject = (next: (res: any) => any = () => {}) => {
   return {
     next: next,
     error: (err: HttpError) => {
+      console.log(err);
       let errorData: SweetAlertOptions = {
         icon: "error",
         title: "Erreur"
