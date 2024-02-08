@@ -204,6 +204,7 @@ export class ServiceFormComponent implements OnInit {
   showValidationButton() {
     if (this.currentId) {
       this.displayUploaderValidateButton(true);
+      this.onChangeImage();
     }
   }
 
