@@ -11,13 +11,17 @@ import {AlertComponent, CardBodyComponent, CardComponent, CardHeaderComponent} f
 import {FullCalendarModule} from "@fullcalendar/angular";
 import { ServiceListComponent } from './service/service-list.component';
 import {MatIconModule} from "@angular/material/icon";
+import {OfferFormComponent} from "./offer/offer-form/offer-form.component";
+import {MatSelectModule} from "@angular/material/select";
+import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
 
 
 @NgModule({
   declarations: [
     EmployeeCrudComponent,
     ServiceFormComponent,
-    ServiceListComponent
+    ServiceListComponent,
+    OfferFormComponent
   ],
   imports: [
     CommonModule,
@@ -30,7 +34,9 @@ import {MatIconModule} from "@angular/material/icon";
     CardHeaderComponent,
     FullCalendarModule,
     AlertComponent,
-    MatIconModule
+    MatIconModule,
+    MatSelectModule,
+    NgxMatSelectSearchModule
   ]
 })
 export class AdminModule { }

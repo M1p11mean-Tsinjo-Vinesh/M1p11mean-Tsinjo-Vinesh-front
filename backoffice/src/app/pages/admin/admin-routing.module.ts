@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {EmployeeCrudComponent} from "./employee-crud.component";
 import {ServiceFormComponent} from "./service/service-form/service-form.component";
 import {ServiceListComponent} from "./service/service-list.component";
+import {OfferFormComponent} from "./offer/offer-form/offer-form.component";
 
 const routes: Routes = [
   {
@@ -24,7 +25,12 @@ const routes: Routes = [
 	  path: "service/modification/:id",
 	  component: ServiceFormComponent,
 	  pathMatch: "full"
-  }
+  },
+  {
+    path: "offre/ajout",
+    component: OfferFormComponent,
+    pathMatch: "full"
+  },
 ];
 
 @NgModule({

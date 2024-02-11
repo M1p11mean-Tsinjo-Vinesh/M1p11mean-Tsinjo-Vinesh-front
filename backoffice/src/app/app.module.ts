@@ -41,6 +41,8 @@ import {userReducer} from "./store/user/user.reducer";
 import {StoreModule} from "@ngrx/store";
 import {BearerSetterInterceptor} from "./interceptor/bearer-setter.interceptor";
 import {FullCalendarModule} from "@fullcalendar/angular";
+import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
+import {MatSelectModule} from "@angular/material/select";
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -79,7 +81,9 @@ const APP_CONTAINERS = [
     CardComponent,
     CardHeaderComponent,
     MatDialogModule,
-    FullCalendarModule
+    FullCalendarModule,
+    MatSelectModule,
+    NgxMatSelectSearchModule
   ],
   providers: [
     {
