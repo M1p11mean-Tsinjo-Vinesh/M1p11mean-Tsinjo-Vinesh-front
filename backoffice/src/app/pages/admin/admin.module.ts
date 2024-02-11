@@ -14,6 +14,9 @@ import {MatIconModule} from "@angular/material/icon";
 import {OfferFormComponent} from "./offer/offer-form/offer-form.component";
 import {MatSelectModule} from "@angular/material/select";
 import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
+import {MatButtonModule} from "@angular/material/button";
+import {MatSortModule} from "@angular/material/sort";
+import {MatTableModule} from "@angular/material/table";
 
 
 @NgModule({
@@ -36,7 +39,10 @@ import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
     AlertComponent,
     MatIconModule,
     MatSelectModule,
-    NgxMatSelectSearchModule
+    NgxMatSelectSearchModule,
+    MatButtonModule,
+    MatSortModule,
+    MatTableModule
   ]
 })
 export class AdminModule { }

@@ -1,5 +1,12 @@
-import {NgModule} from '@angular/core';
-import {CurrencyPipe, DatePipe, DecimalPipe, HashLocationStrategy, LocationStrategy} from '@angular/common';
+import {LOCALE_ID, NgModule} from '@angular/core';
+import {
+  CurrencyPipe,
+  DatePipe,
+  DecimalPipe,
+  HashLocationStrategy,
+  LocationStrategy,
+  registerLocaleData
+} from '@angular/common';
 import {BrowserModule, Title} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
@@ -43,6 +50,8 @@ import {BearerSetterInterceptor} from "./interceptor/bearer-setter.interceptor";
 import {FullCalendarModule} from "@fullcalendar/angular";
 import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
 import {MatSelectModule} from "@angular/material/select";
+import localeFr from '@angular/common/locales/fr';
+registerLocaleData(localeFr);
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -98,6 +107,10 @@ const APP_CONTAINERS = [
       provide: HTTP_INTERCEPTORS,
       useClass: BearerSetterInterceptor,
       multi: true
+    },
+    {
+      provide: LOCALE_ID,
+      useValue: 'fr-FR'
     },
     IconSetService,
     Title,

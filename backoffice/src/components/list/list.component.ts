@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
 import {RowAction, SortParam, SortResult} from "../interfaces";
 import {MatTableDataSource} from "@angular/material/table";
 import {Sort} from "@angular/material/sort";

@@ -21,15 +21,19 @@ import {ICRUDService} from "@common-components/services/crud/interfaces";
 import {CrudService} from "../../../../services/base-crud";
 import {HttpClient} from "@angular/common/http";
 import {ServiceDTO} from "../../../../dto/service.dto";
-import {DecimalPipe} from "@angular/common";
-import {Subject, takeUntil} from "rxjs";
+import {DecimalPipe, formatNumber} from "@angular/common";
+import {Observable, Subject, takeUntil} from "rxjs";
 import {ListComponent} from "@common-components/list/list.component";
 import {DomSanitizer} from "@angular/platform-browser";
+import {MatTableDataSource} from "@angular/material/table";
+import {showSuccess} from "@common-components/services/sweet-alert.util";
 
 @Component({
   selector: 'app-offer-form',
   templateUrl: './offer-form.component.html',
-  styleUrls: ['./offer-form.component.scss']
+  styleUrls: [
+    './offer-form.component.scss',
+  ]
 })
 export class OfferFormComponent {
   title: string = "Création d'offre";
@@ -42,7 +46,17 @@ export class OfferFormComponent {
     },
     description: {
       label: "Description",
-      type: "text",
+      type: "textarea",
+      validators: Validators.required
+    },
+    startDate: {
+      label: "Date de debut",
+      type: "date",
+      validators: Validators.required
+    },
+    endDate: {
+      label: "Date de fin",
+      type: "date",
       validators: Validators.required
     },
   }
@@ -86,40 +100,21 @@ export class OfferFormComponent {
   serviceService: ICRUDService;
   serviceList?: ServiceDTO[]
   filteredServiceList: ServiceDTO[] = [];
+  excludedServiceList: ServiceDTO[] = [];
   serviceFilter: FormControl = new FormControl();
   _onDestroy = new Subject<void>();
 
   selectedService = new FormControl<ServiceDTO| undefined>(undefined);
 
-  @ViewChild("serviceListComponent")
-  serviceListComponent?: ListComponent;
-  serviceListHeaders: string[] = ["Nom", "Prix initial (Ar)", "Reduction", "Prix après réduction (Ar)"];
+  serviceListHeaders: string[] = ["Nom", "Prix initial (Ar)", "Reduction", "Prix après réduction (Ar)","Action"];
 
-  serviceGetters = [
-    extract("name"),
-    extractAndPipe("price", this.decimalPipe),
-    (row: ServiceDTO) => {
-      console.log("row", row)
-      return this.sanitizer.bypassSecurityTrustHtml(`<input id="discount-${row.name}" type="number" min="0" max="100" value="${this.decimalPipe.transform((row.discount ?? 0) * 100)}"/> %`)
-    },
-    (row: ServiceDTO) => this.decimalPipe.transform(row.price * (1 - (row.discount ?? 0)))
-  ]
-  selectedServices: ServiceDTO[] = [
-    {
-      _id: "1",
-      name: "Service 1",
-      duration: 60,
-      price: 10000,
-      commission: 20,
-      createdAt: "2021-01-01",
-      updatedAt: "2021-01-01",
-      updatedby: "admin",
-      __v: 0,
-      pictureUrls: [],
-      discount: 0
-    }
-  ];
+  selectedServices: ServiceDTO[] = [];
+  selectedServicesDataSource: MatTableDataSource<ServiceDTO> = new MatTableDataSource<ServiceDTO>();
 
+  offerService: ICRUDService;
+
+  protected readonly formatNumber = formatNumber;
+  protected readonly isNaN = isNaN;
 
   constructor(
     private decimalPipe: DecimalPipe,
@@ -129,6 +124,7 @@ export class OfferFormComponent {
     private sanitizer: DomSanitizer
   ) {
     this.serviceService = new CrudService("services", this.http);
+    this.offerService = new CrudService("offers", http);
   }
 
   ngOnInit() {
@@ -216,21 +212,84 @@ export class OfferFormComponent {
   filterServices() {
     const filterValue = this.serviceFilter.value;
     this.filteredServiceList = this.serviceList?.filter((service: ServiceDTO) => {
-      return service.name.toLowerCase().includes(filterValue.toLowerCase());
+      return service.name.toLowerCase().includes(filterValue.toLowerCase()) && !this.excludedServiceList.includes(service);
     }) || [];
   }
 
   addServiceToList() {
     if (this.selectedService.value) {
       const selected =this.selectedService.value;
+      this.excludedServiceList.push(selected);
       selected.discount = 0;
       this.selectedServices = [...this.selectedServices,this.selectedService.value];
+      this.selectedServicesDataSource.data = this.selectedServices;
       this.selectedService.setValue(undefined);
-      if (this.serviceListComponent) {
-        this.serviceListComponent.data = this.selectedServices;
-      }
     }
   }
 
-  protected readonly console = console;
+  updateDiscount(_id: string, event: Event) {
+    const target = event.target as HTMLInputElement;
+    let newDiscount = parseInt(target.value);
+    // discount must be between 0 and 100
+    if (isNaN(newDiscount) || newDiscount < 0) {
+      target.value = "0";
+      newDiscount = 0;
+    } else if (newDiscount > 100) {
+      target.value = "100";
+      newDiscount = 100;
+    }
+    const discount = newDiscount / 100;
+    const service = this.selectedServices.find((service: ServiceDTO) => service._id === _id);
+    if (service) {
+      service.discount = discount;
+      this.selectedServicesDataSource.data = this.selectedServices;
+    }
+  }
+
+  getTotalPrice() {
+    return this.selectedServices.reduce((acc, service) => acc + service.price * (1 - (service.discount ?? 0)), 0);
+  }
+
+  removeService(_id: string) {
+    this.selectedServices = this.selectedServices.filter((service: ServiceDTO) => service._id !== _id);
+    this.selectedServicesDataSource.data = this.selectedServices;
+    this.excludedServiceList = this.excludedServiceList.filter((service: ServiceDTO) => service._id !== _id);
+    this.filterServices()
+  }
+
+  apiCallFunctionOnSubmit(data: any) {
+    if (this.imageUrls.length == 0) {
+      // simulate http error for util fn
+      return this.onEmptyImages();
+    }
+    const body = {
+      ...data,
+      services: this.selectedServices,
+      pictureUrls: this.imageUrls,
+    }
+    console.log(body);
+    return this.offerService.create(body);
+  }
+
+  onEmptyImages() {
+    const errorFunction = () => {
+      const error = new Error() as any;
+      error.message = "Veuillez insérer et valider vos images";
+      error.status = 400;
+      error.error = {
+        error: {
+          code: 400,
+          message: error.message
+        }
+      }
+      throw error;
+    }
+    return new Observable(errorFunction)
+  }
+
+  onApiCallSuccess() {
+    showSuccess(async () => {
+      await this.router.navigate(["management", "offer", "liste"]);
+    }, "Enregistré avec succès");
+  }
 }
