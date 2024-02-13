@@ -1,21 +1,15 @@
 <nav class="fixed w-full z-10 text-black bg-white shadow">
-  <div class="flex flex-row items-center container">
-    <h1 class="flex justify-center flex-1 text-black text-2xl">
+  <div class="flex flex-row items-center container py-3">
+    <h1 class="flex justify-center flex-1 text-black text-3xl">
       BEAUTY
     </h1>
-    <div class="pr-3 hover:cursor-pointer" [routerLink]="['/login']">
-      <fa-icon [icon]="faUser"></fa-icon>
-    </div>
-  </div>
-  <div class="container flex flex-row items-center gap-10 font-[600] pb-1 menu py-2.5 text-md">
-    <div class="hover:cursor-pointer">
-      MENU 1
-    </div>
-    <div class="hover:cursor-pointer">
-      MENU 2
-    </div>
-    <div class="hover:cursor-pointer">
-      MENU 3
+    <div ngbDropdown>
+      <div class="pr-3 hover:cursor-pointer dropdown-toggle" ngbDropdownToggle>
+        <fa-icon [icon]="faUser" ></fa-icon>
+      </div>
+      <div ngbDropdownMenu>
+        <div class="dropdown-item hover:cursor-pointer" *ngFor="let element of userMenuElements" [routerLink]="element.link" (click)="element.fn ? element.fn() : null ">{{element.label}}</div>
+      </div>
     </div>
   </div>
 </nav>

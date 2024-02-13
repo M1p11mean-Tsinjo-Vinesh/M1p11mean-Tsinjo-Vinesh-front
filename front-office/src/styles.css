@@ -16,3 +16,10 @@
         @apply !border-green-500 !border-solid !border;
     }
 }
+
+router-outlet + * {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+}

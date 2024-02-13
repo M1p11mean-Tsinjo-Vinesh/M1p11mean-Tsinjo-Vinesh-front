@@ -6,6 +6,7 @@ const close = () => {
 
 export const startApiCall = (call: (close: () => any, error: (message:string) => any) => any ) => {
   Swal.fire({
+    heightAuto: false,
     title: 'Chargement...',
     allowOutsideClick: false,
     allowEscapeKey: false,
@@ -21,6 +22,7 @@ export const startApiCall = (call: (close: () => any, error: (message:string) =>
 
 export const askConfirmation = (onConfirmed: () => any) => {
   Swal.fire({
+    heightAuto: false,
     title: "Êtes vous sur?",
     icon: "question",
     allowOutsideClick: false,
@@ -36,6 +38,7 @@ export const askConfirmation = (onConfirmed: () => any) => {
 
 export const showSuccess = (onOk: () => any, message?: string) => {
   let data: SweetAlertOptions = {
+    heightAuto: false,
     title: 'Operation effectuée',
     icon: 'success',
     allowEscapeKey: false,
@@ -51,6 +54,7 @@ export const showSuccess = (onOk: () => any, message?: string) => {
 export const showError = (message: string) => {
   close();
   Swal.fire({
+    heightAuto: false,
     title: 'Erreur',
     icon: 'error',
     text: message

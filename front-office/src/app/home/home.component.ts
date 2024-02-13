@@ -14,7 +14,6 @@ export class HomeComponent implements OnInit {
     };
 
     focus;
-    focus1;
     constructor() { }
 
     ngOnInit() {}

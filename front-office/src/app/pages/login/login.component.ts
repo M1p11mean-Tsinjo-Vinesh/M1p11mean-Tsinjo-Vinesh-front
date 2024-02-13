@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
-import {UniqueMailValidator} from "../validators/unique-mail.validator";
-import {ClientService} from "../services/client/client.service";
+import {UniqueMailValidator} from "../../validators/unique-mail.validator";
+import {ClientService} from "../../services/client/client.service";
 import {Router} from "@angular/router";
-import {showSuccess} from "../../components/services/sweet-alert.util";
+import {showSuccess} from "../../../components/services/sweet-alert.util";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
   loginForm = this.formBuilder.group({

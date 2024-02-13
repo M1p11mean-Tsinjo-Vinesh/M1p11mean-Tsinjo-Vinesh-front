@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Observable} from "rxjs";
+import {firstValueFrom, Observable, Subscription} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {baseUrl} from "../../../config/server.config";
 import {MailCheckDTO} from "../../dto/client.dto";
@@ -8,9 +8,9 @@ import {IClientService} from "./IClient.service";
 import {AuthDto} from "../../dto/auth.dto";
 import {Store} from "@ngrx/store";
 import AppStore from "../../store/Appstore";
-import {setUser} from "../../store/user/user.action";
+import {clearUser, setUser} from "../../store/user/user.action";
 import {JwtDecoderService} from "../decoder/jwt-decoder.service";
-import {UserSignUpDTO} from "../../dto/user.dto";
+import {UserDTO, UserSignUpDTO} from "../../dto/user.dto";
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +39,7 @@ export class ClientService implements IClientService {
         }).subscribe((response: DataDto<AuthDto>) => {
           const tokenData = this.jwtDecoder.decode(response.data.jwt);
           this.store.dispatch(setUser(tokenData));
+          sessionStorage.setItem('user', JSON.stringify(tokenData));
           subscriber.next(response);
           subscriber.complete();
         });
@@ -50,10 +51,23 @@ export class ClientService implements IClientService {
         this.http.post(baseUrl('/clients/register'), user).subscribe((response: DataDto<AuthDto>) => {
           const tokenData = this.jwtDecoder.decode(response.data.jwt);
           this.store.dispatch(setUser(tokenData));
+          sessionStorage.setItem('user', JSON.stringify(tokenData));
           subscriber.next(response);
           subscriber.complete();
         });
     });
   }
-
+  
+  logout(): Observable<null> {
+    return new Observable(subscriber => {
+      this.store.dispatch(clearUser());
+      sessionStorage.removeItem('user');
+      subscriber.next(null);
+      subscriber.complete();
+    })
+  }
+  
+   isConnected(): boolean {
+    return JSON.parse(sessionStorage.getItem('user')) !== null
+  }
 }
