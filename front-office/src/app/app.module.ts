@@ -1,4 +1,4 @@
-import {NgModule} from "@angular/core";
+import {LOCALE_ID, NgModule} from "@angular/core";
 import {AppComponent} from "./app.component";
 import {SignupComponent} from "./pages/signup/signup.component";
 import {LandingComponent} from "./landing/landing.component";
@@ -20,6 +20,16 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {HttpClientModule} from "@angular/common/http";
 import {MatTableModule} from "@angular/material/table";
+import {AppointmentStatusPipe} from "./pipe/AppointmentStatus.pipe";
+import {registerLocaleData} from "@angular/common";
+import localeFr from '@angular/common/locales/fr';
+import {DurationPipe} from "./pipe/Duration.pipe";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatSortModule} from "@angular/material/sort";
+import {MatExpansionModule} from "@angular/material/expansion";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+
+registerLocaleData(localeFr, 'fr');
 
 @NgModule({
   declarations: [
@@ -49,9 +59,17 @@ import {MatTableModule} from "@angular/material/table";
     ReactiveFormsModule,
     MatProgressSpinnerModule,
     HttpClientModule,
-    MatTableModule
+    MatTableModule,
+    AppointmentStatusPipe,
+    DurationPipe,
+    MatPaginatorModule,
+    MatSortModule,
+    MatExpansionModule,
+    BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [
+    { provide: LOCALE_ID, useValue: "fr-FR" }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

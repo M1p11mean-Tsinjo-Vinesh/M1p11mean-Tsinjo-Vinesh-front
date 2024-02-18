@@ -4,7 +4,7 @@
 
 export const env = {
   production: false,
-  backendUrl: "http://localhost:3000",
+  backendUrl: "http://192.168.88.2:3000",
   webServerUrl: "https://webserver.com",
   headerKey: "API_KEY",
   userKey: "user",

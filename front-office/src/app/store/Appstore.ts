@@ -1,4 +1,4 @@
-import {UserDTO} from "../dto/user.dto";
+import {UserDTO} from "../data/dto/user.dto";
 
 type AppStore = {
   user: UserDTO

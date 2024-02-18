@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import {firstValueFrom, Observable, Subscription} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {baseUrl} from "../../../config/server.config";
-import {MailCheckDTO} from "../../dto/client.dto";
-import {DataDto} from "../../dto/data.dto";
+import {MailCheckDTO} from "../../data/dto/client.dto";
+import {DataDto} from "../../data/dto/data.dto";
 import {IClientService} from "./IClient.service";
-import {AuthDto} from "../../dto/auth.dto";
+import {AuthDto} from "../../data/dto/auth.dto";
 import {Store} from "@ngrx/store";
 import AppStore from "../../store/Appstore";
 import {clearUser, setUser} from "../../store/user/user.action";
 import {JwtDecoderService} from "../decoder/jwt-decoder.service";
-import {UserDTO, UserSignUpDTO} from "../../dto/user.dto";
+import {UserDTO, UserSignUpDTO} from "../../data/dto/user.dto";
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +40,7 @@ export class ClientService implements IClientService {
           const tokenData = this.jwtDecoder.decode(response.data.jwt);
           this.store.dispatch(setUser(tokenData));
           sessionStorage.setItem('user', JSON.stringify(tokenData));
+          sessionStorage.setItem('token', response.data.jwt);
           subscriber.next(response);
           subscriber.complete();
         });

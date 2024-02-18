@@ -3,7 +3,7 @@ import {FormBuilder, Validators} from "@angular/forms";
 import {passwordConfirmationValidator} from "../../validators/password-confirmation.validator";
 import {UniqueMailValidator} from "../../validators/unique-mail.validator";
 import {ClientService} from "../../services/client/client.service";
-import {UserSignUpDTO} from "../../dto/user.dto";
+import {UserSignUpDTO} from "../../data/dto/user.dto";
 import {showSuccess} from "../../../components/services/sweet-alert.util";
 import {Router} from "@angular/router";
 
