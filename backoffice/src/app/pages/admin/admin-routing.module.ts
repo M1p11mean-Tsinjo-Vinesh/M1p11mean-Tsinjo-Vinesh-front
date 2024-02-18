@@ -4,7 +4,7 @@ import {EmployeeCrudComponent} from "./employee-crud.component";
 import {ServiceFormComponent} from "./service/service-form/service-form.component";
 import {ServiceListComponent} from "./service/service-list.component";
 import {OfferFormComponent} from "./offer/offer-form/offer-form.component";
-import {ExpenseComponent} from "./expense/expense.component";
+import {ExpenseComponent} from "./expense.component";
 
 const routes: Routes = [
   {

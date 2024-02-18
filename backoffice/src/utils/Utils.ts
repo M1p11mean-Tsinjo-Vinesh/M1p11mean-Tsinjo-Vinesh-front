@@ -16,7 +16,7 @@ export const monthList = [
 ]
 
 export const months = monthList.map((value, index) => {
-  return {value, index: index+1}
+  return {value, index: index}
 });
 
 

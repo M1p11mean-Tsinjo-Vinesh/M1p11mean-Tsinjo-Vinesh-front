@@ -17,7 +17,7 @@ import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
 import {MatButtonModule} from "@angular/material/button";
 import {MatSortModule} from "@angular/material/sort";
 import {MatTableModule} from "@angular/material/table";
-import { ExpenseComponent } from './expense/expense.component';
+import { ExpenseComponent } from './expense.component';
 
 
 @NgModule({
