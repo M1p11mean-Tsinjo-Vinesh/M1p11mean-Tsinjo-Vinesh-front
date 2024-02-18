@@ -4,7 +4,7 @@ import {ICRUDService} from "@common-components/services/crud/interfaces";
 import {HttpClient} from "@angular/common/http";
 import {CrudService} from "../../services/base-crud";
 import {Validators} from "@angular/forms";
-import {monthInputCommon, monthList, months} from "../../../utils/Utils";
+import {monthInputCommon, monthList} from "../../../utils/Utils";
 import {DecimalPipe} from "@angular/common";
 
 export const expenses: any = {
@@ -25,25 +25,38 @@ export class ExpenseComponent {
 
   title = "Gestion des dépenses";
 
-  criteria: InputList = {};
+  yearInput = {
+    label: "Année",
+    type: "number",
+    default: new Date().getFullYear()
+  }
+
+  typeInput = {
+    label: "Type",
+    searchKey: "value",
+    options: Object.keys(expenses).map(key => ({value: key, text: expenses[key]})),
+    getValue: extract("value"),
+    getText: extract("text"),
+  }
+
+  // Filters by ["year", "month", "type"]
+  criteria: InputList = {
+    "eq:year": this.yearInput,
+    "eq:month": monthInputCommon,
+    "eq:type": this.typeInput
+  };
 
   inputs: InputList = {
     year: {
-      label: "Année",
-      type: "number",
-      validators: [Validators.required, Validators.min(0)],
-      default: new Date().getFullYear()
+      ...this.yearInput,
+      validators: [Validators.required, Validators.min(0)]
     },
     month: {
       ...monthInputCommon,
       validators: [Validators.required, Validators.min(0), Validators.max(11)]
     },
     type: {
-      label: "Type",
-      searchKey: "value",
-      options: Object.keys(expenses).map(key => ({value: key, text: expenses[key]})),
-      getValue: extract("value"),
-      getText: extract("text"),
+      ...this.typeInput,
       validators: Validators.required
     } as SelectProps,
     amount: {
