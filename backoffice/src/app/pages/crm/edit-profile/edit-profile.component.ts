@@ -87,23 +87,7 @@ export class EditProfileComponent implements OnInit {
   calendarOptions: CalendarOptions = {
     initialView: 'timeGridWeek',
     weekends: false,
-    events: [
-      {
-        daysOfWeek: [1, 2, 3, 4, 5],
-        startTime: '08:00',
-        endTime: '12:00'
-      },
-      {
-        daysOfWeek: [1, 2, 3, 4],
-        startTime: '13:00',
-        endTime: '16:00'
-      },
-      {
-        daysOfWeek: [5],
-        startTime: '13:00',
-        endTime: '15:00'
-      }
-    ],
+    events: [],
     locale: frLocale,
     editable: true,
     allDaySlot: false,
@@ -128,6 +112,7 @@ export class EditProfileComponent implements OnInit {
   ngOnInit() {
     this.store.pipe().subscribe((appData: AppStore) => {
       const {user} = appData;
+      this.calendarOptions.events = user.shifts;
       this.connectedUser = {
         email: user.email,
         firstName: user.firstName,

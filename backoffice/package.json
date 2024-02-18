@@ -10,7 +10,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration dev",
     "test": "ng test",
-    "dev": "ng serve --configuration dev"
+    "dev": "ng serve --configuration dev --host 0.0.0.0"
   },
   "private": true,
   "dependencies": {

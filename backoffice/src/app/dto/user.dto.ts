@@ -6,4 +6,9 @@ export type UserDTO = {
   phone: string;
   role: string;
   token: string;
+  shifts?: {
+    daysOfWeek: number[];
+    startTime: string;
+    endTime: string;
+  }[]
 }
