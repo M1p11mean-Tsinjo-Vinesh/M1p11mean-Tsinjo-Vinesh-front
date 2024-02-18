@@ -21,6 +21,10 @@ export const navItems: INavData[] = [
       {
         name: "Ajout d'offre spéciale",
         url: "/management/offre/ajout"
+      },
+      {
+        name: "Gestion des dépenses",
+        url: "/management/depense"
       }
     ]
   }

@@ -17,6 +17,7 @@ import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
 import {MatButtonModule} from "@angular/material/button";
 import {MatSortModule} from "@angular/material/sort";
 import {MatTableModule} from "@angular/material/table";
+import { ExpenseComponent } from './expense/expense.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import {MatTableModule} from "@angular/material/table";
     EmployeeCrudComponent,
     ServiceFormComponent,
     ServiceListComponent,
-    OfferFormComponent
+    OfferFormComponent,
+    ExpenseComponent
   ],
   imports: [
     CommonModule,
