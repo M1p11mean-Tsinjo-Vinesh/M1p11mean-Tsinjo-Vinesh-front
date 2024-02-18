@@ -79,7 +79,12 @@ export class ExpenseComponent {
     extract("description")
   ]
 
-  sorts: SortParam = {}
+  sorts: SortParam = {
+    "Année": "timeKey",
+    "Mois": "timeKey",
+    Valeur: "amount"
+  }
+
   service!: ICRUDService;
 
   constructor(private http: HttpClient, private decimalPipe: DecimalPipe) {
