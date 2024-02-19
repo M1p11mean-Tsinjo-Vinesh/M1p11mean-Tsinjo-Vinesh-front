@@ -28,7 +28,7 @@ export class AppointmentDatasource implements DataSource<AppointmentDto> {
   loadAppointments(
     page = 1,
     offset = 10,
-    column = '_id',
+    column = 'appointmentDate',
     method = 1,
     status?: TFilterElement<number>,
     appointmentDate?: TFilterElement<Date>) {

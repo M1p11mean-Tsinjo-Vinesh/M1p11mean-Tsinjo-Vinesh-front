@@ -24,7 +24,7 @@
           <div>
             <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
               <div class="form-group flex flex-row px-[10%] gap-x-[100px]">
-                <div class="flex flex-col gap-y-5">
+                <div class="flex flex-col gap-y-8">
                   <div>
                     <div>
                       Prénom :
@@ -139,6 +139,25 @@
                   </div>
                   <div>
                     <div>
+                      Mot de passe actuel :
+                    </div>
+                    <div
+                        class="input-group input-group-alternative mr-3"
+                        [class.valid]="profileForm.get('currentPassword').valid &&
+                                (profileForm.get('currentPassword').dirty || profileForm.get('currentPassword').touched)"
+                        [class.invalid]="profileForm.get('currentPassword').invalid &&
+                                (profileForm.get('currentPassword').dirty || profileForm.get('currentPassword').touched)"
+                    >
+                      <input
+                          formControlName="currentPassword"
+                          class="form-control"
+                          placeholder="Mot de passe actuel"
+                          type="password"
+                      >
+                    </div>
+                  </div>
+                  <div>
+                    <div>
                       Nouveau mot de passe :
                     </div>
                     <div
@@ -198,50 +217,69 @@
                     <button type="button" class="btn" [routerLink]="['/register']">Annuler</button>
                   </div>
                 </div>
-                <div class="flex flex-col flex-1 gap-y-8">
+                <div class="flex flex-col flex-1">
                   <div>
                     <div>Préférences: employés</div>
-                    <table mat-table [dataSource]="employeeDataSource">
-                      <ng-container matColumnDef="fullName">
-                        <th mat-header-cell *matHeaderCellDef >
-                        <span class="font-bold">
-                          Nom et prénom
-                        </span>
-                        </th>
-                        <td mat-cell *matCellDef="let element"> {{element.fullName}} </td>
-                      </ng-container>
-                      <ng-container matColumnDef="isFavorite">
-                        <th mat-header-cell *matHeaderCellDef >
-                        </th>
-                        <td mat-cell *matCellDef="let element">
-                          <fa-icon [icon]="element.isFavorite ? faStar : faStarRegular" class="hover: cursor-pointer"/>
-                        </td>
-                      </ng-container>
-                      <tr mat-header-row *matHeaderRowDef="employeeDisplayedColumns"></tr>
-                      <tr mat-row *matRowDef="let row; columns: employeeDisplayedColumns"></tr>
-                    </table>
+                    <div class="table-container">
+                      <table mat-table [dataSource]="employeeDataSource" matSort matSortActive="fullName" matSortDirection="asc" matSortDisableClear #employeeSort="matSort">
+                        <ng-container matColumnDef="fullName">
+                          <th mat-header-cell mat-sort-header *matHeaderCellDef >
+                          <span class="font-bold">
+                            Nom et prénom
+                          </span>
+                          </th>
+                          <td mat-cell *matCellDef="let element"> {{element.fullName}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="isFavorite">
+                          <th mat-header-cell *matHeaderCellDef >
+                          </th>
+                          <td mat-cell *matCellDef="let element">
+                            <fa-icon
+                                [icon]="currentPreferences.employee.includes(element._id) ? faStar : faStarRegular"
+                                class="hover: cursor-pointer"
+                                (click)="togglePreferences('employee',element._id)"/>
+                          </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="employeeDisplayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: employeeDisplayedColumns"></tr>
+                      </table>
+                      <div class="flex justify-center" *ngIf="employeeDataSource.loading$ | async">
+                        <mat-spinner diameter="25"></mat-spinner>
+                      </div>
+                    </div>
+                    <mat-paginator [length]="employeeDataSource.length" [pageSize]="employeeDataSource.pageSize" #employeePaginator></mat-paginator>
                   </div>
                   <div>
                     <div>Préférences: services</div>
-                    <table mat-table [dataSource]="serviceDataSource">
-                      <ng-container matColumnDef="name">
-                        <th mat-header-cell *matHeaderCellDef >
-                        <span class="font-bold">
-                          Nom du service
-                        </span>
-                        </th>
-                        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-                      </ng-container>
-                      <ng-container matColumnDef="isFavorite">
-                        <th mat-header-cell *matHeaderCellDef >
-                        </th>
-                        <td mat-cell *matCellDef="let element">
-                          <fa-icon [icon]="element.isFavorite ? faStar : faStarRegular" class="hover: cursor-pointer"/>
-                        </td>
-                      </ng-container>
-                      <tr mat-header-row *matHeaderRowDef="serviceDisplayedColumns"></tr>
-                      <tr mat-row *matRowDef="let row; columns: serviceDisplayedColumns"></tr>
-                    </table>
+                    <div class="table-container">
+                      <table mat-table [dataSource]="serviceDataSource" matSort matSortActive="name" matSortDirection="asc" matSortDisableClear #serviceSort="matSort">
+                        <ng-container matColumnDef="name">
+                          <th mat-header-cell mat-sort-header *matHeaderCellDef >
+                          <span class="font-bold">
+                            Nom du service
+                          </span>
+                          </th>
+                          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="isFavorite">
+                          <th mat-header-cell *matHeaderCellDef >
+                          </th>
+                          <td mat-cell *matCellDef="let element">
+                            <fa-icon
+                                [icon]="currentPreferences.service.includes(element._id) ? faStar : faStarRegular"
+                                (click)="togglePreferences('service',element._id)"
+                                class="hover: cursor-pointer"
+                            />
+                          </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="serviceDisplayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: serviceDisplayedColumns"></tr>
+                      </table>
+                      <div class="flex justify-center" *ngIf="serviceDataSource.loading$ | async">
+                        <mat-spinner diameter="25"></mat-spinner>
+                      </div>
+                    </div>
+                    <mat-paginator [length]="serviceDataSource.length" [pageSize]="serviceDataSource.pageSize" #servicePaginator></mat-paginator>
                   </div>
                 </div>
               </div>

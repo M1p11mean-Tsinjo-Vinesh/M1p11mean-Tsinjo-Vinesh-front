@@ -10,7 +10,7 @@ import {Store} from "@ngrx/store";
 import AppStore from "../../store/Appstore";
 import {clearUser, setUser} from "../../store/user/user.action";
 import {JwtDecoderService} from "../decoder/jwt-decoder.service";
-import {UserDTO, UserSignUpDTO} from "../../data/dto/user.dto";
+import {UserDTO, UserSignUpDTO, UserUpdateDTO} from "../../data/dto/user.dto";
 
 @Injectable({
   providedIn: 'root'
@@ -70,5 +70,23 @@ export class ClientService implements IClientService {
   
    isConnected(): boolean {
     return JSON.parse(sessionStorage.getItem('user')) !== null
+  }
+  
+  getUser(): UserDTO {
+    return JSON.parse(sessionStorage.getItem('user'));
+  }
+  
+  updateUser(user: UserUpdateDTO): Observable<DataDto<UserDTO>> {
+    return new Observable<DataDto<UserDTO>>(subscriber => {
+      this.http.put(baseUrl('/clients/update-info'), user, {
+        headers: {
+          "Authorization": `Bearer ${sessionStorage.getItem('token')}`
+        }}).subscribe((response: DataDto<UserDTO>) => {
+          console.log(response)
+          sessionStorage.setItem('user', JSON.stringify(response.data));
+          subscriber.next(response);
+          subscriber.complete();
+        })
+      })
   }
 }
