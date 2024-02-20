@@ -27,5 +27,10 @@ export const navItems: INavData[] = [
         url: "/management/depense"
       }
     ]
+  },
+  {
+    name: "Planning",
+    url: "/crm/planning",
+    iconComponent: { name: 'cil-calendar' }
   }
 ];

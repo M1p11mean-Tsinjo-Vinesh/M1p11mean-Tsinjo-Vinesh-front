@@ -5,14 +5,24 @@ import { CrmRoutingModule } from './crm-routing.module';
 import { UserComponent } from './user.component';
 import {CommonComponentsModule} from "@common-components/common-components.module";
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
-import {CardBodyComponent, CardComponent, CardHeaderComponent, HeaderComponent} from "@coreui/angular";
+import {
+  ButtonDirective,
+  CardBodyComponent,
+  CardComponent,
+  CardHeaderComponent,
+  HeaderComponent, ModalBodyComponent,
+  ModalComponent, ModalFooterComponent,
+  ModalHeaderComponent
+} from "@coreui/angular";
 import {FullCalendarModule} from "@fullcalendar/angular";
+import { PlanningComponent } from './planning/planning/planning.component';
 
 
 @NgModule({
   declarations: [
     UserComponent,
-    EditProfileComponent
+    EditProfileComponent,
+    PlanningComponent
   ],
   imports: [
     CommonModule,
@@ -24,6 +34,11 @@ import {FullCalendarModule} from "@fullcalendar/angular";
     CardBodyComponent,
     HeaderComponent,
     FullCalendarModule,
+    ModalComponent,
+    ModalHeaderComponent,
+    ModalBodyComponent,
+    ModalFooterComponent,
+    ButtonDirective,
   ]
 })
 export class CrmModule { }

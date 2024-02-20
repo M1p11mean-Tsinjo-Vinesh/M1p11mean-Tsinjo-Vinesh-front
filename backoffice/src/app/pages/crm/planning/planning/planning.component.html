@@ -1,0 +1,22 @@
+<c-card>
+  <c-card-header>
+    <h2 class="m-0">Mon planning</h2>
+  </c-card-header>
+  <c-card-body>
+    <full-calendar [options]="calendarOptions"></full-calendar>
+  </c-card-body>
+</c-card>
+
+<c-modal
+  [visible]="confirmVisible" (visibleChange)="confirmVisible = $event">
+  <c-modal-header>
+    <h4 class="m-0">Marquer la tache comme effectuée</h4>
+  </c-modal-header>
+  <c-modal-body>
+    <p>Êtes-vous sûr de vouloir marquer cette tache comme effectuée ?</p>
+  </c-modal-body>
+  <c-modal-footer>
+    <button cButton color="secondary" (click)="confirmVisible = false">Annuler</button>
+    <button cButton color="primary" (click)="setTaskAsDone()">Valider</button>
+  </c-modal-footer>
+</c-modal>

@@ -82,8 +82,6 @@ export class EditProfileComponent implements OnInit {
   method!: Function;
   service!: IEmployeeService;
 
-  // full calendar
-  // TODO: get the events from the server
   calendarOptions: CalendarOptions = {
     initialView: 'timeGridWeek',
     weekends: false,
