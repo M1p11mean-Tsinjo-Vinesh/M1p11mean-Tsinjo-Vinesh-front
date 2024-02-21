@@ -1,0 +1,108 @@
+<main>
+  <section class="section">
+    <div class="container pt-[100px]">
+      <div class="card shadow">
+        <div class="row justify-content-center mt-3 mb-2 text-center uppercase">
+          <h3>Prendre rendez-vous</h3>
+        </div>
+        <div class="px-5 flex gap-10">
+          <div class="flex-1 px-4 py-5">
+            <full-calendar [options]="calendarOptions" #calendar></full-calendar>
+          </div>
+          <div class="w-[35%] border-l-2 px-4 mb-5 flex flex-col">
+            <div class="mb-3">
+              <h5>DATE ET HEURE</h5>
+              <input type="datetime-local" (input)="changeDate($event)" value="{{startDate |date: 'yyyy-MM-ddTHH:mm'}}">
+            </div>
+            <div class="mb-3">
+              <h5>SERVICE</h5>
+              <mat-select
+                [formControl]="serviceControl"
+                placeholder="Choisir un service"
+              >
+                <mat-option>
+                  <ngx-mat-select-search
+                      placeholderLabel="Rechercher un service"
+                      noEntriesFoundLabel="Aucun service trouvé"
+                      [searching]="services.length === 0"
+                  />
+                </mat-option>
+                <mat-option
+                    *ngFor="let service of services"
+                    [value]="service">
+                  {{service.name}} - {{service.duration | duration : 'm' : 'h'}}
+                </mat-option>
+              </mat-select>
+              <div>
+                <table class="w-full">
+                  <thead>
+                    <tr>
+                      <th>Service</th>
+                      <th>Prix (MGA)</th>
+                      <th>Duree</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let details of appointmentDetails">
+                      <td>{{details.service.name}}</td>
+                      <td>{{details.service.price | number: '4.0-0': 'fr' }}</td>
+                      <td>{{details.service.duration | duration : 'm' : 'h'}}</td>
+                      <td class="hover:cursor-pointer" (click)="removeDetails(details)"><fa-icon [icon]="faXmark"/> </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="mb-4">
+              <h5 class="mb-1">INFORMATIONS</h5>
+              <div>
+                Duree estimee: {{estimatedDuration | duration : 'm' : 'h'}}
+              </div>
+              <div>
+                Prix estimee: {{estimatedPrice | currency: 'MGA': 'symbol': '4.0-0': 'fr'}}
+              </div>
+            </div>
+            <div class="flex flex-row mb-2 flex-1 items-end">
+              <button type="submit" class="btn btn-black bg-black">Enregistrer</button>
+              <button type="button" class="btn">Annuler</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<ng-template let-c="close" let-d="dismiss" #employeeModal>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h6 class="modal-title" id="modal-title-default">Associe un employe</h6>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <mat-select
+          [formControl]="employeeControl"
+          placeholder="Choisir un employe (optionnel)"
+      >
+        <mat-option>
+          <ngx-mat-select-search
+              placeholderLabel="Rechercher un employe"
+              noEntriesFoundLabel="Aucun employe disponible"
+              [searching]="employees.length === 0"
+          />
+        </mat-option>
+        <mat-option
+            *ngFor="let employee of employees"
+            [value]="employee">
+          {{employee.fullName}}
+        </mat-option>
+      </mat-select>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn" data-dismiss="modal" (click)="saveServiceWithoutEmployee()">Annuler</button>
+      <button type="button" class="btn btn-primary"(click)="assignEmployee()">Assigner</button>
+    </div>
+  </div>
+</ng-template>

@@ -14,8 +14,8 @@ import {ServiceDto} from "../../data/dto/service.dto";
 export class PreferencesService implements IPreferencesService {
   constructor(private http: HttpClient) { }
   findEmployees(
-    page?: number,
-    offset?: number,
+    page: number = 1,
+    offset: number = 10,
     column?: string,
     method?: number,
     fullName?: string,
@@ -24,8 +24,12 @@ export class PreferencesService implements IPreferencesService {
       let params = {
         page: page,
         offset: offset,
-        column: column,
-        method: method,
+      }
+      if (column) {
+        params[`column`] = column;
+      }
+      if (method) {
+        params[`method`] = method;
       }
       if (fullName) {
         params[`fullName`] = fullName;
@@ -43,8 +47,8 @@ export class PreferencesService implements IPreferencesService {
   }
   
   findServices(
-    page?: number,
-    offset?: number,
+    page: number = 1,
+    offset: number = 10,
     column?: string,
     method?: number,
     name?: string,
@@ -53,8 +57,12 @@ export class PreferencesService implements IPreferencesService {
       let params = {
         page: page,
         offset: offset,
-        column: column,
-        method: method,
+      }
+      if (column) {
+        params[`column`] = column;
+      }
+      if (method) {
+        params[`method`] = method;
       }
       if (name) {
         params[`ilike:name`] = name;

@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
+@import 'bootstrap/dist/css/bootstrap.css';
+@import "bootstrap-icons/font/bootstrap-icons.css";
 
 @tailwind base;
 @tailwind components;
@@ -8,6 +10,9 @@
 @layer utilities {
     .btn-black {
         @apply bg-black text-white;
+    }
+    .btn-black:hover {
+        @apply bg-gray-900 text-white;
     }
     .invalid {
         @apply !border-red-500 !border-solid !border;
@@ -22,4 +27,8 @@ router-outlet + * {
     flex: 1;
     flex-direction: column;
     justify-content: center;
+}
+
+.cdk-overlay-container {
+    z-index: 10000 !important;
 }

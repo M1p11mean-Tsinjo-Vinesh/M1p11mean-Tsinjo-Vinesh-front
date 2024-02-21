@@ -28,6 +28,13 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatSortModule} from "@angular/material/sort";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { MakeAppointmentComponent } from './pages/make-appointment/make-appointment.component';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatInputModule} from "@angular/material/input";
+import {FullCalendarModule} from "@fullcalendar/angular";
+import {MatSelectModule} from "@angular/material/select";
+import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
 
 registerLocaleData(localeFr, 'fr');
 
@@ -40,7 +47,8 @@ registerLocaleData(localeFr, 'fr');
     NavbarComponent,
     FooterComponent,
     LoginComponent,
-    AppointmentsComponent
+    AppointmentsComponent,
+    MakeAppointmentComponent
   ],
   imports: [
     BrowserModule,
@@ -65,10 +73,16 @@ registerLocaleData(localeFr, 'fr');
     MatPaginatorModule,
     MatSortModule,
     MatExpansionModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatInputModule,
+    FullCalendarModule,
+    MatSelectModule,
+    NgxMatSelectSearchModule
   ],
   providers: [
-    { provide: LOCALE_ID, useValue: "fr-FR" }
+    { provide: LOCALE_ID, useValue: "fr-FR" },
   ],
   bootstrap: [AppComponent]
 })

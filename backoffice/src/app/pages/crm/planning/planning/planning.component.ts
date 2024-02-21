@@ -28,11 +28,7 @@ export class PlanningComponent implements OnInit{
   calendarOptions: CalendarOptions = {
     initialView: 'timeGridWeek',
     weekends: false,
-    events: [ {
-      title: 'Day Event',
-      start: '2024-02-20T12:00',
-      end: '2024-02-20T12:30:00'
-    }],
+    events: [],
     locale: frLocale,
     editable: true,
     allDaySlot: false,
