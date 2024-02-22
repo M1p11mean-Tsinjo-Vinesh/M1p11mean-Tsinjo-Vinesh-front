@@ -10,3 +10,11 @@ export type AppointmentDto = {
   estimatedDuration: number,
   estimatedPrice: number
 }
+
+export type AppointmentSubmitDto = {
+    appointmentDate: string;
+    elements: {
+        employee: string;
+        service: string;
+    }[]
+}

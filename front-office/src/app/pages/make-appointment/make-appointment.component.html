@@ -64,7 +64,7 @@
               </div>
             </div>
             <div class="flex flex-row mb-2 flex-1 items-end">
-              <button type="submit" class="btn btn-black bg-black">Enregistrer</button>
+              <button type="submit" class="btn btn-black bg-black" (click)="onSubmit()">Enregistrer</button>
               <button type="button" class="btn">Annuler</button>
             </div>
           </div>
@@ -101,8 +101,8 @@
       </mat-select>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn" data-dismiss="modal" (click)="saveServiceWithoutEmployee()">Annuler</button>
-      <button type="button" class="btn btn-primary"(click)="assignEmployee()">Assigner</button>
+      <button type="button" class="btn" data-dismiss="modal" (click)="saveServiceWithoutEmployee()">Passer</button>
+      <button type="button" class="btn btn-primary" (click)="assignEmployee()">Assigner</button>
     </div>
   </div>
 </ng-template>

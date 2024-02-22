@@ -12,8 +12,12 @@ import {FormControl} from "@angular/forms";
 import {Subject, takeUntil} from "rxjs";
 import {EmployeeDTO} from "../../data/dto/employee.dto";
 import {AppointmentDetailsDto} from "../../data/dto/appointmentDetails.dto";
-import {addMinutes} from "date-fns";
-import {faCross, faXmark} from "@fortawesome/free-solid-svg-icons";
+import {addMinutes, format} from "date-fns";
+import {faXmark} from "@fortawesome/free-solid-svg-icons";
+import {AppointmentService} from "../../services/appointment/appointment.service";
+import {AppointmentSubmitDto} from "../../data/dto/appointment.dto";
+import {showError, showSuccess} from "../../../components/services/sweet-alert.util";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-make-appointment',
@@ -21,15 +25,17 @@ import {faCross, faXmark} from "@fortawesome/free-solid-svg-icons";
   styleUrls: ['./make-appointment.component.scss']
 })
 export class MakeAppointmentComponent {
+  protected readonly faXmark = faXmark;
   
   @ViewChild('calendar') calendarComponent: FullCalendarComponent;
   @ViewChild('employeeModal') employeeModal: any;
-  startDate: string = new Date().toISOString();
+  startDate: string = "";
   lastDate: string | null = null;
   services: ServiceDto[] = [];
   serviceControl: FormControl = new FormControl();
   estimatedDuration: number = 0;
   estimatedPrice: number = 0;
+  idCounter: number = 0;
   
   employees: EmployeeDTO[] = [];
   employeeControl: FormControl = new FormControl();
@@ -49,16 +55,30 @@ export class MakeAppointmentComponent {
     slotMaxTime: "17:00:00",
     themeSystem: "bootstrap5",
     height: "auto",
-    
+    snapDuration: "00:05:00",
+    eventStartEditable: true,
+    eventOverlap: false,
+    eventDrop: (info) => {
+      console.log(info.event.id)
+      const details = this.appointmentDetails
+        .find((details) => details._id === info.event.id);
+      details.startDate = info.event.startStr;
+      details.endDate = info.event.endStr;
+    }
   }
   
   constructor(
     private preferencesServices: PreferencesService,
     private modalService: NgbModal,
+    private appointmentService: AppointmentService,
+    private router: Router
   ) {
   }
   
   ngOnInit() {
+    const startDate = new Date();
+    startDate.setHours(8,0,0,0);
+    this.startDate = startDate.toJSON();
     this.preferencesServices.findServices(1,null).subscribe((preferences) => {
       this.services = preferences.elements;
     });
@@ -101,7 +121,8 @@ export class MakeAppointmentComponent {
       service: service,
       employee: employee,
       startDate: startDate,
-      endDate: endDate
+      endDate: endDate,
+      _id: "id-" + this.idCounter++
     });
     this.serviceControl.setValue(null);
     this.employeeControl.setValue(null);
@@ -118,7 +139,8 @@ export class MakeAppointmentComponent {
     this.appointmentDetails.push({
       service: service,
       startDate: startDate,
-      endDate: endDate
+      endDate: endDate,
+      _id: "id-" + this.idCounter++
     });
     this.serviceControl.setValue(null);
     this.buildEvent();
@@ -134,7 +156,7 @@ export class MakeAppointmentComponent {
         title: `${appointment.service.name} - ${appointment.employee?.fullName ?? 'Aucun'}`,
         start: appointment.startDate,
         end: appointment.endDate,
-        startEditable: true,
+        id: appointment._id,
       });
     }
     this.calendarOptions.events = events;
@@ -146,5 +168,28 @@ export class MakeAppointmentComponent {
     this.buildEvent();
   }
   
-  protected readonly faXmark = faXmark;
+  onSubmit() {
+    const firstDetail = this.appointmentDetails.reduce((a,b) => a.startDate < b.startDate ? a : b);
+    const startDate = new Date(firstDetail.startDate).getMilliseconds() < new Date(this.startDate).getMilliseconds() ? firstDetail.startDate : this.startDate;
+    const submitData: AppointmentSubmitDto = {
+      appointmentDate: format(startDate,"yyyy-MM-dd'T'HH:mm:ssXXX"),
+      elements: this.appointmentDetails.map((details) => {
+        return {
+          employee: details.employee?._id,
+          service: details.service._id
+        }
+      })
+    }
+    console.log(submitData);
+    this.appointmentService.makeAppointment(submitData).subscribe(
+      (res) => {
+        showSuccess(() =>{
+          this.router.navigate(['/user-appointments']);
+        }, "Rendez-vous pris avec succès")
+      },
+      (err) => {
+        showError(err.error.message)
+      }
+    )
+  }
 }

@@ -1,7 +1,7 @@
 import {IAppointmentService} from "./IAppointment.service";
 import {TFilterElement} from "../../data/type/filterElement.type";
 import {map, Observable} from "rxjs";
-import {AppointmentDto} from "../../data/dto/appointment.dto";
+import {AppointmentDto, AppointmentSubmitDto} from "../../data/dto/appointment.dto";
 import {HttpClient} from "@angular/common/http";
 import {baseUrl} from "../../../config/server.config";
 import {DataDto} from "../../data/dto/data.dto";
@@ -43,5 +43,18 @@ export class AppointmentService implements IAppointmentService {
           subscriber.complete();
         });
       });
+  }
+  
+  makeAppointment(appointment: AppointmentSubmitDto): Observable<AppointmentDto> {
+    return new Observable<AppointmentDto>((subscriber) => {
+      this.http.post(baseUrl('/appointments'), appointment, {
+        headers: {
+          "Authorization": `Bearer ${sessionStorage.getItem('token')}`
+        }
+      }).subscribe((response: DataDto<AppointmentDto>) => {
+        subscriber.next(response.data);
+        subscriber.complete();
+      })
+    });
   }
 }
