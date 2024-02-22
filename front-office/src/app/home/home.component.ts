@@ -7,14 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class HomeComponent implements OnInit {
-    model = {
-        left: true,
-        middle: false,
-        right: false
-    };
-
-    focus;
-    constructor() { }
-
-    ngOnInit() {}
+  images = [
+    'assets/img/beauty/image-1.jpg',
+    'assets/img/beauty/image-2.jpg',
+    'assets/img/beauty/image-3.jpg',
+  ]
+  ngOnInit() {}
 }

@@ -1,52 +1,29 @@
-<main>
-  <div class="position-relative">
+<main class="h-full">
+  <div class="position-relative h-full">
     <!-- Hero for FREE version -->
-    <section class="section section-lg section-hero section-shaped">
+    <section class="section-hero section-shaped h-full vh-100">
       <!-- Background circles -->
-      <div class="shape shape-style-1 shape-primary">
-        <span class="span-150"></span>
-        <span class="span-50"></span>
-        <span class="span-50"></span>
-        <span class="span-75"></span>
-        <span class="span-100"></span>
-        <span class="span-75"></span>
-        <span class="span-50"></span>
-        <span class="span-100"></span>
-        <span class="span-50"></span>
-        <span class="span-100"></span>
-      </div>
-      <div class="container shape-container d-flex align-items-center py-lg">
-        <div class="col px-0">
-          <div class="row align-items-center justify-content-center">
-            <div class="col-lg-6 text-center">
-              <img src="../../../../assets/img/brand/argon-white.png" style="width: 200px;" class="img-fluid">
-              <p class="lead text-white">A beautiful Design System for Bootstrap 4 and Angular 13. It's Free and Open Source.</p>
-              <div class="btn-wrapper mt-5">
-                <a [routerLink]="['/make-appointment']" class="btn btn-lg btn-white btn-icon mb-3 mb-sm-0">
-                  <span class="btn-inner--icon"><i class="ni ni-cloud-download-95"></i></span>
-                  <span class="btn-inner--text">Download Angular</span>
-                </a>
-                <a href="https://github.com/creativetimofficial/argon-design-system-angular?ref=adsa-index-header" class="btn btn-lg btn-github btn-icon mb-3 mb-sm-0" target="_blank">
-                  <span class="btn-inner--icon"><i class="fa fa-github"></i></span>
-                  <span class="btn-inner--text">
-                    <span class="text-warning">Star us</span> on Github</span>
-                </a>
-              </div>
-              <div class="mt-5">
-                <small class="text-white font-weight-bold mb-0 mr-2">*proudly coded by</small>
-                <img src="../../../../assets/img/brand/creativetim-white-slim.png" style="height: 28px;">
-              </div>
+      <div class="absolute right-[10%] z-10 text-white w-[450px] h-full">
+        <div class="flex flex-col justify-center h-full">
+          <div class="bg-gray-600 bg-opacity-5 p-3 rounded shadow">
+            <h1 class="mb-3 text-black">Bienvenue chez Beauty</h1>
+            <div class="mb-10 text-xl text-black">
+              Chez nous, votre bien-être est notre priorité. Nous vous offrons une gamme de services de qualité pour vous
+              aider à vous sentir bien dans votre peau. Prenez rendez-vous dès maintenant pour une expérience unique.
+            </div>
+            <div>
+              <button class="btn btn-primary btn-lg" [routerLink]="['/make-appointment']">Prendre rendez-vous</button>
             </div>
           </div>
         </div>
       </div>
+      <ngb-carousel [interval]="8000" class="h-full" [showNavigationArrows]="false" [pauseOnHover]="false">
+        <ng-template ngbSlide *ngFor="let image of images" class="h-full">
+          <div style="filter: blur(3px);background-image: url({{image}})" class="h-full bg-no-repeat bg-cover">
+          </div>
+        </ng-template>
+      </ngb-carousel>
       <!-- SVG separator -->
-      <div class="separator separator-bottom separator-skew zindex-100">
-        <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
-          <polygon class="fill-white" points="2560 0 2560 100 0 100"></polygon>
-        </svg>
-      </div>
     </section>
   </div>
-  <app-sections></app-sections>
 </main>
