@@ -42,10 +42,12 @@ export class NotificationListComponent implements OnInit {
 
   async onNotificationClick(notification: Notification) {
     await this.router.navigateByUrl(notification.redirectUrl);
-    await firstValueFrom(this.service.markSeen(notification._id));
-    this.store.dispatch(setNotification({
-      count: this.notificationCount - 1
-    }))
+    if (!notification.seen) {
+      await firstValueFrom(this.service.markSeen(notification._id));
+      this.store.dispatch(setNotification({
+        count: this.notificationCount - 1
+      }))
+    }
   }
 
 }
