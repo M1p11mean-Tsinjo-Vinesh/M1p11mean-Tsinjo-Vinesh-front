@@ -5,10 +5,11 @@ import {Observable} from "rxjs";
 import {DataDto} from "../../dto/data.dto";
 import {AuthDto} from "../../dto/auth.dto";
 import {HttpClient} from "@angular/common/http";
-import {JwtDecoderService} from "../../../components";
+import {JwtDecoderService, ObserverObject} from "../../../components";
 import AppStore from "../../store/Appstore";
 import {Store} from "@ngrx/store";
 import {setUser} from "../../store/user/user.action";
+import {startApiCall} from "@common-components/services/sweet-alert.util";
 
 @Injectable({
   providedIn: 'root'
@@ -19,10 +20,10 @@ export class EmployeeService implements IEmployeeService{
 
   login(email: string, password: string): Observable<DataDto<AuthDto>> {
     return new Observable<DataDto<AuthDto>>( subscriber => {
-      this.http.post(baseUrl('employees-auth/login'), {
+      const loginApiCall = () => this.http.post(baseUrl('employees-auth/login'), {
         email: email,
         password: password
-      }).subscribe((response: DataDto<AuthDto>) => {
+      }).subscribe(ObserverObject((response: DataDto<AuthDto>) => {
         if(response.data) {
           const {jwt} = response.data;
           const tokenData = this.jwtDecoder.decode(jwt);
@@ -31,7 +32,8 @@ export class EmployeeService implements IEmployeeService{
         }
         subscriber.next(response);
         subscriber.complete();
-      });
+      }));
+      startApiCall(loginApiCall);
     });
   }
 
