@@ -1,0 +1,15 @@
+<c-card class="mb-4">
+    <c-card-header>
+        {{notification.title}}
+    </c-card-header>
+    <c-card-body>
+        <c-avatar
+                cTextColor="primary"
+                shape="rounded-1"
+                size="md"
+                src="{{notification.pictureUrl}}"
+                [status]="notification.seen ? '' : 'info'"
+        />
+        {{notification.description}}
+    </c-card-body>
+</c-card>

@@ -1,1 +1,8 @@
-<p>notification-list works!</p>
+<div>
+    <h1>Notifications</h1>
+</div>
+<div>
+    <div *ngFor="let notification of notifications">
+        <app-notification [notification]="notification" />
+    </div>
+</div>

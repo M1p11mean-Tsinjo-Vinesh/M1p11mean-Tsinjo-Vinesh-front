@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { LoggedCommonRoutingModule } from './logged-common-routing.module';
 import { NotificationListComponent } from './notification-list/notification-list.component';
+import {CommonComponentsModule} from "@common-components/common-components.module";
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { NotificationListComponent } from './notification-list/notification-list
   ],
   imports: [
     CommonModule,
-    LoggedCommonRoutingModule
+    LoggedCommonRoutingModule,
+    CommonComponentsModule
   ]
 })
 export class LoggedCommonModule { }
