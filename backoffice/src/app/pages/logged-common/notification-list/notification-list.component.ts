@@ -3,7 +3,7 @@ import {NotificationService} from "../../../services/notification/notification.s
 import {startApiCall} from "@common-components/services/sweet-alert.util";
 import {DataDto} from "../../../dto/data.dto";
 import {ObserverElt} from "@common-components/services/util";
-import {Notification} from "@common-components/notification/notification.component";
+import {NotificationProps} from "@common-components/notification/notification.component";
 import {Router} from "@angular/router";
 import {firstValueFrom} from "rxjs";
 import {Store} from "@ngrx/store";
@@ -18,7 +18,7 @@ import {setNotification} from "../../../store/notification/notification.action";
 })
 export class NotificationListComponent implements OnInit {
 
-  notifications?: Notification[];
+  notifications?: NotificationProps[];
   notificationCount: number = 0;
 
   constructor(
@@ -33,14 +33,14 @@ export class NotificationListComponent implements OnInit {
     })
     // load notifications
     startApiCall(async close => {
-      this.service.findAll<DataDto<Notification[]>>().subscribe(ObserverElt((notifications: Notification[])=> {
+      this.service.findAll<DataDto<NotificationProps[]>>().subscribe(ObserverElt((notifications: NotificationProps[])=> {
         this.notifications = notifications;
         close();
       }))
     })
   }
 
-  async onNotificationClick(notification: Notification) {
+  async onNotificationClick(notification: NotificationProps) {
     await this.router.navigateByUrl(notification.redirectUrl);
     if (!notification.seen) {
       await firstValueFrom(this.service.markSeen(notification._id));

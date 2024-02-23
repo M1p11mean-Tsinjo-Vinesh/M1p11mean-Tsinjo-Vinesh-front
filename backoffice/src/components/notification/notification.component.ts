@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 
-export interface Notification {
+export interface NotificationProps {
   _id: string
   pictureUrl: string
   title: string
@@ -21,5 +21,5 @@ export class NotificationComponent {
   @Input({
     required: true
   })
-  notification!: Notification;
+  notification!: NotificationProps;
 }
