@@ -17,4 +17,8 @@ export class NotificationService extends ReadService {
     return this.http.get<DataDto<number>>(baseUrl("notifications/count/not-seen"));
   }
 
+  markSeen(notificationId: string) {
+    return this.http.put(baseUrl(`notifications/${notificationId}/seen`), {});
+  }
+
 }

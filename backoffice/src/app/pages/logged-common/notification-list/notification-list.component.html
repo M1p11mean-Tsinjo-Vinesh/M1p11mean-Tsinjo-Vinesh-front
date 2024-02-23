@@ -3,6 +3,9 @@
 </div>
 <div>
     <div *ngFor="let notification of notifications">
-        <app-notification [notification]="notification" />
+        <app-notification
+            [notification]="notification"
+            (click)="onNotificationClick(notification)"
+        />
     </div>
 </div>
