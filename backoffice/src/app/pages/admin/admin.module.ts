@@ -28,6 +28,9 @@ import { ExpenseComponent } from './expense.component';
     OfferFormComponent,
     ExpenseComponent
   ],
+  exports: [
+    ServiceListComponent
+  ],
   imports: [
     CommonModule,
     AdminRoutingModule,

@@ -9,6 +9,7 @@ import {HomeComponent} from './home.component';
 
 import {SectionsModule} from '../../sections/sections.module';
 import { HpBannerComponent } from './hp-banner/hp-banner.component';
+import { ServiceListComponent } from './service-list/service-list.component';
 
 @NgModule({
     imports: [
@@ -18,7 +19,7 @@ import { HpBannerComponent } from './hp-banner/hp-banner.component';
         RouterModule,
         SectionsModule, NgbModule
     ],
-    declarations: [ HomeComponent, HpBannerComponent ],
+    declarations: [ HomeComponent, HpBannerComponent, ServiceListComponent ],
     exports:[ HomeComponent ],
     providers: []
 })
