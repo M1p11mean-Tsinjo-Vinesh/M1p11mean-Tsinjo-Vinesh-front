@@ -1,8 +1,13 @@
-<div class="container py-8">
-    <div class="row">
+<div class="container py-8 my-8">
+    <div class="row mb-4">
         <div class="col-12 text-center">
             <h2 class="mb-4">Nos services</h2>
             <p class="md:px-24">Que ce soit pour une simple épilation au fil, une coupe de cheveux ou un massage corporel complet, nous vous servons pour tous vos besoins de beauté avec les meilleurs produits associés à des services dévoués à bord.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div *ngFor="let service of services" class="col-md-4 p-4">
+            <app-service-card [service]="service" />
         </div>
     </div>
 </div>

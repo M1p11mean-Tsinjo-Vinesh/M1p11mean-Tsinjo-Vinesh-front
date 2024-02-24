@@ -10,15 +10,16 @@ import {HomeComponent} from './home.component';
 import {SectionsModule} from '../../sections/sections.module';
 import { HpBannerComponent } from './hp-banner/hp-banner.component';
 import { ServiceListComponent } from './service-list/service-list.component';
+import {CommonComponentsModule} from "../../../components/common-components/common-components.module";
 
 @NgModule({
-    imports: [
-        CommonModule,
-        BrowserModule,
-        FormsModule,
-        RouterModule,
-        SectionsModule, NgbModule
-    ],
+  imports: [
+    CommonModule,
+    BrowserModule,
+    FormsModule,
+    RouterModule,
+    SectionsModule, NgbModule, CommonComponentsModule
+  ],
     declarations: [ HomeComponent, HpBannerComponent, ServiceListComponent ],
     exports:[ HomeComponent ],
     providers: []

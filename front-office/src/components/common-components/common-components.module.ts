@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ServiceCardComponent } from './service-card/service-card.component';
+import {NgbCarousel, NgbSlide} from "@ng-bootstrap/ng-bootstrap";
 
 
 
@@ -8,8 +9,13 @@ import { ServiceCardComponent } from './service-card/service-card.component';
   declarations: [
     ServiceCardComponent
   ],
+  exports: [
+    ServiceCardComponent
+  ],
   imports: [
-    CommonModule
+    CommonModule,
+    NgbCarousel,
+    NgbSlide
   ]
 })
 export class CommonComponentsModule { }
