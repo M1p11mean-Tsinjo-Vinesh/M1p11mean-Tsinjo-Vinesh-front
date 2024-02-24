@@ -6,6 +6,7 @@ import {BehaviorSubject, merge, tap} from "rxjs";
 import {EApointmentStatus} from "../../data/enum/appointmentStatus.enum";
 import {MatSort} from "@angular/material/sort";
 import {TFilterElement} from "../../data/type/filterElement.type";
+import {getStatusBadge} from "../../utils/status.utils";
 
 @Component({
   selector: 'app-appointments',
@@ -63,23 +64,8 @@ export class AppointmentsComponent {
     );
   }
   
-  getStatusBadge(status: EApointmentStatus) {
-    switch (status) {
-      case EApointmentStatus.PENDING:
-        return "badge-primary"
-      case EApointmentStatus.VALIDATED:
-        return "badge-info"
-      case EApointmentStatus.CANCELED:
-        return "badge-danger"
-      case EApointmentStatus.PAID:
-        return "badge-success"
-      default:
-        return "badge-secondary"
-    }
-  }
-  
   getFilterStatusBadge(status: EApointmentStatus) {
-    return this.activeStatus.includes(status) ? this.getStatusBadge(status) : "badge-secondary";
+    return this.activeStatus.includes(status) ? getStatusBadge(status) : "badge-secondary";
   }
   
   toggleActiveStatus(status: EApointmentStatus) {
@@ -108,4 +94,6 @@ export class AppointmentsComponent {
     this.filterChanged.next(!this.filterChanged.getValue())
   }
   
+  protected readonly console = console;
+  protected readonly getStatusBadge = getStatusBadge;
 }

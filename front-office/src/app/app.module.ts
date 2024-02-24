@@ -37,6 +37,7 @@ import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
 import { HeaderLinkComponent } from './shared/navbar/header-link/header-link.component';
 import { AppUserComponent } from './shared/navbar/app-user/app-user.component';
 import { LogoComponent } from './shared/navbar/logo/logo.component';
+import { AppointmentDetailsComponent } from './pages/appointment-details/appointment-details.component';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -49,6 +50,8 @@ registerLocaleData(localeFr, 'fr');
     FooterComponent,
     LoginComponent,
     AppointmentsComponent,
+    MakeAppointmentComponent,
+    AppointmentDetailsComponent,
     MakeAppointmentComponent,
     HeaderLinkComponent,
     AppUserComponent,
