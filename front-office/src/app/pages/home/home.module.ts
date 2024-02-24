@@ -11,6 +11,7 @@ import {SectionsModule} from '../../sections/sections.module';
 import { HpBannerComponent } from './hp-banner/hp-banner.component';
 import { ServiceListComponent } from './service-list/service-list.component';
 import {CommonComponentsModule} from "../../../components/common-components/common-components.module";
+import { AboutUsComponent } from './about-us/about-us.component';
 
 @NgModule({
   imports: [
@@ -20,7 +21,7 @@ import {CommonComponentsModule} from "../../../components/common-components/comm
     RouterModule,
     SectionsModule, NgbModule, CommonComponentsModule
   ],
-    declarations: [ HomeComponent, HpBannerComponent, ServiceListComponent ],
+    declarations: [ HomeComponent, HpBannerComponent, ServiceListComponent, AboutUsComponent ],
     exports:[ HomeComponent ],
     providers: []
 })
