@@ -16,9 +16,7 @@ export class ServiceListComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log("SERVICES")
     this.service.findServices().subscribe(list => {
-      console.log(list);
       this.services = list;
     })
   }
