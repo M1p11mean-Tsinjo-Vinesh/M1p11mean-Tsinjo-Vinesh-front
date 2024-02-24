@@ -35,6 +35,7 @@ import {MatInputModule} from "@angular/material/input";
 import {FullCalendarModule} from "@fullcalendar/angular";
 import {MatSelectModule} from "@angular/material/select";
 import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
+import { AppointmentDetailsComponent } from './pages/appointment-details/appointment-details.component';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -48,7 +49,8 @@ registerLocaleData(localeFr, 'fr');
     FooterComponent,
     LoginComponent,
     AppointmentsComponent,
-    MakeAppointmentComponent
+    MakeAppointmentComponent,
+    AppointmentDetailsComponent
   ],
   imports: [
     BrowserModule,

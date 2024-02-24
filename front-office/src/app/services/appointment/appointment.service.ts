@@ -57,4 +57,18 @@ export class AppointmentService implements IAppointmentService {
       })
     });
   }
+  
+  
+  findById(id: string): Observable<AppointmentDto> {
+    return new Observable<AppointmentDto>((subscriber) => {
+      this.http.get(baseUrl(`/appointments/${id}`), {
+        headers: {
+          "Authorization": `Bearer ${sessionStorage.getItem('token')}`
+        }
+      }).subscribe((response: DataDto<AppointmentDto>) => {
+        subscriber.next(response.data);
+        subscriber.complete();
+      })
+    })
+  }
 }

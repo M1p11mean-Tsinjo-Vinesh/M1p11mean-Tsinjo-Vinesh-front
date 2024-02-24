@@ -1,4 +1,5 @@
 import {EApointmentStatus} from "../enum/appointmentStatus.enum";
+import {AppointmentDetailsDto} from "./appointmentDetails.dto";
 
 export type AppointmentDto = {
   appointmentDate: Date;
@@ -8,7 +9,9 @@ export type AppointmentDto = {
   },
   status: EApointmentStatus
   estimatedDuration: number,
-  estimatedPrice: number
+  estimatedPrice: number,
+  comments?: string[],
+  elements?: AppointmentDetailsDto[]
 }
 
 export type AppointmentSubmitDto = {
