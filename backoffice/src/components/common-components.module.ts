@@ -50,6 +50,7 @@ import {CommonToastComponent} from './common-toast/common-toast.component';
 import {PaginatedTableComponent} from "./paginated-table/paginated-table.component";
 import {TableComponent} from "./table/table.component";
 import {ButtonsComponent} from "./buttons/buttons.component";
+import { NotificationComponent } from './notification/notification.component';
 
 
 @NgModule({
@@ -75,7 +76,8 @@ import {ButtonsComponent} from "./buttons/buttons.component";
     ButtonsComponent,
     CommonToastComponent,
     PaginatedTableComponent,
-    TableComponent
+    TableComponent,
+    NotificationComponent
   ],
   exports: [
     AppAvatarComponent,
@@ -93,7 +95,8 @@ import {ButtonsComponent} from "./buttons/buttons.component";
     ButtonsComponent,
     ActionButtonsComponent,
     RecursiveInputComponent,
-    PaginatedTableComponent
+    PaginatedTableComponent,
+    NotificationComponent
   ],
 
   imports: [

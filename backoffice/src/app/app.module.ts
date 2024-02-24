@@ -51,6 +51,7 @@ import {FullCalendarModule} from "@fullcalendar/angular";
 import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
 import {MatSelectModule} from "@angular/material/select";
 import localeFr from '@angular/common/locales/fr';
+import {notificationReducer} from "./store/notification/notification.reducer";
 registerLocaleData(localeFr);
 
 const APP_CONTAINERS = [
@@ -64,7 +65,8 @@ const APP_CONTAINERS = [
   imports: [
     BrowserModule,
     StoreModule.forRoot({
-      user: userReducer
+      user: userReducer,
+      notification: notificationReducer
     }),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states

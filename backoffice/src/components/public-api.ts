@@ -20,4 +20,5 @@ export * from './services/util';
 export * from './services/crud/interfaces';
 export * from './services/decoder/jwt-decoder.service';
 export * from './services/decoder/token-decoder.interface';
+export * from './notification/notification.component';
 export * from './'

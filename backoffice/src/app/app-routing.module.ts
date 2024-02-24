@@ -32,6 +32,10 @@ const routes: Routes = [
       {
         path: 'management',
         loadChildren: () => import("./pages/admin/admin.module").then(m => m.AdminModule)
+      },
+      {
+        path: '',
+        loadChildren: () => import('./pages/logged-common/logged-common.module').then(m => m.LoggedCommonModule)
       }
     ]
   },
