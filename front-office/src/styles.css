@@ -56,3 +56,7 @@ router-outlet + * {
 .pink-button:hover {
     opacity: 1.2;
 }
+
+.mt-top {
+    margin-top: 110px;
+}
