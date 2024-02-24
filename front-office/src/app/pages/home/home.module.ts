@@ -13,6 +13,7 @@ import { ServiceListComponent } from './service-list/service-list.component';
 import {CommonComponentsModule} from "../../../components/common-components/common-components.module";
 import { AboutUsComponent } from './about-us/about-us.component';
 import { TeamComponent } from './team/team.component';
+import { FeedbacksComponent } from './feedbacks/feedbacks.component';
 
 @NgModule({
   imports: [
@@ -22,7 +23,7 @@ import { TeamComponent } from './team/team.component';
     RouterModule,
     SectionsModule, NgbModule, CommonComponentsModule
   ],
-    declarations: [ HomeComponent, HpBannerComponent, ServiceListComponent, AboutUsComponent, TeamComponent ],
+    declarations: [ HomeComponent, HpBannerComponent, ServiceListComponent, AboutUsComponent, TeamComponent, FeedbacksComponent ],
     exports:[ HomeComponent ],
     providers: []
 })
