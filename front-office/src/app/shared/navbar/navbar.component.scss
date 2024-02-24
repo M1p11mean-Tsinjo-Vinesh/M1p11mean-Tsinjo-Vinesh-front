@@ -1,3 +1,36 @@
-.dropdown-toggle::after {
+
+.menu-container {
+  display: flex;
+}
+
+.menu-container > * {
+  margin: auto 0;
+}
+
+
+.hamburger-icon {
+  cursor: pointer;
+}
+
+.mobile-header-element {
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid var(--pink-bg);
+}
+
+.mobile-header-element:last-child {
+  border-bottom: unset;
+}
+
+.mobile-menu {
   display: none;
+}
+
+@media screen and (max-width: 991px) {
+  .menu-container {
+    display: none;
+  }
+  .mobile-menu {
+    display: block;
+  }
 }

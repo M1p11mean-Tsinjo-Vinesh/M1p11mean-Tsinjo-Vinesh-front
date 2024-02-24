@@ -1,15 +1,42 @@
-<nav class="fixed w-full z-10 text-black bg-white shadow">
-  <div class="flex flex-row items-center container py-3">
-    <h1 class="flex justify-center flex-1 text-black text-3xl hover:cursor-pointer" [routerLink]="['/home']">
-      BEAUTY
-    </h1>
-    <div ngbDropdown>
-      <div class="pr-3 hover:cursor-pointer dropdown-toggle" ngbDropdownToggle>
-        <fa-icon [icon]="faUser" ></fa-icon>
-      </div>
-      <div ngbDropdownMenu>
-        <div class="dropdown-item hover:cursor-pointer" *ngFor="let element of userMenuElements" [routerLink]="element.link" (click)="element.fn ? element.fn() : null ">{{element.label}}</div>
-      </div>
+<nav class="fixed w-full z-10 text-black pink-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 py-8 flex justify-content-between">
+                <app-logo/>
+                <div class="menu-container">
+                    <app-header-link *ngFor="let link of links" [link]="link"/>
+                    <app-user class="ms-5" />
+                </div>
+                <div class="hamburger mobile-menu">
+                    <fa-icon
+                        (click)="mobileMenuActive = true"
+                        [icon]="faBars"
+                        class="hamburger-icon"
+                    />
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </nav>
+
+<div
+    class="mobile-menu"
+    [class.d-none]="!mobileMenuActive"
+>
+    <div class="position-absolute bg-white w-100 h-100 z-20 p-10">
+        <div class="mb-6 flex justify-content-between">
+            <app-logo />
+            <fa-icon
+                class="my-auto"
+                [icon]="faX"
+                (click)="mobileMenuActive = false"
+            />
+        </div>
+        <div *ngFor="let link of links" class="mobile-header-element">
+            <app-header-link [link]="link"/>
+        </div>
+        <div class="mobile-header-element mt-5">
+            <app-user class="w-100" />
+        </div>
+    </div>
+</div>

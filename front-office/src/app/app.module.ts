@@ -1,7 +1,6 @@
 import {LOCALE_ID, NgModule} from "@angular/core";
 import {AppComponent} from "./app.component";
 import {SignupComponent} from "./pages/signup/signup.component";
-import {LandingComponent} from "./landing/landing.component";
 import {ProfileComponent} from "./pages/profile/profile.component";
 import {NavbarComponent} from "./shared/navbar/navbar.component";
 import {FooterComponent} from "./shared/footer/footer.component";
@@ -35,6 +34,9 @@ import {MatInputModule} from "@angular/material/input";
 import {FullCalendarModule} from "@fullcalendar/angular";
 import {MatSelectModule} from "@angular/material/select";
 import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
+import { HeaderLinkComponent } from './shared/navbar/header-link/header-link.component';
+import { AppUserComponent } from './shared/navbar/app-user/app-user.component';
+import { LogoComponent } from './shared/navbar/logo/logo.component';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -42,13 +44,15 @@ registerLocaleData(localeFr, 'fr');
   declarations: [
     AppComponent,
     SignupComponent,
-    LandingComponent,
     ProfileComponent,
     NavbarComponent,
     FooterComponent,
     LoginComponent,
     AppointmentsComponent,
-    MakeAppointmentComponent
+    MakeAppointmentComponent,
+    HeaderLinkComponent,
+    AppUserComponent,
+    LogoComponent
   ],
   imports: [
     BrowserModule,

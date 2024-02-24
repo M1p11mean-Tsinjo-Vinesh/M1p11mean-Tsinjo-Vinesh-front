@@ -1,8 +1,7 @@
-import { Component, OnInit, Inject, Renderer2, ElementRef, ViewChild, HostListener } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
-import { DOCUMENT } from '@angular/common';
-import { LocationStrategy, PlatformLocation, Location } from '@angular/common';
-import { filter, Subscription } from 'rxjs';
+import {Component, ElementRef, HostListener, Inject, OnInit, Renderer2} from '@angular/core';
+import {NavigationEnd, Router} from '@angular/router';
+import {DOCUMENT, Location} from '@angular/common';
+import {filter, Subscription} from 'rxjs';
 
 var didScroll;
 var lastScrollTop = 0;
@@ -18,6 +17,7 @@ export class AppComponent implements OnInit {
     private _router: Subscription;
 
     constructor( private renderer : Renderer2, private router: Router, @Inject(DOCUMENT,) private document: any, private element : ElementRef, public location: Location) {}
+
     @HostListener('window:scroll', ['$event'])
     hasScrolled() {
 
@@ -51,6 +51,7 @@ export class AppComponent implements OnInit {
 
         lastScrollTop = st;
     };
+
     ngOnInit() {
       this._router = this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
           if (window.outerWidth > 991) {
