@@ -22,7 +22,7 @@ export class ClientService implements IClientService {
 
   isMailAvailable(email: string): Observable<boolean> {
         return new Observable<boolean>(subscriber => {
-            this.http.get(baseUrl('/clients/checkMail'), {
+            this.http.get(baseUrl('clients/checkMail'), {
                 params: {
                     email: email
                 }
@@ -55,13 +55,13 @@ export class ClientService implements IClientService {
 
   register(user: UserSignUpDTO): Observable<DataDto<AuthDto>> {
     return new Observable<DataDto<AuthDto>>( subscriber => {
-        this.http.post(baseUrl('clients/register'), user).subscribe((response: DataDto<AuthDto>) => {
+        const apiCall = () => this.http.post(baseUrl('clients/register'), user).subscribe(ObserverObject((response: DataDto<AuthDto>) => {
           const tokenData = this.jwtDecoder.decode(response.data.jwt);
           this.store.dispatch(setUser(tokenData));
-          sessionStorage.setItem('user', JSON.stringify(tokenData));
           subscriber.next(response);
           subscriber.complete();
-        });
+        }));
+        startApiCall(apiCall);
     });
   }
   
@@ -84,7 +84,7 @@ export class ClientService implements IClientService {
   
   updateUser(user: UserUpdateDTO): Observable<DataDto<UserDTO>> {
     return new Observable<DataDto<UserDTO>>(subscriber => {
-      this.http.put(baseUrl('/clients/update-info'), user, {
+      this.http.put(baseUrl('clients/update-info'), user, {
         headers: {
           "Authorization": `Bearer ${sessionStorage.getItem('token')}`
         }}).subscribe((response: DataDto<UserDTO>) => {
