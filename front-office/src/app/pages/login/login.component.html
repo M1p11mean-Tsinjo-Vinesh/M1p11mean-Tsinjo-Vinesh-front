@@ -1,22 +1,13 @@
 <main >
   <section class="section section-shaped section-lg">
-    <div class="shape shape-style-1 bg-gradient-default">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
+
     <div class="container pt-lg-md">
       <div class="row justify-content-center">
         <div class="col-lg-5">
-          <div class="card bg-secondary shadow border-0">
-            <div class="card-body px-lg-5 py-lg-5">
+          <div class="card">
+            <div class="card-body px-5 py-5">
               <div class="text-center text-muted mb-4">
-                <small>Connectez-vous</small>
+                <h1 class="h3">Connectez-vous</h1>
               </div>
               <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" role="form">
                 <div class="form-group mb-3" >
@@ -69,7 +60,7 @@
                   </div>
                 </div>
                 <div class="flex justify-center flex-col">
-                  <button type="submit" class="btn btn-black bg-black mb-3" [disabled]="!loginForm.valid">Se connecter</button>
+                  <button type="submit" class="w-100 pink-button mb-3" [disabled]="!loginForm.valid">Se connecter</button>
                   <button type="button" class="btn" [routerLink]="['/register']">S'inscrire</button>
                 </div>
               </form>
