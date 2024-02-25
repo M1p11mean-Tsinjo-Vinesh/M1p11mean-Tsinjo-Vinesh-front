@@ -1,10 +1,27 @@
-<footer class="footer w-full" [ngClass]="{'has-cards': getPath()!=='/user-profile' && getPath()!=='/register' && getPath()!=='/login'}">
+<footer class="footer w-full pink-bg" >
   <div class="container">
-    <div class="row row-grid align-items-center" [ngClass]="{'my-md': getPath()!=='/user-profile' && getPath()!=='/register' && getPath()!=='/login', 'mb-5':getPath()==='/user-profile' || getPath()==='/register' || getPath()==='/login'}">
-      <div class="col-lg-6">
-        <h5 class="mb-0 font-weight-light">Sinel Vinesh</h5>
-        <h5 class="mb-0 font-weight-light">Andrianarivony Tsinjo Herisetra</h5>
+    <div class="row">
+      <div class="col-md-3">
+          <app-logo />
       </div>
+        <div class="col-md-3">
+            <h5>Services</h5>
+        </div>
+        <div class="col-md-3">
+            <div class="row">
+                <div class="col-12">
+                    <h5>Email</h5>
+                </div>
+                <div class="col-12">
+                    <h5>Adresse</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <h5>
+                Horaires
+            </h5>
+        </div>
     </div>
     <hr>
     <div class="row align-items-center justify-content-md-between">
