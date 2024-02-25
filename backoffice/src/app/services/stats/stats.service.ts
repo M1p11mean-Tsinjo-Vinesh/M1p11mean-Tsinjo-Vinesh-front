@@ -6,6 +6,7 @@ import {DataDto} from "../../dto/data.dto";
 import {baseUrl} from "../../../config/server.config";
 import {AppointmentCountDto} from "../../dto/appointmentCount.dto";
 import {WorkingTimeDto} from "../../dto/workingTime.dto";
+import {ProfitDto} from "../../dto/profit.dto";
 
 @Injectable({
   providedIn: 'root'
@@ -59,6 +60,16 @@ export class StatsService {
     return new Observable<WorkingTimeDto[]>(subscriber => {
       this.httpClient.get<DataDto<WorkingTimeDto[]>>(baseUrl(`stats/mean-working-time?year=${year}&month=${month}`))
         .subscribe((response: DataDto<WorkingTimeDto[]>) => {
+          subscriber.next(response.data);
+          subscriber.complete();
+        })
+    })
+  }
+
+  getProfitByYear(year: number): Observable<ProfitDto> {
+    return new Observable<ProfitDto>(subscriber => {
+      this.httpClient.get<DataDto<ProfitDto>>(baseUrl(`stats/profits?year=${year}`))
+        .subscribe((response: DataDto<ProfitDto>) => {
           subscriber.next(response.data);
           subscriber.complete();
         })

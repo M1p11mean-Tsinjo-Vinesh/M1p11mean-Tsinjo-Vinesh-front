@@ -1,0 +1,49 @@
+<div class="d-flex flex-row gap-2">
+  <c-card class="mb-2 flex-grow-1">
+    <c-card-header>
+      <h2 class="m-0">Bénéfices</h2>
+    </c-card-header>
+    <c-card-body>
+      <div class="chart-header">
+        <h3 class="chart-header-date">
+            <span>
+              Statistiques pour
+            </span>
+          <select cSelect class="chart-header-select" [formControl]="selectedYear">
+            <option value="{{i}}" *ngFor="let i of years">{{i}}</option>
+          </select>
+        </h3>
+      </div>
+      <div>
+        <c-chart
+          [data]="chartData"
+          (chartRef)="handleChartRef($event)"
+          height="200"
+          [options]="options"
+          type="line">
+        </c-chart>
+      </div>
+    </c-card-body>
+  </c-card>
+  <div>
+    <c-widget-stat-a
+      class="mb-4 py-2"
+      [color]="totalPeriodProfit > 0 ? 'success' : 'danger'"
+      [title]="'Bénéfices de la période'"
+      >
+        <ng-template cTemplateId="widgetValueTemplate">
+          {{totalPeriodProfit | number: "1.0-0"}} MGA
+        </ng-template>
+    </c-widget-stat-a>
+    <c-widget-stat-a
+      class="mb-4 py-2"
+      [color]="totalPeriodProfit > 0 ? 'success' : 'danger'"
+      [title]="'Bénéfices moyen (mensuel)'"
+      >
+        <ng-template cTemplateId="widgetValueTemplate">
+          {{getMonthProfitMean() | number: "1.0-0"}} MGA
+        </ng-template>
+    </c-widget-stat-a>
+  </div>
+</div>
+

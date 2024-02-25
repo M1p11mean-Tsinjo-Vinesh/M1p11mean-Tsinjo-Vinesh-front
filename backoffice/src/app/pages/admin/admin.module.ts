@@ -12,7 +12,7 @@ import {
   CardBodyComponent,
   CardComponent,
   CardHeaderComponent,
-  FormSelectDirective
+  FormSelectDirective, TemplateIdDirective, WidgetStatAComponent
 } from "@coreui/angular";
 import {FullCalendarModule} from "@fullcalendar/angular";
 import { ServiceListComponent } from './service/service-list.component';
@@ -27,6 +27,10 @@ import { ExpenseComponent } from './expense.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import {ChartjsComponent} from "@coreui/angular-chartjs";
 import {DurationPipe} from "../../pipe/Duration.pipe";
+import { SalesChartComponent } from './admin-dashboard/sales-chart/sales-chart.component';
+import { AppointmentCountChartComponent } from './admin-dashboard/appointment-count-chart/appointment-count-chart.component';
+import { WorkingTimeComponent } from './admin-dashboard/working-time/working-time.component';
+import { ProfitChartComponent } from './admin-dashboard/profit-chart/profit-chart.component';
 
 
 @NgModule({
@@ -36,7 +40,11 @@ import {DurationPipe} from "../../pipe/Duration.pipe";
     ServiceListComponent,
     OfferFormComponent,
     ExpenseComponent,
-    AdminDashboardComponent
+    AdminDashboardComponent,
+    SalesChartComponent,
+    AppointmentCountChartComponent,
+    WorkingTimeComponent,
+    ProfitChartComponent
   ],
   imports: [
     CommonModule,
@@ -59,7 +67,9 @@ import {DurationPipe} from "../../pipe/Duration.pipe";
     FormSelectDirective,
     ButtonGroupComponent,
     ButtonDirective,
-    DurationPipe
+    DurationPipe,
+    WidgetStatAComponent,
+    TemplateIdDirective
   ]
 })
 export class AdminModule { }

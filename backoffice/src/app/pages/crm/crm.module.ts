@@ -18,6 +18,11 @@ import {FullCalendarModule} from "@fullcalendar/angular";
 import { PlanningComponent } from './planning/planning/planning.component';
 import { TasklistComponent } from './tasklist/tasklist.component';
 import { EmployeeHomeComponent } from './employee-home/employee-home.component';
+import {MatTableModule} from "@angular/material/table";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatInputModule} from "@angular/material/input";
+import {MatNativeDateModule} from "@angular/material/core";
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -43,6 +48,11 @@ import { EmployeeHomeComponent } from './employee-home/employee-home.component';
     ModalBodyComponent,
     ModalFooterComponent,
     ButtonDirective,
+    MatTableModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatNativeDateModule,
+    ReactiveFormsModule
   ]
 })
 export class CrmModule { }

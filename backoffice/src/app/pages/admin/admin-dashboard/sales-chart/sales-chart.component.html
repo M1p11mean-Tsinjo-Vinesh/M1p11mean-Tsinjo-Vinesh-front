@@ -1,0 +1,33 @@
+<c-card class="mb-2 flex-grow-1">
+  <c-card-header>
+    <h2 class="m-0">Chiffres d'affaires</h2>
+  </c-card-header>
+  <c-card-body>
+    <div class="chart-header">
+      <h3 class="chart-header-date">
+          <span>
+            Statistiques pour
+          </span>
+        <select cSelect class="chart-header-select" *ngIf="mode === 'month'" [formControl]="selectedMonth">
+          <option value="{{i}}" *ngFor="let i of months">{{getMonthName(i)}}</option>
+        </select>
+        <select cSelect class="chart-header-select" [formControl]="selectedYear">
+          <option value="{{i}}" *ngFor="let i of years">{{i}}</option>
+        </select>
+      </h3>
+      <c-button-group>
+        <button cButton [active]="mode === 'month'" (click)="handleModeChange('month')" color="primary" variant="outline">Mois</button>
+        <button cButton [active]="mode === 'year'" (click)="handleModeChange('year')" color="primary" variant="outline">Année</button>
+      </c-button-group>
+    </div>
+    <div>
+      <c-chart
+        [data]="chartData"
+        (chartRef)="handleChartRef($event)"
+        height="200"
+        [options]="options"
+        type="line">
+      </c-chart>
+    </div>
+  </c-card-body>
+</c-card>
