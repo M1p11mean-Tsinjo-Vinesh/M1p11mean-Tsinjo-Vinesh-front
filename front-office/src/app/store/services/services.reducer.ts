@@ -3,7 +3,7 @@ import {clearServices, setServices} from "./services.action";
 
 
 export const servicesReducer = createReducer(
-  [],
-  on(setServices, (state, user) => [...user]),
-  on(clearServices, state => [])
+  {list: []},
+  on(setServices, (state, services) => ({...services})),
+  on(clearServices, state => ({list: []}))
 );

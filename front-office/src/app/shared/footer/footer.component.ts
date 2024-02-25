@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {ServiceProps} from "../../../components/common-components/service-card/service-card.component";
+import {Store} from "@ngrx/store";
+import AppStore from "../../store/Appstore";
+import appstore from "../../store/Appstore";
 
 @Component({
     selector: 'app-footer',
@@ -8,11 +12,16 @@ import { Router } from '@angular/router';
 })
 export class FooterComponent implements OnInit {
     date : Date = new Date();
+    services: ServiceProps[];
 
-    constructor(private router: Router ) {}
+    constructor(
+      private store: Store<AppStore>,
+      private router: Router ) {}
 
     ngOnInit() {
-
+      this.store.subscribe(appstore => {
+        this.services = appstore.services.list;
+      })
     }
     getPath(){
       return this.router.url;

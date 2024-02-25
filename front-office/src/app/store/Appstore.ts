@@ -3,7 +3,7 @@ import {ServiceProps} from "../../components/common-components/service-card/serv
 
 type AppStore = {
   user: UserDTO,
-  services: ServiceProps[]
+  services: { list: ServiceProps[] }
 }
 
 export default AppStore;

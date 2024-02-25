@@ -6,6 +6,13 @@
       </div>
         <div class="col-md-3">
             <h5>Services</h5>
+            <app-header-link
+                *ngFor="let service of services"
+                [link]="{
+                    name: service.name,
+                    link: '#'
+                }"
+            />
         </div>
         <div class="col-md-3">
             <div class="row">
