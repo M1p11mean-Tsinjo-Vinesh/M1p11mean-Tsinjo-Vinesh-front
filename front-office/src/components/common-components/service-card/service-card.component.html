@@ -1,0 +1,16 @@
+<div class="mb-4">
+
+    <ngb-carousel [interval]="2000" class="h-full" [showNavigationArrows]="true" [pauseOnHover]="false">
+        <ng-template ngbSlide *ngFor="let image of service.pictureUrls" class="h-full">
+            <div
+                class="service-img mb-4"
+                [ngStyle]="{
+                    backgroundImage: 'url('+ image + ')'
+                }"
+            >
+            </div>
+        </ng-template>
+    </ngb-carousel>
+
+    <h4 class="text-center">{{service.name}}</h4>
+</div>

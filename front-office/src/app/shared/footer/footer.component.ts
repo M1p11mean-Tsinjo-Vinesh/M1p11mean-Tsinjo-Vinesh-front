@@ -1,5 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {ServiceProps} from "../../../components/common-components/service-card/service-card.component";
+import {Store} from "@ngrx/store";
+import AppStore from "../../store/Appstore";
+import { faTwitter,  faFacebookF, faInstagramSquare } from '@fortawesome/free-brands-svg-icons';
+
 
 @Component({
     selector: 'app-footer',
@@ -8,16 +13,41 @@ import { Router } from '@angular/router';
 })
 export class FooterComponent implements OnInit {
     date : Date = new Date();
+    services: ServiceProps[];
 
-    constructor(private router: Router ) {}
+    icons = [
+      {
+        icon: faFacebookF,
+        link: "https://facebook.com"
+      },
+      {
+        icon: faTwitter,
+        link: "https://twitter.com"
+      },
+      {
+        icon: faInstagramSquare,
+        link: "https://instagram.com"
+      }
+    ]
+
+    hours: string[] = [
+      'Lundi : 8:00 - 17:00',
+      'Mardi : 8:00 - 17:00',
+      'Mercredi : 8:00 - 17:00',
+      'Jeudi : 8:00 - 17:00',
+      'Vendredi : 8:00 - 17:00',
+      'Samedi : 8:00 - 17:00',
+      'Dimanche : 8:00 - 11:00',
+    ];
+
+    constructor(
+      private store: Store<AppStore>,
+      private router: Router ) {}
 
     ngOnInit() {
+      this.store.subscribe(appstore => {
+        this.services = appstore.services.list;
+      })
+    }
 
-    }
-    getPath(){
-      return this.router.url;
-    }
-    ngOnDestroy() {
-    
-    }
 }

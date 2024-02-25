@@ -1,0 +1,10 @@
+<div class="mb-4">
+    <div
+    class="member-img mb-4"
+        [ngStyle]="{
+            backgroundImage: 'url('+ member.image + ')'
+        }"
+    >
+    </div>
+    <h4 class="text-center">{{(member.firstName + ' ' + member.lastName).trim()}}</h4>
+</div>

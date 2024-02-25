@@ -1,7 +1,6 @@
 import {LOCALE_ID, NgModule} from "@angular/core";
 import {AppComponent} from "./app.component";
 import {SignupComponent} from "./pages/signup/signup.component";
-import {LandingComponent} from "./landing/landing.component";
 import {ProfileComponent} from "./pages/profile/profile.component";
 import {NavbarComponent} from "./shared/navbar/navbar.component";
 import {FooterComponent} from "./shared/footer/footer.component";
@@ -15,7 +14,7 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {RouterModule} from "@angular/router";
 import {AppRoutingModule} from "./app.routing";
-import {HomeModule} from "./home/home.module";
+import {HomeModule} from "./pages/home/home.module";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {HttpClientModule} from "@angular/common/http";
@@ -35,7 +34,13 @@ import {MatInputModule} from "@angular/material/input";
 import {FullCalendarModule} from "@fullcalendar/angular";
 import {MatSelectModule} from "@angular/material/select";
 import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
+import { HeaderLinkComponent } from './shared/navbar/header-link/header-link.component';
+import { AppUserComponent } from './shared/navbar/app-user/app-user.component';
+import { LogoComponent } from './shared/navbar/logo/logo.component';
 import { AppointmentDetailsComponent } from './pages/appointment-details/appointment-details.component';
+import {StarRatingModule} from "angular-star-rating";
+import {servicesReducer} from "./store/services/services.reducer";
+import { FooterLinkComponent } from './shared/footer/footer-link/footer-link.component';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -43,23 +48,29 @@ registerLocaleData(localeFr, 'fr');
   declarations: [
     AppComponent,
     SignupComponent,
-    LandingComponent,
     ProfileComponent,
     NavbarComponent,
     FooterComponent,
     LoginComponent,
     AppointmentsComponent,
     MakeAppointmentComponent,
-    AppointmentDetailsComponent
+    AppointmentDetailsComponent,
+    MakeAppointmentComponent,
+    HeaderLinkComponent,
+    AppUserComponent,
+    LogoComponent,
+    FooterLinkComponent
   ],
   imports: [
     BrowserModule,
     StoreModule.forRoot({
-      user: userReducer
+      user: userReducer,
+      services: servicesReducer
     }),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
     }),
+    StarRatingModule.forRoot(),
     NgbModule,
     FormsModule,
     RouterModule,

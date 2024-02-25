@@ -1,0 +1,16 @@
+.header-link {
+    & a {
+        color: unset;
+    }
+
+    .active {
+        color: var(--pink-text);
+    }
+
+    padding: 10px 15px;
+    transition: all ease-in-out 300ms;
+}
+
+.header-link:hover a{
+   color: var(--pink-text);
+}

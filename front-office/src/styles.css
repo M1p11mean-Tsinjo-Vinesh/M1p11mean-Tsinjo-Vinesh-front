@@ -2,6 +2,7 @@
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 @import 'bootstrap/dist/css/bootstrap.css';
 @import "bootstrap-icons/font/bootstrap-icons.css";
+@import 'css-star-rating/css/star-rating.css';
 
 @tailwind base;
 @tailwind components;
@@ -32,3 +33,44 @@ router-outlet + * {
 .cdk-overlay-container {
     z-index: 10000 !important;
 }
+
+* {
+    font-family: 'PT Serif', serif;
+}
+
+:root {
+    --pink-text: rgb(238, 101, 103);
+    --pink-bg: rgb(255, 245, 245);
+}
+
+.pink-bg {
+    background-color: var(--pink-bg);
+}
+
+.pink-button {
+    background-color: var(--pink-text);
+    color: white;
+    padding: 12px 22px;
+    border-radius: 10px;
+}
+
+.pink-button:hover {
+    opacity: 1.2;
+}
+
+.mt-top {
+    margin-top: 100px;
+}
+
+.star-container {
+    margin-left: 0;
+    color: var(--pink-text)
+}
+
+.rating {
+    justify-content: left;
+    align-items: unset;
+}
+
+/* styles.scss */
+

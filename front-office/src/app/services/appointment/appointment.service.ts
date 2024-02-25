@@ -1,6 +1,6 @@
 import {IAppointmentService} from "./IAppointment.service";
 import {TFilterElement} from "../../data/type/filterElement.type";
-import {map, Observable} from "rxjs";
+import {Observable} from "rxjs";
 import {AppointmentDto, AppointmentSubmitDto} from "../../data/dto/appointment.dto";
 import {HttpClient} from "@angular/common/http";
 import {baseUrl} from "../../../config/server.config";

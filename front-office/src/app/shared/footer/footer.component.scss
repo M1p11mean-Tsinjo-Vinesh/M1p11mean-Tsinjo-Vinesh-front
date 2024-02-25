@@ -1,0 +1,19 @@
+.footer {
+  .footer-logo, h5 {
+    margin-bottom: 20px;
+  }
+}
+
+.address, .hours {
+  color: rgb(74, 74, 74);
+}
+
+.brand-link {
+  padding: 5px 9px 5px 9px;
+  background-color: var(--pink-text);
+  margin-right: 10px;
+}
+
+.brand-link a {
+  color: white;
+}

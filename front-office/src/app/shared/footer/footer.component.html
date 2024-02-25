@@ -1,16 +1,57 @@
-<footer class="footer w-full" [ngClass]="{'has-cards': getPath()!=='/user-profile' && getPath()!=='/register' && getPath()!=='/login'}">
+<footer class="footer w-full pink-bg" >
   <div class="container">
-    <div class="row row-grid align-items-center" [ngClass]="{'my-md': getPath()!=='/user-profile' && getPath()!=='/register' && getPath()!=='/login', 'mb-5':getPath()==='/user-profile' || getPath()==='/register' || getPath()==='/login'}">
-      <div class="col-lg-6">
-        <h5 class="mb-0 font-weight-light">Sinel Vinesh</h5>
-        <h5 class="mb-0 font-weight-light">Andrianarivony Tsinjo Herisetra</h5>
+    <div class="row">
+      <div class="col-md-3">
+          <div class="footer-logo" >
+              <app-logo />
+          </div>
+          <div class="flex">
+              <span *ngFor="let icon of icons" class="brand-link">
+                  <a href="{{icon.link}}" target="_blank">
+                      <fa-icon [icon]="icon.icon" />
+                  </a>
+              </span>
+          </div>
       </div>
+        <div class="col-md-3">
+            <h5>Services</h5>
+            <div *ngFor="let service of services">
+                <app-footer-link
+                        [link]="{
+                    name: service.name,
+                    link: '#'
+                }"
+                />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="row">
+                <div class="col-12 mb-8">
+                    <h5>Email</h5>
+                    <app-footer-link [link]="{
+                        name: 'sinel.salon@gmail.com',
+                        link: 'mailto:sinel.salon@gmail.com'
+                    }" />
+                </div>
+                <div class="col-12">
+                    <h5>Adresse</h5>
+                    <p class="address">Ambohimiandra 675 NH, Antananarivo, Madagascar</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <h5>
+                Horaires
+            </h5>
+            <div class="hours" *ngFor="let hour of hours" >{{hour}}</div>
+        </div>
     </div>
     <hr>
-    <div class="row align-items-center justify-content-md-between">
+    <div class="row flex justify-content-around">
       <div class="col-md-6">
-        <div class="copyright">
-          &copy; {{date | date: 'yyyy'}}
+        <div class="copyright text-center">
+            Andrianarivony Tsinjo Herisetra - 1539 | Sinel Vinesh - 1669 <br>
+            Copyright &copy; {{date | date: 'yyyy'}}
         </div>
       </div>
     </div>

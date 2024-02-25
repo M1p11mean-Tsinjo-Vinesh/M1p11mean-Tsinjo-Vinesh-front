@@ -1,0 +1,16 @@
+.footer-link {
+    & a {
+        color: rgb(74, 74, 74);
+        font-weight: 300;
+    }
+
+    .active {
+        color: var(--pink-text);
+    }
+
+    transition: all ease-in-out 300ms;
+}
+
+.footer-link:hover a{
+    color: var(--pink-text);
+}

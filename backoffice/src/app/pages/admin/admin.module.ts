@@ -46,6 +46,9 @@ import { ProfitChartComponent } from './admin-dashboard/profit-chart/profit-char
     WorkingTimeComponent,
     ProfitChartComponent
   ],
+  exports: [
+    ServiceListComponent
+  ],
   imports: [
     CommonModule,
     AdminRoutingModule,

@@ -1,0 +1,9 @@
+.logo-container {
+    display: flex;
+}
+
+.logo {
+    font-size: 24px;
+    font-family: 'PT Serif', serif;
+    margin: auto 0;
+}
