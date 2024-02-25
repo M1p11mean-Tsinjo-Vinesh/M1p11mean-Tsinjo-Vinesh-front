@@ -33,7 +33,7 @@ export class ClientService implements IClientService {
 
   login(email: string, password: string): Observable<DataDto<AuthDto>> {
     return new Observable<DataDto<AuthDto>>( subscriber => {
-        this.http.post(baseUrl('/clients/login'), {
+        this.http.post(baseUrl('clients/login'), {
             email: email,
             password: password
         }).subscribe((response: DataDto<AuthDto>) => {
@@ -49,7 +49,7 @@ export class ClientService implements IClientService {
   
   register(user: UserSignUpDTO): Observable<DataDto<AuthDto>> {
     return new Observable<DataDto<AuthDto>>( subscriber => {
-        this.http.post(baseUrl('/clients/register'), user).subscribe((response: DataDto<AuthDto>) => {
+        this.http.post(baseUrl('clients/register'), user).subscribe((response: DataDto<AuthDto>) => {
           const tokenData = this.jwtDecoder.decode(response.data.jwt);
           this.store.dispatch(setUser(tokenData));
           sessionStorage.setItem('user', JSON.stringify(tokenData));

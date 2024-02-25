@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
-import {UniqueMailValidator} from "../../validators/unique-mail.validator";
 import {ClientService} from "../../services/client/client.service";
 import {Router} from "@angular/router";
 import {showSuccess} from "../../../components/services/sweet-alert.util";
