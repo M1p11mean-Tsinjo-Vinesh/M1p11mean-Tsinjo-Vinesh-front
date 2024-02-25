@@ -11,6 +11,8 @@ import AppStore from "../../store/Appstore";
 import {clearUser, setUser} from "../../store/user/user.action";
 import {JwtDecoderService} from "../decoder/jwt-decoder.service";
 import {UserDTO, UserSignUpDTO, UserUpdateDTO} from "../../data/dto/user.dto";
+import {ObserverObject} from "../util";
+import {startApiCall} from "../sweet-alert.util";
 
 @Injectable({
   providedIn: 'root'
@@ -33,20 +35,24 @@ export class ClientService implements IClientService {
 
   login(email: string, password: string): Observable<DataDto<AuthDto>> {
     return new Observable<DataDto<AuthDto>>( subscriber => {
-        this.http.post(baseUrl('clients/login'), {
-            email: email,
-            password: password
-        }).subscribe((response: DataDto<AuthDto>) => {
-          const tokenData = this.jwtDecoder.decode(response.data.jwt);
+      const loginApiCall = () => this.http.post(baseUrl('clients/login'), {
+          email: email,
+          password: password
+      }).subscribe(ObserverObject((response: DataDto<AuthDto>) => {
+        if(response.data) {
+          const {jwt} = response.data;
+          const tokenData = this.jwtDecoder.decode(jwt);
+          sessionStorage.setItem('token', jwt);
+          tokenData.token = jwt;
           this.store.dispatch(setUser(tokenData));
-          sessionStorage.setItem('user', JSON.stringify(tokenData));
-          sessionStorage.setItem('token', response.data.jwt);
-          subscriber.next(response);
-          subscriber.complete();
-        });
+        }
+        subscriber.next(response);
+        subscriber.complete();
+      }));
+      startApiCall(loginApiCall);
     });
   }
-  
+
   register(user: UserSignUpDTO): Observable<DataDto<AuthDto>> {
     return new Observable<DataDto<AuthDto>>( subscriber => {
         this.http.post(baseUrl('clients/register'), user).subscribe((response: DataDto<AuthDto>) => {
