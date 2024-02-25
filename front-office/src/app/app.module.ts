@@ -39,6 +39,7 @@ import { AppUserComponent } from './shared/navbar/app-user/app-user.component';
 import { LogoComponent } from './shared/navbar/logo/logo.component';
 import { AppointmentDetailsComponent } from './pages/appointment-details/appointment-details.component';
 import {StarRatingModule} from "angular-star-rating";
+import {servicesReducer} from "./store/services/services.reducer";
 
 registerLocaleData(localeFr, 'fr');
 
@@ -61,7 +62,8 @@ registerLocaleData(localeFr, 'fr');
   imports: [
     BrowserModule,
     StoreModule.forRoot({
-      user: userReducer
+      user: userReducer,
+      services: servicesReducer
     }),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
