@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 
-export interface HeaderLinkProps {
+export interface LinkProps {
   name: string,
   link?: string
 }
@@ -14,6 +14,6 @@ export class HeaderLinkComponent {
 
   @Input({
     required: true
-  }) public link!: HeaderLinkProps;
+  }) public link!: LinkProps;
 
 }

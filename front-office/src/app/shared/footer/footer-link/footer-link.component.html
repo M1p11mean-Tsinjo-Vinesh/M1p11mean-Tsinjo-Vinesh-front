@@ -1,0 +1,17 @@
+<span class="footer-link">
+    <a
+        *ngIf="link.link.startsWith('mailto'); else innerLink"
+        href="{{link.link}}"
+        routerLinkActive="active"
+    >
+        {{link.name}}
+    </a>
+    <ng-template #innerLink>
+        <a
+            routerLink="{{link.link}}"
+            routerLinkActive="active"
+        >
+        {{link.name}}
+    </a>
+    </ng-template>
+</span>

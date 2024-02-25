@@ -40,6 +40,7 @@ import { LogoComponent } from './shared/navbar/logo/logo.component';
 import { AppointmentDetailsComponent } from './pages/appointment-details/appointment-details.component';
 import {StarRatingModule} from "angular-star-rating";
 import {servicesReducer} from "./store/services/services.reducer";
+import { FooterLinkComponent } from './shared/footer/footer-link/footer-link.component';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -57,7 +58,8 @@ registerLocaleData(localeFr, 'fr');
     MakeAppointmentComponent,
     HeaderLinkComponent,
     AppUserComponent,
-    LogoComponent
+    LogoComponent,
+    FooterLinkComponent
   ],
   imports: [
     BrowserModule,
