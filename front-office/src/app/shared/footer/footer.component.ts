@@ -3,6 +3,8 @@ import {Router} from '@angular/router';
 import {ServiceProps} from "../../../components/common-components/service-card/service-card.component";
 import {Store} from "@ngrx/store";
 import AppStore from "../../store/Appstore";
+import { faTwitter,  faFacebookF, faInstagramSquare } from '@fortawesome/free-brands-svg-icons';
+
 
 @Component({
     selector: 'app-footer',
@@ -12,6 +14,21 @@ import AppStore from "../../store/Appstore";
 export class FooterComponent implements OnInit {
     date : Date = new Date();
     services: ServiceProps[];
+
+    icons = [
+      {
+        icon: faFacebookF,
+        link: "https://facebook.com"
+      },
+      {
+        icon: faTwitter,
+        link: "https://twitter.com"
+      },
+      {
+        icon: faInstagramSquare,
+        link: "https://instagram.com"
+      }
+    ]
 
     hours: string[] = [
       'Lundi : 8:00 - 17:00',

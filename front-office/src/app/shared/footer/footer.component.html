@@ -2,7 +2,16 @@
   <div class="container">
     <div class="row">
       <div class="col-md-3">
-          <app-logo />
+          <div class="footer-logo" >
+              <app-logo />
+          </div>
+          <div class="flex">
+              <span *ngFor="let icon of icons" class="brand-link">
+                  <a href="{{icon.link}}" target="_blank">
+                      <fa-icon [icon]="icon.icon" />
+                  </a>
+              </span>
+          </div>
       </div>
         <div class="col-md-3">
             <h5>Services</h5>
