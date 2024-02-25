@@ -16,13 +16,17 @@ import {
 } from "@coreui/angular";
 import {FullCalendarModule} from "@fullcalendar/angular";
 import { PlanningComponent } from './planning/planning/planning.component';
+import { TasklistComponent } from './tasklist/tasklist.component';
+import { EmployeeHomeComponent } from './employee-home/employee-home.component';
 
 
 @NgModule({
   declarations: [
     UserComponent,
     EditProfileComponent,
-    PlanningComponent
+    PlanningComponent,
+    TasklistComponent,
+    EmployeeHomeComponent
   ],
   imports: [
     CommonModule,

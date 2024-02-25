@@ -7,7 +7,13 @@ import {CommonComponentsModule} from "@common-components/common-components.modul
 import { ServiceFormComponent } from './service/service-form/service-form.component';
 import {UppyAngularDashboardModule} from "@uppy/angular";
 import {ReactiveFormsModule} from "@angular/forms";
-import {AlertComponent, CardBodyComponent, CardComponent, CardHeaderComponent} from "@coreui/angular";
+import {
+  AlertComponent, ButtonDirective, ButtonGroupComponent,
+  CardBodyComponent,
+  CardComponent,
+  CardHeaderComponent,
+  FormSelectDirective
+} from "@coreui/angular";
 import {FullCalendarModule} from "@fullcalendar/angular";
 import { ServiceListComponent } from './service/service-list.component';
 import {MatIconModule} from "@angular/material/icon";
@@ -18,6 +24,9 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatSortModule} from "@angular/material/sort";
 import {MatTableModule} from "@angular/material/table";
 import { ExpenseComponent } from './expense.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import {ChartjsComponent} from "@coreui/angular-chartjs";
+import {DurationPipe} from "../../pipe/Duration.pipe";
 
 
 @NgModule({
@@ -26,7 +35,8 @@ import { ExpenseComponent } from './expense.component';
     ServiceFormComponent,
     ServiceListComponent,
     OfferFormComponent,
-    ExpenseComponent
+    ExpenseComponent,
+    AdminDashboardComponent
   ],
   imports: [
     CommonModule,
@@ -44,7 +54,12 @@ import { ExpenseComponent } from './expense.component';
     NgxMatSelectSearchModule,
     MatButtonModule,
     MatSortModule,
-    MatTableModule
+    MatTableModule,
+    ChartjsComponent,
+    FormSelectDirective,
+    ButtonGroupComponent,
+    ButtonDirective,
+    DurationPipe
   ]
 })
 export class AdminModule { }

@@ -5,6 +5,7 @@ import {ServiceFormComponent} from "./service/service-form/service-form.componen
 import {ServiceListComponent} from "./service/service-list.component";
 import {OfferFormComponent} from "./offer/offer-form/offer-form.component";
 import {ExpenseComponent} from "./expense.component";
+import {AdminDashboardComponent} from "./admin-dashboard/admin-dashboard.component";
 
 const routes: Routes = [
   {
@@ -35,6 +36,16 @@ const routes: Routes = [
   {
     path: "depense",
     component: ExpenseComponent,
+    pathMatch: "full"
+  },
+  {
+    path: "dashboard",
+    component: AdminDashboardComponent,
+    pathMatch: "full"
+  },
+  {
+    path: "",
+    component: AdminDashboardComponent,
     pathMatch: "full"
   }
 ];

@@ -32,7 +32,6 @@ export class PlanningComponent implements OnInit{
     locale: frLocale,
     editable: true,
     allDaySlot: false,
-    slotDuration: "00:15:00",
     plugins: [timegridPlugin, bootstrap5Plugin],
     slotMinTime: "06:00:00",
     slotMaxTime: "18:00:00",

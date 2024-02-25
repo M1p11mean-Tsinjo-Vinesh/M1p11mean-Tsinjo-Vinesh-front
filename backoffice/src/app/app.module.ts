@@ -52,6 +52,7 @@ import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
 import {MatSelectModule} from "@angular/material/select";
 import localeFr from '@angular/common/locales/fr';
 import {notificationReducer} from "./store/notification/notification.reducer";
+import {DurationPipe} from "./pipe/Duration.pipe";
 registerLocaleData(localeFr);
 
 const APP_CONTAINERS = [
@@ -94,7 +95,8 @@ const APP_CONTAINERS = [
     MatDialogModule,
     FullCalendarModule,
     MatSelectModule,
-    NgxMatSelectSearchModule
+    NgxMatSelectSearchModule,
+    DurationPipe
   ],
   providers: [
     {

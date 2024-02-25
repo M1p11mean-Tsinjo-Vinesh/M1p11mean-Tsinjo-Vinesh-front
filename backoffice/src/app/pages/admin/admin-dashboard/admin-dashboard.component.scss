@@ -1,0 +1,23 @@
+.chart-header-date {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  align-items: center;
+}
+
+.chart-header-select {
+  max-width: 150px;
+  margin-left: 1rem;
+}
+
+.chart-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.font-bold {
+  font-weight: bold;
+}
