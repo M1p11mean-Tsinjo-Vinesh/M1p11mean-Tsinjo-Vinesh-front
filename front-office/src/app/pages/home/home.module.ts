@@ -14,6 +14,8 @@ import {CommonComponentsModule} from "../../../components/common-components/comm
 import { AboutUsComponent } from './about-us/about-us.component';
 import { TeamComponent } from './team/team.component';
 import { FeedbackListComponent } from './feedbacks/feedback-list.component';
+import { BookAppointmentComponent } from './book-appointment/book-appointment.component';
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 
 @NgModule({
   imports: [
@@ -21,9 +23,9 @@ import { FeedbackListComponent } from './feedbacks/feedback-list.component';
     BrowserModule,
     FormsModule,
     RouterModule,
-    SectionsModule, NgbModule, CommonComponentsModule
+    SectionsModule, NgbModule, CommonComponentsModule, FontAwesomeModule
   ],
-    declarations: [ HomeComponent, HpBannerComponent, ServiceListComponent, AboutUsComponent, TeamComponent, FeedbackListComponent ],
+    declarations: [ HomeComponent, HpBannerComponent, ServiceListComponent, AboutUsComponent, TeamComponent, FeedbackListComponent, BookAppointmentComponent ],
     exports:[ HomeComponent ],
     providers: []
 })
