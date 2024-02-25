@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ServiceProps} from "../../../../components/common-components/service-card/service-card.component";
 import {ServicesService} from "../../../services/services/services.service";
+import {Store} from "@ngrx/store";
+import AppStore from "../../../store/Appstore";
 
 @Component({
   selector: 'app-service-list',
@@ -12,12 +14,12 @@ export class ServiceListComponent implements OnInit {
 
   services: ServiceProps[] = [];
 
-  constructor(private service: ServicesService) {
+  constructor(private store: Store<AppStore>) {
   }
 
   ngOnInit() {
-    this.service.findServices().subscribe(list => {
-      this.services = list;
+    this.store.subscribe(appStore => {
+      this.services = appStore.services.list;
     })
   }
 
