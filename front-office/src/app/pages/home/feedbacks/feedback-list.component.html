@@ -7,8 +7,14 @@
                     Découvrez ce que nos clients ont à dire sur notre travail et notre dévouement qui les incitent à revenir pour plus.
                 </p>
             </div>
-            <div class="col-md-12">
-
+            <div class="col-md-12 my-10">
+                <div class="row">
+                    <div
+                        *ngFor="let feedback of feedbacks"
+                        class="col-md-4">
+                        <app-feedback [feedback]="feedback" />
+                    </div>
+                </div>
             </div>
         </div>
     </div>

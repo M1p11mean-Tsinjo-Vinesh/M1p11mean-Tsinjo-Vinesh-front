@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FeedbacksComponent } from './feedbacks.component';
+import { FeedbackListComponent } from './feedback-list.component';
 
 describe('FeedbacksComponent', () => {
-  let component: FeedbacksComponent;
-  let fixture: ComponentFixture<FeedbacksComponent>;
+  let component: FeedbackListComponent;
+  let fixture: ComponentFixture<FeedbackListComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [FeedbacksComponent]
+      declarations: [FeedbackListComponent]
     });
-    fixture = TestBed.createComponent(FeedbacksComponent);
+    fixture = TestBed.createComponent(FeedbackListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

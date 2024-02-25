@@ -2,6 +2,7 @@
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 @import 'bootstrap/dist/css/bootstrap.css';
 @import "bootstrap-icons/font/bootstrap-icons.css";
+@import 'css-star-rating/css/star-rating.css';
 
 @tailwind base;
 @tailwind components;
@@ -60,3 +61,16 @@ router-outlet + * {
 .mt-top {
     margin-top: 100px;
 }
+
+.star-container {
+    margin-left: 0;
+    color: var(--pink-text)
+}
+
+.rating {
+    justify-content: left;
+    align-items: unset;
+}
+
+/* styles.scss */
+

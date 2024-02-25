@@ -38,6 +38,7 @@ import { HeaderLinkComponent } from './shared/navbar/header-link/header-link.com
 import { AppUserComponent } from './shared/navbar/app-user/app-user.component';
 import { LogoComponent } from './shared/navbar/logo/logo.component';
 import { AppointmentDetailsComponent } from './pages/appointment-details/appointment-details.component';
+import {StarRatingModule} from "angular-star-rating";
 
 registerLocaleData(localeFr, 'fr');
 
@@ -65,6 +66,7 @@ registerLocaleData(localeFr, 'fr');
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
     }),
+    StarRatingModule.forRoot(),
     NgbModule,
     FormsModule,
     RouterModule,
