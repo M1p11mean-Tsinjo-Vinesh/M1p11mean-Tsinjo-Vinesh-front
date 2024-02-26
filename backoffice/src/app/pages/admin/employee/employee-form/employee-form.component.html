@@ -1,0 +1,19 @@
+<c-card>
+  <c-card-header>
+    <h2 class="m-0">{{title}}</h2>
+  </c-card-header>
+  <c-card-body>
+    <app-form
+      [actions]="editFormActions"
+      [inputs]="editProfileInputs"
+      [method]="method"
+      [default]="employee"
+      [onsuccess]="onEditSuccess"
+    >
+      <div class="mt-4 mb-5">
+        <h2>Mes horaires de travail</h2>
+        <full-calendar [options]="calendarOptions"></full-calendar>
+      </div>
+    </app-form>
+  </c-card-body>
+</c-card>

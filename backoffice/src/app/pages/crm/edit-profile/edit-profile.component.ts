@@ -56,7 +56,7 @@ export class EditProfileComponent implements OnInit {
       validators: Validators.required
     },
     password: {
-      label: "Nouveau de passe",
+      label: "Nouveau mot de passe",
       type: "password"
     },
     confirmPassword: {

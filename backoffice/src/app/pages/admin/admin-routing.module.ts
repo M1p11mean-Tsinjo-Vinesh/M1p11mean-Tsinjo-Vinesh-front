@@ -8,11 +8,23 @@ import {ExpenseComponent} from "./expense.component";
 import {AdminDashboardComponent} from "./admin-dashboard/admin-dashboard.component";
 import {AppointmentListComponent} from "./appointment/appointment-list.component";
 import {AppointmentDetailsComponent} from "./appointment-details/appointment-details.component";
+import {EditProfileComponent} from "../crm/edit-profile/edit-profile.component";
+import {EmployeeFormComponent} from "./employee/employee-form/employee-form.component";
 
 const routes: Routes = [
   {
     path: "employee",
     component: EmployeeCrudComponent,
+    pathMatch: "full"
+  },
+  {
+    path: "employee/ajout",
+    component: EmployeeFormComponent,
+    pathMatch: "full"
+  },
+  {
+    path: "employee/:id",
+    component: EmployeeFormComponent,
     pathMatch: "full"
   },
   {

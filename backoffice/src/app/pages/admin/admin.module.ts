@@ -34,6 +34,7 @@ import { ProfitChartComponent } from './admin-dashboard/profit-chart/profit-char
 import {AppointmentListComponent} from "./appointment/appointment-list.component";
 import { AppointmentDetailsComponent } from './appointment-details/appointment-details.component';
 import {AppointmentStatusPipe} from "../../pipe/AppointmentStatus.pipe";
+import { EmployeeFormComponent } from './employee/employee-form/employee-form.component';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import {AppointmentStatusPipe} from "../../pipe/AppointmentStatus.pipe";
     WorkingTimeComponent,
     ProfitChartComponent,
     AppointmentListComponent,
-    AppointmentDetailsComponent
+    AppointmentDetailsComponent,
+    EmployeeFormComponent
   ],
   exports: [
     ServiceListComponent

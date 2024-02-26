@@ -5,15 +5,30 @@ import {CONTACT_REGEX} from "../../../utils/RegexUtils";
 import {ICRUDService} from "@common-components/services/crud/interfaces";
 import {HttpClient} from "@angular/common/http";
 import {CrudService} from "../../services/base-crud";
+import {askConfirmation} from "@common-components/services/sweet-alert.util";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-employee-crud',
-  templateUrl: '../../templates/crud.template.html',
+  template: `
+  <app-crud-page
+    [title]="title"
+    [criteria]="criteria"
+    [inputs]="inputs"
+    [titles]="titles"
+    [getters]="getters"
+    [sorts]="sorts"
+    [service]="service"
+    [urlCommandToAddPage]="urlToAddPage"
+    [rowActions]="rowActions"
+  />
+  `,
   styleUrls: []
 })
 export class EmployeeCrudComponent {
 
   title = "Liste des employés";
+  urlToAddPage = ["management", "employee", "ajout"];
 
   criteria: InputList = {};
 
@@ -49,6 +64,22 @@ export class EmployeeCrudComponent {
       searchKey: "value"
     } as SelectProps
   }
+  rowActions: any[] = [
+    {
+      color: "primary",
+      icon: "edit",
+      onclick: async (row: any) => await this.router.navigate(["management", "employee", row._id], {
+        state: row
+      }),
+      type: "edit"
+    },
+    {
+      color: "warn",
+      icon: "delete",
+      onclick: (row: any) => askConfirmation(() => this.service.delete(row)),
+      type: "delete"
+    }
+  ]
 
   titles: string[] = ["Nom", "Prénom", "Email", "Tel", "Autorisation"]
   getters: GetterFn[] = [
@@ -62,7 +93,8 @@ export class EmployeeCrudComponent {
   sorts: SortParam = {}
   service!: ICRUDService;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
     this.service = new CrudService("employees", http);
+
   }
 }
