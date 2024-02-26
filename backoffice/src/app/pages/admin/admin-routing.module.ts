@@ -6,6 +6,7 @@ import {ServiceListComponent} from "./service/service-list.component";
 import {OfferFormComponent} from "./offer/offer-form/offer-form.component";
 import {ExpenseComponent} from "./expense.component";
 import {AdminDashboardComponent} from "./admin-dashboard/admin-dashboard.component";
+import {AppointmentListComponent} from "./appointment/appointment-list.component";
 
 const routes: Routes = [
   {
@@ -46,6 +47,11 @@ const routes: Routes = [
   {
     path: "",
     component: AdminDashboardComponent,
+    pathMatch: "full"
+  },
+  {
+    path: "rendez-vous/liste",
+    component: AppointmentListComponent,
     pathMatch: "full"
   }
 ];

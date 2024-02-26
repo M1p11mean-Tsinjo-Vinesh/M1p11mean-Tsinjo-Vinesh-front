@@ -7,6 +7,10 @@ export const navItems: INavData[] = [
     iconComponent: { name: 'cil-user' },
     children: [
       {
+        name: "Gestion des rendez-vous",
+        url: "/management/rendez-vous/liste"
+      },
+      {
         name: "Liste des employés",
         url: "/management/employee"
       },
@@ -25,7 +29,7 @@ export const navItems: INavData[] = [
       {
         name: "Gestion des dépenses",
         url: "/management/depense"
-      }
+      },
     ]
   },
   {

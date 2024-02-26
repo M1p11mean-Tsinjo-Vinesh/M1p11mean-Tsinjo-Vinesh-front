@@ -31,6 +31,7 @@ import { SalesChartComponent } from './admin-dashboard/sales-chart/sales-chart.c
 import { AppointmentCountChartComponent } from './admin-dashboard/appointment-count-chart/appointment-count-chart.component';
 import { WorkingTimeComponent } from './admin-dashboard/working-time/working-time.component';
 import { ProfitChartComponent } from './admin-dashboard/profit-chart/profit-chart.component';
+import {AppointmentListComponent} from "./appointment/appointment-list.component";
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { ProfitChartComponent } from './admin-dashboard/profit-chart/profit-char
     SalesChartComponent,
     AppointmentCountChartComponent,
     WorkingTimeComponent,
-    ProfitChartComponent
+    ProfitChartComponent,
+    AppointmentListComponent
   ],
   exports: [
     ServiceListComponent
