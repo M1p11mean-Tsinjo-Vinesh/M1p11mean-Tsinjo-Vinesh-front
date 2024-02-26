@@ -54,6 +54,7 @@ import localeFr from '@angular/common/locales/fr';
 import {notificationReducer} from "./store/notification/notification.reducer";
 import {DurationPipe} from "./pipe/Duration.pipe";
 import {MatDatepickerModule} from "@angular/material/datepicker";
+import {AppointmentStatusPipe} from "./pipe/AppointmentStatus.pipe";
 registerLocaleData(localeFr);
 
 const APP_CONTAINERS = [
@@ -97,7 +98,6 @@ const APP_CONTAINERS = [
     FullCalendarModule,
     MatSelectModule,
     NgxMatSelectSearchModule,
-    DurationPipe,
   ],
   providers: [
     {
@@ -122,6 +122,8 @@ const APP_CONTAINERS = [
     DatePipe,
     DecimalPipe,
     CurrencyPipe,
+    DurationPipe,
+    AppointmentStatusPipe
   ],
   bootstrap: [AppComponent]
 })

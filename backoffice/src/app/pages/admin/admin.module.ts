@@ -8,7 +8,7 @@ import { ServiceFormComponent } from './service/service-form/service-form.compon
 import {UppyAngularDashboardModule} from "@uppy/angular";
 import {ReactiveFormsModule} from "@angular/forms";
 import {
-  AlertComponent, ButtonDirective, ButtonGroupComponent,
+  AlertComponent, BadgeComponent, ButtonDirective, ButtonGroupComponent,
   CardBodyComponent,
   CardComponent,
   CardHeaderComponent,
@@ -32,6 +32,8 @@ import { AppointmentCountChartComponent } from './admin-dashboard/appointment-co
 import { WorkingTimeComponent } from './admin-dashboard/working-time/working-time.component';
 import { ProfitChartComponent } from './admin-dashboard/profit-chart/profit-chart.component';
 import {AppointmentListComponent} from "./appointment/appointment-list.component";
+import { AppointmentDetailsComponent } from './appointment-details/appointment-details.component';
+import {AppointmentStatusPipe} from "../../pipe/AppointmentStatus.pipe";
 
 
 @NgModule({
@@ -46,7 +48,8 @@ import {AppointmentListComponent} from "./appointment/appointment-list.component
     AppointmentCountChartComponent,
     WorkingTimeComponent,
     ProfitChartComponent,
-    AppointmentListComponent
+    AppointmentListComponent,
+    AppointmentDetailsComponent
   ],
   exports: [
     ServiceListComponent
@@ -74,7 +77,9 @@ import {AppointmentListComponent} from "./appointment/appointment-list.component
     ButtonDirective,
     DurationPipe,
     WidgetStatAComponent,
-    TemplateIdDirective
+    TemplateIdDirective,
+    AppointmentStatusPipe,
+    BadgeComponent
   ]
 })
 export class AdminModule { }

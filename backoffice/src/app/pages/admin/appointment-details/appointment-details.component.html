@@ -1,0 +1,110 @@
+<c-card>
+  <c-card-header class="d-flex align-items-center">
+    <mat-icon [fontIcon]="'arrow_back'" class="me-2 clickable" (click)="goBack()"/>
+    <h2 class="m-0">
+      Détails d'un rendez-vous
+    </h2>
+  </c-card-header>
+  <c-card-body>
+    <div>
+      <div class="mb-4">
+        <h2>Informations générales</h2>
+      </div>
+      <div class="mb-2">
+        <div class="fs-6 mb-1 fw-bold">
+          ID
+        </div>
+        <div class="fs-6">
+          {{ appointment?._id}}
+        </div>
+      </div>
+      <div class="mb-2">
+        <div class="fs-6 mb-1 fw-bold">
+          Client
+        </div>
+        <div>
+          {{appointment?.client?.name}}
+        </div>
+      </div>
+      <div class="mb-2">
+        <div class="fs-6 mb-1 fw-bold">
+          Date du rendez-vous
+        </div>
+        <div>
+          Le {{ appointment?.appointmentDate | date: 'dd MMMM yyyy à hh:mm' }}
+        </div>
+      </div>
+      <div class="mb-2">
+        <div class="fs-6 mb-1 fw-bold">
+          Durée estimée
+        </div>
+        <div>
+          {{appointment && (appointment.estimatedDuration | duration: "m":"m")}}
+        </div>
+      </div>
+      <div class="mb-2">
+        <div class="fs-6 mb-1 fw-bold">
+          Statut
+        </div>
+        <div class="fs-5">
+          <c-badge [color]="appointment && getStatusBadge(appointment.status)">{{appointment && (appointment.status | appointmentStatus)}}</c-badge>
+        </div>
+      </div>
+      <div class="mb-2">
+        <div class="fs-6 mb-1 fw-bold">
+          Prix total
+        </div>
+        <div>
+          {{appointment?.estimatedPrice | number: "4.0-0"}} MGA
+        </div>
+      </div>
+    </div>
+    <div class="mb-4">
+      <div>
+        <h2>Services</h2>
+      </div>
+      <div>
+        <table mat-table [dataSource]="appointment ? appointment.elements : []">
+          <ng-container matColumnDef="service">
+            <th mat-header-cell *matHeaderCellDef>
+                    <span class="font-bold">
+                      Service
+                    </span>
+            </th>
+            <td mat-cell *matCellDef="let details">{{details.service.name}}</td>
+          </ng-container>
+          <ng-container matColumnDef="employee">
+            <th mat-header-cell *matHeaderCellDef>
+                    <span class="font-bold">
+                      Employé assigné
+                    </span>
+            </th>
+            <td mat-cell *matCellDef="let details">{{details.employee.name}}</td>
+          </ng-container>
+          <ng-container matColumnDef="duration">
+            <th mat-header-cell *matHeaderCellDef>
+                    <span class="font-bold">
+                      Durée
+                    </span>
+            </th>
+            <td mat-cell *matCellDef="let details">{{details.service.duration | duration: "m": "m"}}</td>
+          </ng-container>
+          <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef>
+                    <span class="font-bold">
+                      Prix
+                    </span>
+            </th>
+            <td mat-cell *matCellDef="let details">{{details.service.price | number: "4.0-0"}} MGA</td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+      <div class="mb-3 d-flex gap-2" *ngIf="appointment?.status === EApointmentStatus.PENDING">
+        <button  class="btn btn-danger text-white" (click)="showDenyModal()">Refuser</button>
+        <button  class="btn btn-success text-white" (click)="showValidationModal()">Valider</button>
+      </div>
+    </div>
+  </c-card-body>
+</c-card>

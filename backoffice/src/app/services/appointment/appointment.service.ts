@@ -7,6 +7,7 @@ import {DataDto} from "../../dto/data.dto";
 import {TFilteredList} from "../../type/FilteredList.type";
 import {Injectable} from "@angular/core";
 import {format} from "date-fns";
+import {AppointmentDto} from "../../dto/appointment.dto";
 
 @Injectable({
   providedIn: 'root'
@@ -62,5 +63,56 @@ export class AppointmentService implements IAppointmentService {
   formatDate(date: Date): string {
     console.log(date.toJSON())
     return format(date,"yyyy-MM-dd'T'HH:mm:ss.SSS");
+  }
+
+  findById(id: string): Observable<AppointmentDto> {
+    return new Observable<AppointmentDto>((subscriber) => {
+      this.http.get(baseUrl(`manager/appointments/${id}`), {
+        headers: {
+          "Authorization": `Bearer ${sessionStorage.getItem('token')}`
+        }
+      }).subscribe((response: DataDto<AppointmentDto>) => {
+        subscriber.next(response.data);
+        subscriber.complete();
+      })
+    })
+  }
+
+  validateAppointment(appointmentId: string): Observable<void> {
+    return new Observable<void>((subscriber) => {
+      this.http.put(baseUrl(`manager/appointments/${appointmentId}/validate`), {}, {
+        headers: {
+          "Authorization": `Bearer ${sessionStorage.getItem('token')}`
+        }
+      }).subscribe({
+        next: () => {
+          subscriber.next();
+          subscriber.complete();
+        },
+        error: () => {
+          subscriber.error();
+          subscriber.complete();
+        }
+      })
+    })
+  }
+
+  denyAppointment(appointmentID: string): Observable<void> {
+    return new Observable<void>((subscriber) => {
+      this.http.put(baseUrl(`manager/appointments/${appointmentID}/deny`), {}, {
+        headers: {
+          "Authorization": `Bearer ${sessionStorage.getItem('token')}`
+        }
+      }).subscribe({
+        next: () => {
+          subscriber.next();
+          subscriber.complete();
+        },
+        error: () => {
+          subscriber.error();
+          subscriber.complete();
+        }
+      })
+    })
   }
 }
