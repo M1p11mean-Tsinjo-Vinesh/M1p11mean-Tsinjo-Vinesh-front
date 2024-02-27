@@ -24,6 +24,7 @@ import {ActivatedRoute} from "@angular/router";
 export class EmployeeFormComponent {
   title = "Ajout d'un employé";
   employee?: any;
+  currentId: string| null = null;
 
   editProfileInputs: InputList = {
     firstName: {
@@ -56,16 +57,6 @@ export class EmployeeFormComponent {
       default: "EMPLOYEE",
       searchKey: "value"
     } as SelectProps,
-    password: {
-      label: "Mot de passe",
-      type: "password",
-      validators: [Validators.required]
-    },
-    confirmPassword: {
-      label: "Confirmez votre mot de passe",
-      type: "password",
-      validators: [Validators.required]
-    }
   };
 
   editFormActions: FormActionProps[] = [
@@ -119,12 +110,23 @@ export class EmployeeFormComponent {
 
   ngOnInit() {
     const id = this.activedRoute.snapshot.paramMap.get('id');
+    this.currentId = id;
     if (id) {
       this.employeeService.findById(id).subscribe((employee) => {
-        this.employee = employee;
+        this.employee = employee.data;
         this.buildEvents()
       });
     } else {
+      this.editProfileInputs["password"] = {
+        label: "Mot de passe",
+        type: "password",
+        validators: [Validators.required]
+      }
+      this.editProfileInputs["confirmPassword"] = {
+        label: "Confirmez votre mot de passe",
+        type: "password",
+        validators: [Validators.required]
+      }
       this.employee = {
         email: "",
         firstName: "",
@@ -185,8 +187,8 @@ export class EmployeeFormComponent {
   }
 
   updateEmployee() {
-    if (this.employee._id) {
-      this.employeeService.updateEmployee(this.employee).subscribe({
+    if (this.currentId) {
+      this.employeeService.updateEmployee(this.currentId,this.employee).subscribe({
         next: this.onEditSuccess,
         error: (error) => showError(error.error.message)
       });
