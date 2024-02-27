@@ -6,3 +6,12 @@
     background-repeat: no-repeat;
     border-radius: 10px;
 }
+
+.preference-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 17px;
+    scale: 1.5;
+    z-index: 9;
+}
