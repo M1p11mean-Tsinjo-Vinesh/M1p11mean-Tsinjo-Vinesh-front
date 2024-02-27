@@ -1,5 +1,8 @@
-.profile-menu {
-  min-height: 40vh;
-  padding-right: 10px;
-  border-right: 0.5px solid rgba(128, 128, 128, 0.7);
+
+@media screen and (min-width: 768px) {
+  .profile-menu {
+    min-height: 40vh;
+    padding-right: 10px;
+    border-right: 0.5px solid rgba(128, 128, 128, 0.7);
+  }
 }
