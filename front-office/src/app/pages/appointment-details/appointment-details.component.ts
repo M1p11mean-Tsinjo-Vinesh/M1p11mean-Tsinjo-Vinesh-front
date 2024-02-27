@@ -1,15 +1,14 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {AppointmentService} from "../../services/appointment/appointment.service";
 import {AppointmentDto} from "../../data/dto/appointment.dto";
-import {locale} from "moment";
 import {getStatusBadge} from "../../utils/status.utils";
 import {EApointmentStatus} from "../../data/enum/appointmentStatus.enum";
 
 @Component({
   selector: 'app-appointment-details',
   templateUrl: './appointment-details.component.html',
-  styleUrls: ['./appointment-details.component.css']
+  styleUrls: ['./appointment-details.component.scss']
 })
 export class AppointmentDetailsComponent {
   protected readonly getStatusBadge = getStatusBadge;
