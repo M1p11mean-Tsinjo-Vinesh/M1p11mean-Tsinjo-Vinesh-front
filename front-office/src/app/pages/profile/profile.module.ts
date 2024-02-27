@@ -7,6 +7,7 @@ import {RouterLink, RouterLinkActive, RouterOutlet} from "@angular/router";
 import { ServicePreferencesComponent } from './service-preferences/service-preferences.component';
 import { EmployeePreferencesComponent } from './employee-preferences/employee-preferences.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import {CommonComponentsModule} from "../../../components/common-components/common-components.module";
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     RouterOutlet,
     RouterLink,
     RouterLinkActive,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CommonComponentsModule
   ]
 })
 export class ProfileModule { }

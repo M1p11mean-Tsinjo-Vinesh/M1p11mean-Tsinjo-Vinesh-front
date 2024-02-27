@@ -1,1 +1,8 @@
-<p>service-preferences works!</p>
+<div class="row px-[10%] mb-8">
+    <div class="col-12">
+        <h1 class="h3">Vos services favoris</h1>
+    </div>
+    <div *ngFor="let service of services" class="col-md-4 p-4">
+        <app-service-card [service]="service" />
+    </div>
+</div>

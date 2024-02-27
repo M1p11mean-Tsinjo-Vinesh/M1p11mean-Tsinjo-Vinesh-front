@@ -64,7 +64,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
   }
 
-
+/*
   ngAfterViewInit() {
     this.employeeSort.sortChange.subscribe(() => this.employeePaginator.pageIndex = 0);
     
@@ -83,6 +83,8 @@ export class ProfileComponent implements OnInit {
       .subscribe();
   }
 
+
+ */
   
   togglePreferences(field: string, id: string) {
     const index = this.currentPreferences[field].indexOf(id);
