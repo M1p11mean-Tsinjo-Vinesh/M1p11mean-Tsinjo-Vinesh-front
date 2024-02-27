@@ -24,7 +24,7 @@ export class NavbarComponent implements OnInit {
     },
     {
       name: "Rendez-vous",
-      link: ["accueil", "rendez-vous"]
+      link: ["prendre-rendez-vous"]
     }
   ];
 
