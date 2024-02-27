@@ -34,7 +34,7 @@ export class PreferencesService implements IPreferencesService {
       if (fullName) {
         params[`fullName`] = fullName;
       }
-      this.http.get(baseUrl('/preferences/employees'), {
+      this.http.get(baseUrl('preferences/employees'), {
         headers: {
           "Authorization": `Bearer ${sessionStorage.getItem('token')}`
         },
@@ -67,7 +67,7 @@ export class PreferencesService implements IPreferencesService {
       if (name) {
         params[`ilike:name`] = name;
       }
-      this.http.get(baseUrl('/preferences/services'), {
+      this.http.get(baseUrl('preferences/services'), {
         headers: {
           "Authorization": `Bearer ${sessionStorage.getItem('token')}`
         },
