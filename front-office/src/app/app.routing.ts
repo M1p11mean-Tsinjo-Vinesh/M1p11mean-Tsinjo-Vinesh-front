@@ -68,7 +68,7 @@ const routes: Routes = [
     { path: 'login',          component: LoginComponent },
     { path: 'user-appointments', component: AppointmentsComponent},
     { path: 'user-appointments/:id', component: AppointmentDetailsComponent},
-    { path: 'make-appointment', component: MakeAppointmentComponent},
+    { path: 'prendre-rendez-vous', component: MakeAppointmentComponent},
     { path: '', redirectTo: 'accueil', pathMatch: 'full' }
 ];
 
