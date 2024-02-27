@@ -21,13 +21,12 @@ export type UserSignUpDTO = {
 }
 
 export type UserUpdateDTO = {
-  _id: string;
   firstName: string;
   lastName: string;
   email: string;
   phone: string;
-  favoriteEmployees: string[];
-  favoriteServices: string[];
+  favoriteEmployees?: string[];
+  favoriteServices?: string[];
   currentPassword?: string;
   password?: string;
   confirmPassword?: string;

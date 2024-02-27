@@ -1,1 +1,216 @@
-<p>edit-profile works!</p>
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+    <div class="row px-[10%] mb-8">
+        <div class="col-12">
+            <h1 class="h3">Informations personnelles</h1>
+        </div>
+    </div>
+    <div class="form-group flex flex-row px-[10%] gap-x-[100px]">
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div>
+                    Prénom :
+                </div>
+                <div
+                        class="input-group"
+                        [class.valid]="profileForm.get('firstname').valid &&
+                                (profileForm.get('firstname').dirty || profileForm.get('firstname').touched)"
+                        [class.invalid]="profileForm.get('firstname').invalid &&
+                                (profileForm.get('firstname').dirty || profileForm.get('firstname').touched)"
+                >
+                    <input
+                            formControlName="firstname"
+                            class="form-control"
+                            placeholder="Prénom"
+                            type="text"
+                    >
+                </div>
+
+                <div *ngIf="profileForm.get('firstname').invalid &&
+                                  profileForm.get('firstname').errors &&
+                                  (profileForm.get('firstname').dirty || profileForm.get('firstname').touched)"
+                >
+                    <small class="text-red-500" *ngIf="profileForm.get('firstname').hasError('required')">
+                        Ce champs est requis
+                    </small>
+                </div>
+            </div>
+
+
+            <div class="col-md-6 mb-4">
+                <div>
+                    Nom :
+                </div>
+                <div
+                        class="input-group mr-3"
+                        [class.valid]="profileForm.get('lastname').valid &&
+                                (profileForm.get('lastname').dirty || profileForm.get('lastname').touched)"
+                        [class.invalid]="profileForm.get('lastname').invalid &&
+                                (profileForm.get('lastname').dirty || profileForm.get('lastname').touched)"
+                >
+                    <input
+                            formControlName="lastname"
+                            class="form-control"
+                            placeholder="Nom"
+                            type="text"
+                    >
+                </div>
+
+                <div *ngIf="profileForm.get('lastname').invalid &&
+                                  profileForm.get('lastname').errors &&
+                                  (profileForm.get('lastname').dirty || profileForm.get('lastname').touched)"
+                >
+                    <small class="text-red-500" *ngIf="profileForm.get('lastname').hasError('required')">
+                        Ce champs est requis
+                    </small>
+                </div>
+            </div>
+
+
+            <div class="col-md-6 mb-4">
+                <div>
+                    Email :
+                </div>
+                <div
+                        class="input-group mr-3"
+                        [class.valid]="profileForm.get('email').valid &&
+                                (profileForm.get('email').dirty || profileForm.get('email').touched)"
+                        [class.invalid]="profileForm.get('email').invalid &&
+                                (profileForm.get('email').dirty || profileForm.get('email').touched)"
+                >
+                    <input
+                            formControlName="email"
+                            class="form-control"
+                            placeholder="Email"
+                            type="email"
+                    >
+                </div>
+
+                <div *ngIf="profileForm.get('email').invalid &&
+                                  profileForm.get('email').errors &&
+                                  (profileForm.get('email').dirty || profileForm.get('email').touched)"
+                >
+                    <small class="text-red-500" *ngIf="profileForm.get('email').hasError('required')">
+                        Ce champs est requis
+                    </small>
+                </div>
+            </div>
+
+
+            <div class="col-md-6 mb-4">
+                <div>
+                    Numéro de téléphone :
+                </div>
+                <div
+                        class="input-group mr-3"
+                        [class.valid]="profileForm.get('phone').valid &&
+                                (profileForm.get('phone').dirty || profileForm.get('phone').touched)"
+                        [class.invalid]="profileForm.get('phone').invalid &&
+                                (profileForm.get('phone').dirty || profileForm.get('phone').touched)"
+                >
+                    <input
+                            formControlName="phone"
+                            class="form-control"
+                            placeholder="Numero de telephone"
+                            type="text"
+                    >
+                </div>
+
+                <div *ngIf="profileForm.get('phone').invalid &&
+                                  profileForm.get('phone').errors &&
+                                  (profileForm.get('phone').dirty || profileForm.get('phone').touched)"
+                >
+                    <small class="text-red-500" *ngIf="profileForm.get('phone').hasError('required')">
+                        Ce champs est requis
+                    </small>
+                </div>
+            </div>
+
+
+            <div class="col-md-6 mb-4">
+                <div>
+                    Mot de passe actuel :
+                </div>
+                <div
+                        class="input-group mr-3"
+                        [class.valid]="profileForm.get('currentPassword').valid &&
+                                (profileForm.get('currentPassword').dirty || profileForm.get('currentPassword').touched)"
+                        [class.invalid]="profileForm.get('currentPassword').invalid &&
+                                (profileForm.get('currentPassword').dirty || profileForm.get('currentPassword').touched)"
+                >
+                    <input
+                            formControlName="currentPassword"
+                            class="form-control"
+                            placeholder="Mot de passe actuel"
+                            type="password"
+                    >
+                </div>
+            </div>
+
+
+            <div class="col-md-6 mb-4">
+                <div>
+                    Nouveau mot de passe :
+                </div>
+                <div
+                        class="input-group mr-3"
+                        [class.valid]="profileForm.get('password').valid &&
+                                (profileForm.get('password').dirty || profileForm.get('password').touched)"
+                        [class.invalid]="profileForm.get('password').invalid &&
+                                (profileForm.get('password').dirty || profileForm.get('password').touched)"
+                >
+                    <input
+                            formControlName="password"
+                            class="form-control"
+                            placeholder="Nouveau mot de passe"
+                            type="password"
+                    >
+                </div>
+
+                <div *ngIf="profileForm.get('password').invalid &&
+                                  profileForm.get('password').errors &&
+                                  (profileForm.get('password').dirty || profileForm.get('password').touched)"
+                >
+                    <small class="text-red-500" *ngIf="profileForm.get('password').hasError('required')">
+                        Ce champs est requis
+                    </small>
+                </div>
+            </div>
+
+
+            <div class="col-md-6 mb-4">
+                <div>
+                    Confirmer le mot de passe :
+                </div>
+                <div
+                        class="input-group mr-3"
+                        [class.valid]="profileForm.get('confirmPassword').valid &&
+                                (profileForm.get('confirmPassword').dirty || profileForm.get('confirmPassword').touched)"
+                        [class.invalid]="profileForm.get('confirmPassword').invalid &&
+                                (profileForm.get('confirmPassword').dirty || profileForm.get('confirmPassword').touched)"
+                >
+                    <input
+                            formControlName="confirmPassword"
+                            class="form-control"
+                            placeholder="Confimation du mot de passe"
+                            type="password"
+                    >
+                </div>
+
+                <div *ngIf="profileForm.get('confirmPassword').invalid &&
+                                  profileForm.get('confirmPassword').errors &&
+                                  (profileForm.get('confirmPassword').dirty || profileForm.get('confirmPassword').touched)"
+                >
+                    <small class="text-red-500" *ngIf="profileForm.get('confirmPassword').hasError('required')">
+                        Ce champs est requis
+                    </small>
+                </div>
+            </div>
+
+
+            <div class="flex flex-row mt-4">
+                <button type="submit" class="pink-button" [disabled]="!profileForm.valid">Enregistrer</button>
+                <button type="button" class="btn" [routerLink]="['/register']">Annuler</button>
+            </div>
+        </div>
+    </div>
+</form>

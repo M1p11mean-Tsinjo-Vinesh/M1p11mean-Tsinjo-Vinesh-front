@@ -67,3 +67,7 @@
 
 /* styles.scss */
 
+.btn {
+    text-transform: unset;
+}
+
