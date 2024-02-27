@@ -73,12 +73,12 @@ const routes: Routes = [
     },
     { path: 'register',           component: SignupComponent,},
     { path: 'login',          component: LoginComponent },
-    { path: 'user-appointments/:id', component: AppointmentDetailsComponent},
     { path: 'prendre-rendez-vous', component: MakeAppointmentComponent},
     { path: '', redirectTo: 'accueil', pathMatch: 'full' },
   {
     path: "rendez-vous",
     children: [
+      { path: ':id', component: AppointmentDetailsComponent},
       {
         path: "paiement",
         component: AppointmentPaymentComponent
