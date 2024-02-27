@@ -48,7 +48,6 @@ registerLocaleData(localeFr, 'fr');
   declarations: [
     AppComponent,
     SignupComponent,
-    ProfileComponent,
     NavbarComponent,
     FooterComponent,
     LoginComponent,

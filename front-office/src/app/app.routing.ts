@@ -10,10 +10,35 @@ import {LoginComponent} from './pages/login/login.component';
 import {AppointmentsComponent} from "./pages/appointments/appointments.component";
 import {MakeAppointmentComponent} from "./pages/make-appointment/make-appointment.component";
 import {AppointmentDetailsComponent} from "./pages/appointment-details/appointment-details.component";
+import {EditProfileComponent} from "./pages/profile/edit-profile/edit-profile.component";
+import {ServicePreferencesComponent} from "./pages/profile/service-preferences/service-preferences.component";
+import {EmployeePreferencesComponent} from "./pages/profile/employee-preferences/employee-preferences.component";
 
 const routes: Routes =[
     { path: 'home',             component: HomeComponent },
-    { path: 'user-profile',     component: ProfileComponent },
+    {
+      path: 'profile',
+      component: ProfileComponent,
+      children: [
+        {
+          path: 'edit',
+          component: EditProfileComponent
+        },
+        {
+          path: 'favoris',
+          children: [
+            {
+              path: 'services',
+              component: ServicePreferencesComponent
+            },
+            {
+              path: 'employees',
+              component: EmployeePreferencesComponent
+            }
+          ]
+        }
+      ]
+    },
     { path: 'register',           component: SignupComponent },
     { path: 'login',          component: LoginComponent },
     { path: 'user-appointments', component: AppointmentsComponent},

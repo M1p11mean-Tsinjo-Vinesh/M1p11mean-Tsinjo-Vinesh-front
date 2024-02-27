@@ -1,4 +1,4 @@
-<button class="pink-button" [routerLink]="user ? '/user-profile': 'login'">
+<button class="pink-button" [routerLink]="user ? '/profile/edit': 'login'">
     {{
     user ?
         (user.firstName + ' ' + user.lastName).trim()

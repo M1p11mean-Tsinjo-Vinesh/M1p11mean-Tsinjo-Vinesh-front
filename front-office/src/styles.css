@@ -23,13 +23,6 @@
     }
 }
 
-router-outlet + * {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    justify-content: center;
-}
-
 .cdk-overlay-container {
     z-index: 10000 !important;
 }

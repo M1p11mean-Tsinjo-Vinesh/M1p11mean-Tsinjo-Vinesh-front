@@ -14,6 +14,7 @@ import {merge, tap} from "rxjs";
 import {showSuccess} from "../../../components/services/sweet-alert.util";
 import {Router} from "@angular/router";
 import {UserUpdateDTO} from "../../data/dto/user.dto";
+import {LinkProps} from "../../shared/navbar/header-link/header-link.component";
 
 
 @Component({
@@ -22,6 +23,22 @@ import {UserUpdateDTO} from "../../data/dto/user.dto";
     styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
+
+  links: LinkProps[] = [
+    {
+      link: "/profile/edit",
+      name: "Informations personnelles"
+    },
+    {
+      link: "/profile/favoris/services",
+      name: "Services favoris"
+    },
+    {
+      link: "/profile/favoris/employees",
+      name: "Employées favoris"
+    }
+  ];
+
   profileForm = this.formBuilder.group({
       firstname: [
         '',
