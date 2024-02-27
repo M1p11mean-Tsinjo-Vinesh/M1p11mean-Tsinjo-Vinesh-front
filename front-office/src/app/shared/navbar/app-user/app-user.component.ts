@@ -19,7 +19,7 @@ export class AppUserComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.subscribe(({user}) => {
-      this.user = user;
+      if(user.exp > 0) this.user = user;
     })
   }
 

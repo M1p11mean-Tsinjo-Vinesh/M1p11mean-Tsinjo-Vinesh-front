@@ -13,10 +13,22 @@ const noIdentityUser: UserDTO =  {
   email: "",
   phone: "",
   role: "",
-  token: ""
+  token: "",
+  exp: 0
 };
 
-export const initialState: UserDTO = savedUser ? JSON.parse(savedUser) : noIdentityUser;
+function getDefaultUser() {
+  if(savedUser) {
+    const user: UserDTO = JSON.parse(savedUser);
+    if((user.exp * 1000) > new Date().getTime()) {
+      return user;
+    }
+    localStorage.removeItem(USER_KEY);
+  }
+  return noIdentityUser;
+}
+
+export const initialState: UserDTO = getDefaultUser();
 
 export const userReducer = createReducer(
   initialState,

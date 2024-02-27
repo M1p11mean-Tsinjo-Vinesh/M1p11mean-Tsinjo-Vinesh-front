@@ -6,6 +6,7 @@ export type UserDTO = {
   phone: string;
   role: string;
   token?: string;
+  exp: number;
   favoriteEmployees?: string[];
   favoriteServices?: string[];
 }
