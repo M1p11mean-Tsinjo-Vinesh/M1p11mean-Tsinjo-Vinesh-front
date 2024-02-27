@@ -41,6 +41,7 @@ import { AppointmentDetailsComponent } from './pages/appointment-details/appoint
 import {StarRatingModule} from "angular-star-rating";
 import {servicesReducer} from "./store/services/services.reducer";
 import { FooterLinkComponent } from './shared/footer/footer-link/footer-link.component';
+import {teamMemberReducer} from "./store/team-member/team-member.reducer";
 
 registerLocaleData(localeFr, 'fr');
 
@@ -64,7 +65,8 @@ registerLocaleData(localeFr, 'fr');
     BrowserModule,
     StoreModule.forRoot({
       user: userReducer,
-      services: servicesReducer
+      services: servicesReducer,
+      members: teamMemberReducer
     }),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states

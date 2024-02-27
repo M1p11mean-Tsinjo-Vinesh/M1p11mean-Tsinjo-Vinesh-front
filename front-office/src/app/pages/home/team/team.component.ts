@@ -17,7 +17,7 @@ export class TeamComponent implements OnInit {
   ngOnInit() {
     this.service.findTeamMembers().subscribe(list => {
       this.members = list.map(member => {
-        //TODO: update theses temporary photos because when employees have photos
+        //TODO: update theses temporary photos when employees have photos
         member.image = [
           "https://res.cloudinary.com/dje2mveih/image/upload/v1708810354/assets/gallery-7_urlwlc.jpg",
           "https://res.cloudinary.com/dje2mveih/image/upload/v1708810354/assets/image-gallery-02_nsmzdx.jpg",
