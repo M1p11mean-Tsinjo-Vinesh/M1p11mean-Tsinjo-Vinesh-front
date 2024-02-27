@@ -55,6 +55,7 @@ import {notificationReducer} from "./store/notification/notification.reducer";
 import {DurationPipe} from "./pipe/Duration.pipe";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {AppointmentStatusPipe} from "./pipe/AppointmentStatus.pipe";
+import {AuthInterceptor} from "./interceptor/auth.interceptor";
 registerLocaleData(localeFr);
 
 const APP_CONTAINERS = [
@@ -111,6 +112,11 @@ const APP_CONTAINERS = [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: BearerSetterInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
       multi: true
     },
     {

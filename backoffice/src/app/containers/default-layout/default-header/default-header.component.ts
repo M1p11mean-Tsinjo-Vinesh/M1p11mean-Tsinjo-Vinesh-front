@@ -50,7 +50,7 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
 
   logout(){
     window.location.href = "/#/login";
-    //TODO: Logout
+    localStorage.removeItem('user');
   }
 
   @Input() sidebarId: string = "sidebar";
