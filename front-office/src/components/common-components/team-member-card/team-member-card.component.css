@@ -6,3 +6,11 @@
     background-position: center;
     background-repeat: no-repeat;
 }
+
+.preference-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    scale: 1.5;
+    z-index: 9;
+}
