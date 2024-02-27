@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {AppointmentDto} from "../../../data/dto/appointment.dto";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {showSuccess, startApiCall} from "../../../services/sweet-alert.util";
+import {AppointmentService} from "../../../services/appointment/appointment.service";
+import {ObserverObject} from "../../../services/util";
 
 @Component({
   selector: 'app-appointment-payment',
@@ -15,7 +18,8 @@ export class AppointmentPaymentComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private appointmentService: AppointmentService
   ) {
     this.appointment = this.router.getCurrentNavigation().extras.state as AppointmentDto;
     if(!this.appointment) {
@@ -34,7 +38,13 @@ export class AppointmentPaymentComponent implements OnInit {
 
   doPayment() {
     if(this.paymentForm.valid) {
-      console.log(this.paymentForm.value);
+      const apiCall = () => {
+        this.appointmentService.payAppointment(this.appointment._id).subscribe(ObserverObject(res =>
+          showSuccess(() => this.router.navigate(["profile", "historique-rendez-vous"]),
+            "Paiement éffectué avec succès !")
+        ))
+      }
+      startApiCall(apiCall);
     }
   }
 

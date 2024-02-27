@@ -67,7 +67,9 @@
                 routerLink="/rendez-vous/paiement"
                 [state]="appointment"
             >Payer</button>
-              <button class="btn btn-light">
+              <button
+                  *ngIf="appointment.status <= EApointmentStatus.VALIDATED"
+                  class="btn btn-light">
                   Annuler ma demande
               </button>
           </div>
