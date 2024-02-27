@@ -1,72 +1,53 @@
-<main class="profile-page">
-  <section class="section-profile-cover section-shaped my-0">
-    <!-- Circles background -->
-    <div class="shape shape-style-1 shape-primary alpha-4">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-    <!-- SVG separator -->
-    <div class="separator separator-bottom separator-skew">
-      <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
-        <polygon class="fill-white" points="2560 0 2560 100 0 100"></polygon>
-      </svg>
-    </div>
-  </section>
-  <section class="section">
+<div class="pink-bg mt-top mb-4">
     <div class="container">
-      <div class="card card-profile shadow mt--300">
+        <div class="row justify-content-center text-center p-20">
+            <h3>Details de votre rendez-vous</h3>
+        </div>
+    </div>
+</div>
+
+<main class="profile-page mb-8" *ngIf="appointment">
+  <section class="section p-0">
+    <div class="container">
         <div class="px-4">
-          <div class="row justify-content-center text-center mt-3">
-            <h3>DETAIL DU RENDEZ-VOUS</h3>
+
+          <div class="mb-6">
+            <div class="mb-4">
+              <h4>Informations générales</h4>
+            </div>
+              <table class="general-info-table">
+                  <tr>
+                      <th>Date du rendez-vous</th>
+                      <td>{{ appointment.appointmentDate | date: 'dd MMMM yyyy à hh:mm' }}</td>
+                  </tr>
+                  <tr>
+                      <th>Statut</th>
+                      <td>
+                          <span class="badge {{getStatusBadge(appointment.status)}}">{{appointment.status | appointmentStatus}}</span>
+                      </td>
+                  </tr>
+                  <tr>
+                      <th>Prix total</th>
+                      <td>{{appointment.estimatedPrice | number: "4.0-0"}} MGA</td>
+                  </tr>
+                  <tr>
+                      <th>Durée estimée</th>
+                      <td>{{appointment.estimatedDuration | duration: "m":"m"}}</td>
+                  </tr>
+              </table>
           </div>
-          <div class="mb-3">
-            <div>
-              <h4>Informations generales</h4>
-            </div>
-            <div class="mb-2">
-              <div>
-                Date du rendez-vous :
-              </div>
-              <div>
-                Le {{ appointment.appointmentDate | date: 'dd MMMM yyyy à hh:mm' }}
-              </div>
-            </div>
-            <div class="mb-2">
-              <div>
-                Statut :
-              </div>
-              <div>
-                <span class="badge {{getStatusBadge(appointment.status)}}">{{appointment.status | appointmentStatus}}</span>
-              </div>
-            </div>
-            <div class="mb-2">
-              <div>
-                Prix total :
-              </div>
-              <div>
-                {{appointment.estimatedPrice | number: "4.0-0"}} MGA
-              </div>
-            </div>
-            <div class="mb-2">
-              <div>
-                Durée estimée :
-              </div>
-              <div>
-                {{appointment.estimatedDuration | duration: "m":"m"}}
-              </div>
-            </div>
-          </div>
-          <div class="mb-3">
-            <div>
+
+
+          <div class="mb-6">
+            <div class="mb-4">
               <h4>Services</h4>
             </div>
             <div>
-              <table mat-table [dataSource]="appointment.elements">
+
+              <table
+                    class="general-info-table"
+                  mat-table
+                  [dataSource]="appointment.elements">
                 <ng-container matColumnDef="service">
                   <th mat-header-cell *matHeaderCellDef>
                     <span class="font-bold">
@@ -102,27 +83,19 @@
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
               </table>
+
+
             </div>
           </div>
+
           <div class="mb-3">
-            <button *ngIf="appointment.status === EApointmentStatus.VALIDATED" class="btn btn-primary">Payer</button>
+            <button  *ngIf="appointment.status === EApointmentStatus.VALIDATED" class="pink-button me-4">Payer</button>
+              <button class="btn btn-light">
+                  Annuler ma demande
+              </button>
           </div>
-          <div class="mb-3">
-            <div>
-              <h4>Commentaires</h4>
-            </div>
-            <div>
-              <div class="font-bold text-lg">
-                Username
-              </div>
-              <div class="text-sm font-light">Le 02 fev. 2024</div>
-              <div class="ml-2">
-                Un admin vous a poste un commentaire : "Bonjour, je suis un admin"
-              </div>
-            </div>
-          </div>
+
         </div>
       </div>
-    </div>
   </section>
 </main>

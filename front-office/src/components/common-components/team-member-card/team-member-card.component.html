@@ -1,10 +1,18 @@
 <div class="mb-4">
-    <div
-    class="member-img mb-4"
-        [ngStyle]="{
+    <div class="position-relative">
+        <div
+                class="member-img mb-4"
+                [ngStyle]="{
             backgroundImage: 'url('+ member.image + ')'
         }"
-    >
+        >
+        </div>
+        <star-rating
+                [rating]="value"
+                [numOfStars]="1"
+                class="preference-btn"
+                (starClickChange)="onStarClick()"
+        />
     </div>
-    <h4 class="text-center">{{(member.firstName + ' ' + member.lastName).trim()}}</h4>
+    <h5 class="text-center">{{(member.firstName + ' ' + member.lastName).trim()}}</h5>
 </div>

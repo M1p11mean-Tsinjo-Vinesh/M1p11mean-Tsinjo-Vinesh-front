@@ -23,13 +23,6 @@
     }
 }
 
-router-outlet + * {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    justify-content: center;
-}
-
 .cdk-overlay-container {
     z-index: 10000 !important;
 }
@@ -74,3 +67,19 @@ router-outlet + * {
 
 /* styles.scss */
 
+.btn {
+    text-transform: unset;
+}
+
+.rating.color-positive .star-container .star svg {
+    fill: var(--pink-text) !important;
+}
+.rating.color-positive .star-container .star i {
+    fill: var(--pink-text) !important;
+}
+
+
+
+.rating.color-default .star-container .star svg {
+    fill: var(--pink-text) !important;
+}

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {LinkProps} from "./header-link/header-link.component";
-import {faBars, faHamburger, faX} from "@fortawesome/free-solid-svg-icons";
+import {faBars, faX} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
     selector: 'app-navbar',
@@ -12,19 +12,19 @@ export class NavbarComponent implements OnInit {
   links: LinkProps[] = [
     {
       name: "Accueil",
-      link: "/home"
+      link: ["accueil", "presentation"]
     },
     {
       name: "À propos",
-      link: "#about-us"
+      link: ["accueil", "a-propos"]
     },
     {
       name: "Services",
-      link: "#services"
+      link: ["accueil", "services"]
     },
     {
       name: "Rendez-vous",
-      link: "#rendez-vous"
+      link: ["prendre-rendez-vous"]
     }
   ];
 

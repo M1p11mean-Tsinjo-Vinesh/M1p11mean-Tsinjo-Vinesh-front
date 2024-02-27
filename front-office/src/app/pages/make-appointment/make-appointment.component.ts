@@ -18,6 +18,7 @@ import {AppointmentService} from "../../services/appointment/appointment.service
 import {AppointmentSubmitDto} from "../../data/dto/appointment.dto";
 import {showError, showSuccess} from "../../../components/services/sweet-alert.util";
 import {Router} from "@angular/router";
+import {MatDatepickerInputEvent} from "@angular/material/datepicker";
 
 @Component({
   selector: 'app-make-appointment',
@@ -76,6 +77,7 @@ export class MakeAppointmentComponent {
   }
   
   ngOnInit() {
+    window.scroll(0, 0);
     const startDate = new Date();
     startDate.setHours(8,0,0,0);
     this.startDate = startDate.toJSON();
@@ -102,8 +104,10 @@ export class MakeAppointmentComponent {
   }
   
   changeDate($event: any) {
-    this.calendarComponent.getApi().gotoDate($event.target.value);
-    this.startDate = $event.target.value;
+    console.log($event.target);
+    const startDate = $event.target.value;
+    this.calendarComponent.getApi().gotoDate(startDate);
+    this.startDate = startDate;
   }
   
   openEmployeeModal() {
@@ -191,5 +195,9 @@ export class MakeAppointmentComponent {
         showError(err.error.message)
       }
     )
+  }
+
+  getDate() {
+    return new Date(this.startDate);
   }
 }

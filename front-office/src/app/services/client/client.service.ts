@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Observable} from "rxjs";
+import {firstValueFrom, Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {baseUrl} from "../../../config/server.config";
 import {MailCheckDTO} from "../../data/dto/client.dto";
@@ -82,17 +82,56 @@ export class ClientService implements IClientService {
     return JSON.parse(sessionStorage.getItem('user'));
   }
   
-  updateUser(user: UserUpdateDTO): Observable<DataDto<UserDTO>> {
+  updateUser(user: UserUpdateDTO, addLoader = true): Observable<DataDto<UserDTO>> {
     return new Observable<DataDto<UserDTO>>(subscriber => {
-      this.http.put(baseUrl('clients/update-info'), user, {
+      const apiCall = () => this.http.put(baseUrl('clients/update-info'), user, {
         headers: {
           "Authorization": `Bearer ${sessionStorage.getItem('token')}`
-        }}).subscribe((response: DataDto<UserDTO>) => {
-          console.log(response)
-          sessionStorage.setItem('user', JSON.stringify(response.data));
-          subscriber.next(response);
-          subscriber.complete();
-        })
-      })
+        }
+      }).subscribe(ObserverObject((response: DataDto<UserDTO>) => {
+        this.store.dispatch(setUser(response.data));
+        subscriber.next(response);
+        subscriber.complete();
+      }));
+      addLoader ? startApiCall(apiCall) : apiCall();
+    })
   }
+
+  async addServiceToFavorites(serviceId: string) {
+    const {user} = await firstValueFrom(this.store)
+    user.favoriteServices.push(serviceId);
+    this.registerUserModification(user);
+  }
+
+  async removeServiceToFavorites(serviceId: string) {
+    const {user} = await firstValueFrom(this.store)
+    const index = user.favoriteServices.indexOf(serviceId);
+    if(index >= 0) {
+      user.favoriteServices.splice(index, 1);
+    }
+    this.registerUserModification(user);
+  }
+
+
+  async addEmployeeToFavorites(employeeId: string) {
+    const {user} = await firstValueFrom(this.store)
+    user.favoriteEmployees.push(employeeId);
+    this.registerUserModification(user);
+  }
+
+  async removeEmployeeToFavorites(employeeId: string) {
+    const {user} = await firstValueFrom(this.store)
+    const index = user.favoriteEmployees.indexOf(employeeId);
+    if(index >= 0) {
+      user.favoriteEmployees.splice(index, 1);
+    }
+    this.registerUserModification(user);
+  }
+
+  registerUserModification(user: UserDTO) {
+    this.store.dispatch(setUser(user));
+    return this.updateUser(user, false).subscribe(res => {});
+  }
+
+
 }

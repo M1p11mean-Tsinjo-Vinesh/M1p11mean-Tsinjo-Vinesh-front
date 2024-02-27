@@ -1,3 +1,7 @@
-<button class="pink-button" routerLink="/login">
-    Se connecter
+<button class="pink-button" [routerLink]="user ? '/profile/edit': 'login'">
+    {{
+    user ?
+        (user.firstName + ' ' + user.lastName).trim()
+      : "Se connecter"
+    }}
 </button>

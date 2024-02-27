@@ -2,7 +2,7 @@ import {Component, Input} from '@angular/core';
 
 export interface LinkProps {
   name: string,
-  link?: string
+  link?: string | any
 }
 
 @Component({

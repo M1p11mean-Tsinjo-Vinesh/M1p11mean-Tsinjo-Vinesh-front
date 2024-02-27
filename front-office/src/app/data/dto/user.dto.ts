@@ -6,6 +6,7 @@ export type UserDTO = {
   phone: string;
   role: string;
   token?: string;
+  exp: number;
   favoriteEmployees?: string[];
   favoriteServices?: string[];
 }
@@ -20,13 +21,12 @@ export type UserSignUpDTO = {
 }
 
 export type UserUpdateDTO = {
-  _id: string;
   firstName: string;
   lastName: string;
   email: string;
   phone: string;
-  favoriteEmployees: string[];
-  favoriteServices: string[];
+  favoriteEmployees?: string[];
+  favoriteServices?: string[];
   currentPassword?: string;
   password?: string;
   confirmPassword?: string;

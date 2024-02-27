@@ -31,13 +31,14 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    window.scroll(0, 0)
   }
 
   onSubmit() {
     if(this.loginForm.valid) {
       this.clientService.login(this.loginForm.value.email, this.loginForm.value.password).subscribe(response => {
         showSuccess(
-          () => this.router.navigate(['/home']),
+          () => this.router.navigate(['/']),
           "Connexion réussie, vous êtes maintenant connecté à votre compte");
       });
     }
