@@ -7,12 +7,16 @@ import {baseUrl} from "../../../config/server.config";
 import {DataDto} from "../../data/dto/data.dto";
 import {Injectable} from "@angular/core";
 import {TFilteredList} from "../../data/type/FilteredList.type";
+import {startApiCall} from "../sweet-alert.util";
+import {ObserverObject} from "../util";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppointmentService implements IAppointmentService {
+
   constructor(private http: HttpClient) { }
+
   findAppointments(
     page = 1,
     offset = 10,
@@ -33,7 +37,7 @@ export class AppointmentService implements IAppointmentService {
         if (appointmentDate) {
           params[`${appointmentDate.method}:appointmentDate`] = `${appointmentDate.value.toJSON()}`;
         }
-        this.http.get(baseUrl('/appointments'), {
+        this.http.get(baseUrl('appointments'), {
           headers: {
             "Authorization": `Bearer ${sessionStorage.getItem('token')}`
           },
@@ -47,21 +51,22 @@ export class AppointmentService implements IAppointmentService {
   
   makeAppointment(appointment: AppointmentSubmitDto): Observable<AppointmentDto> {
     return new Observable<AppointmentDto>((subscriber) => {
-      this.http.post(baseUrl('/appointments'), appointment, {
+      const apiCall = () => this.http.post(baseUrl('appointments'), appointment, {
         headers: {
           "Authorization": `Bearer ${sessionStorage.getItem('token')}`
         }
-      }).subscribe((response: DataDto<AppointmentDto>) => {
+      }).subscribe(ObserverObject((response: DataDto<AppointmentDto>) => {
         subscriber.next(response.data);
         subscriber.complete();
-      })
+      }))
+      startApiCall(apiCall);
     });
   }
   
   
   findById(id: string): Observable<AppointmentDto> {
     return new Observable<AppointmentDto>((subscriber) => {
-      this.http.get(baseUrl(`/appointments/${id}`), {
+      this.http.get(baseUrl(`appointments/${id}`), {
         headers: {
           "Authorization": `Bearer ${sessionStorage.getItem('token')}`
         }

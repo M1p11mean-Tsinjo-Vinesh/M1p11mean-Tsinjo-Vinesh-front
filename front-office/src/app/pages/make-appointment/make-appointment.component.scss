@@ -1,0 +1,21 @@
+mat-form-field {
+  width: 100%;
+}
+
+th, td {
+  border: 1px solid grey;
+  padding: 10px 10px;
+}
+
+
+th:last-child, td:last-child {
+  border-left: unset;
+}
+
+.border-right-0 {
+  border-right: unset;
+}
+
+.btn {
+  text-transform: none;
+}

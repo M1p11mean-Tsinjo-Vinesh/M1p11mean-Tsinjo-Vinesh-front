@@ -1,7 +1,6 @@
 import {LOCALE_ID, NgModule} from "@angular/core";
 import {AppComponent} from "./app.component";
 import {SignupComponent} from "./pages/signup/signup.component";
-import {ProfileComponent} from "./pages/profile/profile.component";
 import {NavbarComponent} from "./shared/navbar/navbar.component";
 import {FooterComponent} from "./shared/footer/footer.component";
 import {LoginComponent} from "./pages/login/login.component";
@@ -27,21 +26,22 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatSortModule} from "@angular/material/sort";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import { MakeAppointmentComponent } from './pages/make-appointment/make-appointment.component';
+import {MakeAppointmentComponent} from './pages/make-appointment/make-appointment.component';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatInputModule} from "@angular/material/input";
 import {FullCalendarModule} from "@fullcalendar/angular";
 import {MatSelectModule} from "@angular/material/select";
 import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
-import { HeaderLinkComponent } from './shared/navbar/header-link/header-link.component';
-import { AppUserComponent } from './shared/navbar/app-user/app-user.component';
-import { LogoComponent } from './shared/navbar/logo/logo.component';
-import { AppointmentDetailsComponent } from './pages/appointment-details/appointment-details.component';
+import {HeaderLinkComponent} from './shared/navbar/header-link/header-link.component';
+import {AppUserComponent} from './shared/navbar/app-user/app-user.component';
+import {LogoComponent} from './shared/navbar/logo/logo.component';
+import {AppointmentDetailsComponent} from './pages/appointment-details/appointment-details.component';
 import {StarRatingModule} from "angular-star-rating";
 import {servicesReducer} from "./store/services/services.reducer";
-import { FooterLinkComponent } from './shared/footer/footer-link/footer-link.component';
+import {FooterLinkComponent} from './shared/footer/footer-link/footer-link.component';
 import {teamMemberReducer} from "./store/team-member/team-member.reducer";
+import {MatNativeDateModule} from "@angular/material/core";
 
 registerLocaleData(localeFr, 'fr');
 
@@ -93,7 +93,9 @@ registerLocaleData(localeFr, 'fr');
     MatInputModule,
     FullCalendarModule,
     MatSelectModule,
-    NgxMatSelectSearchModule
+    NgxMatSelectSearchModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: "fr-FR" },
