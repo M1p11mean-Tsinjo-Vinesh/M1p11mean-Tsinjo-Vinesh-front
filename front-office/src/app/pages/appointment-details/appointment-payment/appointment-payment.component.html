@@ -1,0 +1,38 @@
+<div class="container py-8 mt-top">
+    <div class="row">
+        <div class="col-12">
+            <h1>Paiement de votre rendez-vous</h1>
+        </div>
+    </div>
+</div>
+
+<div class="container mb-8">
+    <div class="row">
+        <div class="col-md-12 mb-4">
+            <app-appointment-general-info [appointment]="appointment" />
+        </div>
+        <div class="col-md-12">
+            <form [formGroup]="paymentForm">
+                <mat-form-field>
+                    <mat-label>Numéro mobile money</mat-label>
+                    <input matInput formControlName="phoneNumber" placeholder="Ex. 034 90 900 90" value="">
+                </mat-form-field>
+
+                <div class="flex">
+                    <button class="pink-button me-2"
+                        (click)="doPayment()"
+                    >
+                        Valider
+                    </button>
+                    <!-- TODO: add link to appointment profile -->
+                    <button
+                        class="btn"
+                        [routerLink]="['rendez-vous', appointment._id]"
+                    >
+                        Annuler
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

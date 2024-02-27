@@ -15,7 +15,7 @@ import {AppRoutingModule} from "./app.routing";
 import {HomeModule} from "./pages/home/home.module";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {MatTableModule} from "@angular/material/table";
 import {AppointmentStatusPipe} from "./pipe/AppointmentStatus.pipe";
 import {registerLocaleData} from "@angular/common";
@@ -41,6 +41,9 @@ import {servicesReducer} from "./store/services/services.reducer";
 import {FooterLinkComponent} from './shared/footer/footer-link/footer-link.component';
 import {teamMemberReducer} from "./store/team-member/team-member.reducer";
 import {MatNativeDateModule} from "@angular/material/core";
+import { AppointmentPaymentComponent } from './pages/appointment-details/appointment-payment/appointment-payment.component';
+import { AppointmentGeneralInfoComponent } from './pages/appointment-details/appointment-general-info/appointment-general-info.component';
+import {AuthInterceptor} from "./interceptors/auth.interceptor";
 
 registerLocaleData(localeFr, 'fr');
 
@@ -57,7 +60,9 @@ registerLocaleData(localeFr, 'fr');
     HeaderLinkComponent,
     AppUserComponent,
     LogoComponent,
-    FooterLinkComponent
+    FooterLinkComponent,
+    AppointmentPaymentComponent,
+    AppointmentGeneralInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -97,6 +102,11 @@ registerLocaleData(localeFr, 'fr');
   ],
   providers: [
     { provide: LOCALE_ID, useValue: "fr-FR" },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
   ],
   bootstrap: [AppComponent]
 })

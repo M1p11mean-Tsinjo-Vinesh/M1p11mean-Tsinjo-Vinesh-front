@@ -83,3 +83,13 @@
 .rating.color-default .star-container .star svg {
     fill: var(--pink-text) !important;
 }
+
+.general-info-table {
+    width: 100%;
+
+    & th, & td {
+        padding: 10px;
+        border: 1px solid rgba(128, 128, 128, 0.75);
+    }
+
+}

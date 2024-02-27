@@ -2,6 +2,7 @@ import {EApointmentStatus} from "../enum/appointmentStatus.enum";
 import {AppointmentDetailsDto} from "./appointmentDetails.dto";
 
 export type AppointmentDto = {
+  _id?: string;
   appointmentDate: Date;
   client: {
     name: string;

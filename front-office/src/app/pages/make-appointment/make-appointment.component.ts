@@ -188,7 +188,7 @@ export class MakeAppointmentComponent {
     this.appointmentService.makeAppointment(submitData).subscribe(
       (res) => {
         showSuccess(() =>{
-          this.router.navigate(['/user-appointments']);
+          this.router.navigate(['profile', "historique-rendez-vous"]);
         }, "Rendez-vous pris avec succès")
       },
       (err) => {
