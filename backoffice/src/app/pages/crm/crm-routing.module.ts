@@ -4,6 +4,7 @@ import {UserComponent} from "./user.component";
 import {EditProfileComponent} from "./edit-profile/edit-profile.component";
 import {PlanningComponent} from "./planning/planning/planning.component";
 import {EmployeeHomeComponent} from "./employee-home/employee-home.component";
+import {employeeGuard} from "../../guard/employee.guard";
 
 const routes: Routes = [
   {
@@ -22,7 +23,8 @@ const routes: Routes = [
   },
   {
     path: "",
-    component: EmployeeHomeComponent
+    component: EmployeeHomeComponent,
+    canActivate: [employeeGuard],
   }
 ];
 
