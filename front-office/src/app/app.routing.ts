@@ -7,12 +7,12 @@ import {HomeComponent} from './pages/home/home.component';
 import {ProfileComponent} from './pages/profile/profile.component';
 import {SignupComponent} from './pages/signup/signup.component';
 import {LoginComponent} from './pages/login/login.component';
-import {AppointmentsComponent} from "./pages/appointments/appointments.component";
 import {MakeAppointmentComponent} from "./pages/make-appointment/make-appointment.component";
 import {AppointmentDetailsComponent} from "./pages/appointment-details/appointment-details.component";
 import {EditProfileComponent} from "./pages/profile/edit-profile/edit-profile.component";
 import {ServicePreferencesComponent} from "./pages/profile/service-preferences/service-preferences.component";
 import {EmployeePreferencesComponent} from "./pages/profile/employee-preferences/employee-preferences.component";
+import {AppointmentHistoryComponent} from "./pages/profile/appointment-history/appointment-history.component";
 
 
 const routes: Routes = [
@@ -61,12 +61,15 @@ const routes: Routes = [
               component: EmployeePreferencesComponent
             }
           ]
+        },
+        {
+          path: "historique-rendez-vous",
+          component: AppointmentHistoryComponent
         }
       ]
     },
     { path: 'register',           component: SignupComponent,},
     { path: 'login',          component: LoginComponent },
-    { path: 'user-appointments', component: AppointmentsComponent},
     { path: 'user-appointments/:id', component: AppointmentDetailsComponent},
     { path: 'prendre-rendez-vous', component: MakeAppointmentComponent},
     { path: '', redirectTo: 'accueil', pathMatch: 'full' }

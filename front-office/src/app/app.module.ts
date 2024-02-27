@@ -4,7 +4,6 @@ import {SignupComponent} from "./pages/signup/signup.component";
 import {NavbarComponent} from "./shared/navbar/navbar.component";
 import {FooterComponent} from "./shared/footer/footer.component";
 import {LoginComponent} from "./pages/login/login.component";
-import {AppointmentsComponent} from "./pages/appointments/appointments.component";
 import {BrowserModule} from "@angular/platform-browser";
 import {StoreModule} from "@ngrx/store";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
@@ -52,7 +51,6 @@ registerLocaleData(localeFr, 'fr');
     NavbarComponent,
     FooterComponent,
     LoginComponent,
-    AppointmentsComponent,
     MakeAppointmentComponent,
     AppointmentDetailsComponent,
     MakeAppointmentComponent,

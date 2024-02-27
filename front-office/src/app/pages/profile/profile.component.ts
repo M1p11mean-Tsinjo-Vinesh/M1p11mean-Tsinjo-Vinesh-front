@@ -21,6 +21,10 @@ export class ProfileComponent implements OnInit {
     {
       link: "/profile/favoris/employees",
       name: "Employées favoris"
+    },
+    {
+      link: "/profile/historique-rendez-vous",
+      name: "Historiques RDV"
     }
   ];
 

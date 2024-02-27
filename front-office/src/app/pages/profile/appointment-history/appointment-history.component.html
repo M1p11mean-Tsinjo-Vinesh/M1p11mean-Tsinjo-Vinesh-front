@@ -1,0 +1,85 @@
+<div class="row md:px-[10%] mb-8">
+    <div class="col-12 mb-4">
+        <h1 class="h3">Mes rendez-vous</h1>
+    </div>
+    <div class="col-12">
+        <div class="row">
+            <div class="col-md-12">
+                <mat-expansion-panel >
+                    <mat-expansion-panel-header class="font-bold">
+                        Filtres
+                    </mat-expansion-panel-header>
+                    <div class="mb-6 mt-2">
+                        <div class="font-bold mb-2">Status: </div>
+                        <div>
+                            <span class="badge {{getFilterStatusBadge(0)}} mr-2 hover: cursor-pointer" (click)="toggleActiveStatus(0)">En attente</span>
+                            <span class="badge {{getFilterStatusBadge(10)}} mr-2 hover: cursor-pointer" (click)="toggleActiveStatus(10)">Validé</span>
+                            <span class="badge {{getFilterStatusBadge(-10)}} mr-2 hover: cursor-pointer" (click)="toggleActiveStatus(-10)">Refusé</span>
+                            <span class="badge {{getFilterStatusBadge(20)}} mr-2 hover: cursor-pointer" (click)="toggleActiveStatus(20)">Payé</span>
+                        </div>
+                    </div>
+                    <div class="mb-2">
+                        <div class="font-bold mb-2">Date du rendez-vous: </div>
+                        <div>
+                            <span class="badge {{getFilterAppointmentDateBadge('past')}} mr-2 hover: cursor-pointer" (click)="toggleActiveAppointmentOption('past')">Passé</span>
+                            <span class="badge {{getFilterAppointmentDateBadge('upcoming')}} mr-2 hover: cursor-pointer" (click)="toggleActiveAppointmentOption('upcoming')">A venir</span>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+            </div>
+            <div class="col-md-12">
+                <div class="text-center min-h-[400px] mt-4">
+                    <table
+                            mat-table
+                            [dataSource]="dataSource"
+                            matSort
+                            matSortActive="appointmentDate"
+                            matSortDirection="asc"
+                            matSortDisableClear
+                            class="table-light"
+                    >
+                        <ng-container matColumnDef="appointmentDate">
+                            <th mat-header-cell mat-sort-header *matHeaderCellDef >
+                  <span class="font-bold">
+                    Date du rendez-vous
+                  </span>
+                            </th>
+                            <td mat-cell *matCellDef="let appointment"> {{appointment.appointmentDate | date: ' dd/MM/yyyy à hh:mm:ss'}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="estimatedPrice">
+                            <th mat-header-cell mat-sort-header *matHeaderCellDef>
+                  <span class="font-bold">
+                    Prix estimé
+                  </span>
+                            </th>
+                            <td mat-cell *matCellDef="let appointment"> {{appointment.estimatedPrice | currency: 'MGA': 'symbol': '4.0-0': 'fr' }} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="estimatedDuration">
+                            <th mat-header-cell mat-sort-header *matHeaderCellDef>
+                  <span class="font-bold">
+                    Durée estimé
+                  </span>
+                            </th>
+                            <td mat-cell *matCellDef="let appointment"> {{appointment.estimatedDuration | duration : 'm': 'h'}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="status">
+                            <th mat-header-cell mat-sort-header *matHeaderCellDef>
+                  <span class="font-bold">
+                  Statut
+                  </span>
+                            </th>
+                            <td mat-cell *matCellDef="let appointment"> <span class="badge {{getStatusBadge(appointment.status)}}">{{appointment.status | appointmentStatus}}</span> </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns" class="hover:cursor-pointer" [routerLink]="['/user-appointments/',row._id]"></tr>
+                    </table>
+                    <div class="flex justify-center" *ngIf="dataSource.loading$ | async">
+                        <mat-spinner diameter="25"></mat-spinner>
+                    </div>
+                    <mat-paginator [length]="dataSource.length" [pageSize]="dataSource.pageSize"
+                                   [pageSizeOptions]="[5, 10, 25]"></mat-paginator>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

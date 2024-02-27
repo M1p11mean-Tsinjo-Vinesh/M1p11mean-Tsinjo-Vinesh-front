@@ -1,19 +1,21 @@
 import {Component, ViewChild} from '@angular/core';
-import {AppointmentDatasource} from "../../data/datasource/appointment.datasource";
-import {AppointmentService} from "../../services/appointment/appointment.service";
-import {MatPaginator} from "@angular/material/paginator";
+import {getStatusBadge} from "../../../utils/status.utils";
+import {AppointmentDatasource} from "../../../data/datasource/appointment.datasource";
+import {EApointmentStatus} from "../../../data/enum/appointmentStatus.enum";
 import {BehaviorSubject, merge, tap} from "rxjs";
-import {EApointmentStatus} from "../../data/enum/appointmentStatus.enum";
+import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
-import {TFilterElement} from "../../data/type/filterElement.type";
-import {getStatusBadge} from "../../utils/status.utils";
+import {TFilterElement} from "../../../data/type/filterElement.type";
+import {AppointmentService} from "../../../services/appointment/appointment.service";
 
 @Component({
-  selector: 'app-appointments',
-  templateUrl: './appointments.component.html',
-  styleUrls: ['./appointments.component.scss']
+  selector: 'app-appointment-history',
+  templateUrl: './appointment-history.component.html',
+  styleUrls: ['./appointment-history.component.css']
 })
-export class AppointmentsComponent {
+export class AppointmentHistoryComponent {
+
+
   dataSource: AppointmentDatasource
   displayedColumns: string[] = ["appointmentDate", "estimatedDuration","estimatedPrice", "status"]
   activeStatus: EApointmentStatus[] = [EApointmentStatus.PENDING, EApointmentStatus.VALIDATED, EApointmentStatus.CANCELED, EApointmentStatus.PAID];
@@ -21,14 +23,14 @@ export class AppointmentsComponent {
   filterChanged: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  
+
   constructor(private AppointmentService: AppointmentService) {}
-  
+
   ngOnInit() {
     this.dataSource = new AppointmentDatasource(this.AppointmentService);
     this.dataSource.loadAppointments();
   }
-  
+
   ngAfterViewInit() {
     this.filterChanged.subscribe(() => {
       console.log("filter changed")
@@ -36,14 +38,14 @@ export class AppointmentsComponent {
       this.loadAppointmentsPage()
     });
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
-    
+
     merge(this.sort.sortChange, this.paginator.page)
-      .pipe(
-        tap(() => this.loadAppointmentsPage())
-      )
-      .subscribe();
+    .pipe(
+      tap(() => this.loadAppointmentsPage())
+    )
+    .subscribe();
   }
-  
+
   loadAppointmentsPage() {
     let appointmentDate: TFilterElement<Date> = null;
     if(this.activeAppointmentDateFilteroptions.length == 1){
@@ -63,11 +65,11 @@ export class AppointmentsComponent {
       appointmentDate
     );
   }
-  
+
   getFilterStatusBadge(status: EApointmentStatus) {
     return this.activeStatus.includes(status) ? getStatusBadge(status) : "badge-secondary";
   }
-  
+
   toggleActiveStatus(status: EApointmentStatus) {
     if (this.activeStatus.includes(status)) {
       this.activeStatus = this.activeStatus.filter(s => s !== status);
@@ -76,7 +78,7 @@ export class AppointmentsComponent {
     }
     this.filterChanged.next(!this.filterChanged.getValue())
   }
-  
+
   getFilterAppointmentDateBadge(option: string) {
     if(this.activeAppointmentDateFilteroptions.includes(option)){
       return "badge-primary"
@@ -84,7 +86,7 @@ export class AppointmentsComponent {
       return "badge-secondary"
     }
   }
-  
+
   toggleActiveAppointmentOption(option: string) {
     if(this.activeAppointmentDateFilteroptions.includes(option)){
       this.activeAppointmentDateFilteroptions = this.activeAppointmentDateFilteroptions.filter(o => o !== option);
@@ -93,7 +95,7 @@ export class AppointmentsComponent {
     }
     this.filterChanged.next(!this.filterChanged.getValue())
   }
-  
+
   protected readonly console = console;
   protected readonly getStatusBadge = getStatusBadge;
 }

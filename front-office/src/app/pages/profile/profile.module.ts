@@ -8,6 +8,14 @@ import { ServicePreferencesComponent } from './service-preferences/service-prefe
 import { EmployeePreferencesComponent } from './employee-preferences/employee-preferences.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {CommonComponentsModule} from "../../../components/common-components/common-components.module";
+import { AppointmentHistoryComponent } from './appointment-history/appointment-history.component';
+import {MatExpansionModule} from "@angular/material/expansion";
+import {AppointmentStatusPipe} from "../../pipe/AppointmentStatus.pipe";
+import {DurationPipe} from "../../pipe/Duration.pipe";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatSortModule} from "@angular/material/sort";
+import {MatTableModule} from "@angular/material/table";
 
 
 @NgModule({
@@ -16,7 +24,8 @@ import {CommonComponentsModule} from "../../../components/common-components/comm
     ProfileLinkComponent,
     EditProfileComponent,
     ServicePreferencesComponent,
-    EmployeePreferencesComponent
+    EmployeePreferencesComponent,
+    AppointmentHistoryComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +33,14 @@ import {CommonComponentsModule} from "../../../components/common-components/comm
     RouterLink,
     RouterLinkActive,
     ReactiveFormsModule,
-    CommonComponentsModule
+    CommonComponentsModule,
+    MatExpansionModule,
+    AppointmentStatusPipe,
+    DurationPipe,
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
+    MatSortModule,
+    MatTableModule
   ]
 })
 export class ProfileModule { }
