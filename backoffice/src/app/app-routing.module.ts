@@ -2,12 +2,16 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
 import {DefaultLayoutComponent} from './containers';
+import {authGuard} from "./guard/auth.guard";
+import {defaultStateFn} from "@ngrx/store";
+import {defaultPageGuard} from "./guard/default-page.guard";
 
 
 const routes: Routes = [
   {
     path: '',
     component: DefaultLayoutComponent,
+    canActivate: [authGuard, defaultPageGuard],
     children: [
     ]
   },
@@ -24,6 +28,7 @@ const routes: Routes = [
   {
     path: '',
     component: DefaultLayoutComponent,
+    canActivate: [authGuard],
     children: [
       {
         path: 'crm',

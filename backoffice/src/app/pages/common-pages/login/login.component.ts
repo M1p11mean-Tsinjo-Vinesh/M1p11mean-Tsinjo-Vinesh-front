@@ -27,7 +27,7 @@ export class LoginComponent {
     if(this.loginForm.valid) {
       this.employeeService.login(this.loginForm.value.email as string, this.loginForm.value.password as string).subscribe(response => {
         showSuccess(
-          () => this.router.navigate(['/crm/edit-profile']),
+          () => this.router.navigate(['/']),
           "Connexion réussie, vous êtes maintenant connecté à votre compte");
       });
     }

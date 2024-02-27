@@ -41,6 +41,7 @@ export class NotificationListComponent implements OnInit {
   }
 
   async onNotificationClick(notification: NotificationProps) {
+    console.log(notification.redirectUrl);
     await this.router.navigateByUrl(notification.redirectUrl);
     if (!notification.seen) {
       await firstValueFrom(this.service.markSeen(notification._id));

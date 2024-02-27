@@ -94,7 +94,7 @@ import {
   cilCash,
   cilGroup,
   cilSwapHorizontal,
-  cilCart, cilTruck, cilCarAlt,cilBike
+  cilCart, cilTruck, cilCarAlt,cilBike,cilAccountLogout
 } from '@coreui/icons';
 
 export const iconSubset = {
@@ -196,5 +196,6 @@ export const iconSubset = {
   cilGroup,
   cilSwapHorizontal,
   cilCart,
-  cilBike
+  cilBike,
+  cilAccountLogout
 };

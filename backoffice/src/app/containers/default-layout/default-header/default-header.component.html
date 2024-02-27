@@ -63,33 +63,15 @@
     </button>
     <ul cDropdownMenu class="pt-0 pr-5 w-auto">
       <li>
-        <h6 cDropdownHeader class="bg-light fw-semibold py-2">Paramètre</h6>
-      </li>
-      <li></li>
-      <!-- <li>
-        <span cDropdownItem>
-          Grand menu 1
-        </span>
-      </li>
-      -->
-      <li>
-        <hr cDropdownDivider/>
-      </li>
-      <li>
         <a routerLink="/crm/edit-profile" cDropdownItem>
-          <svg cIcon class="me-2" name="cilLockLocked"></svg>
+          <svg cIcon class="me-2" name="cilUser"></svg>
           Voir mon profil
         </a>
       </li>
       <li>
-        <a routerLink="/crm/edit-profile" cDropdownItem>
-          <svg cIcon class="me-2" name="cilLockLocked"></svg>
-          Modifier mot de passe
-        </a>
-      </li>
-      <li>
         <a (click)="logout()" cDropdownItem>
-          <svg cIcon class="me-2" name="cilLockLocked"></svg>
+
+          <svg cIcon class="me-2" name="cilAccountLogout"></svg>
             Se déconnecter
         </a>
       </li>
