@@ -10,33 +10,7 @@
   <section class="section p-0">
     <div class="container">
         <div class="px-4">
-
-          <div class="mb-6">
-            <div class="mb-4">
-              <h4>Informations générales</h4>
-            </div>
-              <table class="general-info-table">
-                  <tr>
-                      <th>Date du rendez-vous</th>
-                      <td>{{ appointment.appointmentDate | date: 'dd MMMM yyyy à hh:mm' }}</td>
-                  </tr>
-                  <tr>
-                      <th>Statut</th>
-                      <td>
-                          <span class="badge {{getStatusBadge(appointment.status)}}">{{appointment.status | appointmentStatus}}</span>
-                      </td>
-                  </tr>
-                  <tr>
-                      <th>Prix total</th>
-                      <td>{{appointment.estimatedPrice | number: "4.0-0"}} MGA</td>
-                  </tr>
-                  <tr>
-                      <th>Durée estimée</th>
-                      <td>{{appointment.estimatedDuration | duration: "m":"m"}}</td>
-                  </tr>
-              </table>
-          </div>
-
+            <app-appointment-general-info [appointment]="appointment" />
 
           <div class="mb-6">
             <div class="mb-4">
@@ -83,13 +57,16 @@
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
               </table>
-
-
             </div>
           </div>
 
           <div class="mb-3">
-            <button  *ngIf="appointment.status === EApointmentStatus.VALIDATED" class="pink-button me-4">Payer</button>
+            <button
+                *ngIf="appointment.status === EApointmentStatus.VALIDATED"
+                class="pink-button me-4"
+                routerLink="/rendez-vous/paiement"
+                [state]="appointment"
+            >Payer</button>
               <button class="btn btn-light">
                   Annuler ma demande
               </button>

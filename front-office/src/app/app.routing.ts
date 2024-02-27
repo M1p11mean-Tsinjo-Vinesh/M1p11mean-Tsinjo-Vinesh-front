@@ -13,6 +13,9 @@ import {EditProfileComponent} from "./pages/profile/edit-profile/edit-profile.co
 import {ServicePreferencesComponent} from "./pages/profile/service-preferences/service-preferences.component";
 import {EmployeePreferencesComponent} from "./pages/profile/employee-preferences/employee-preferences.component";
 import {AppointmentHistoryComponent} from "./pages/profile/appointment-history/appointment-history.component";
+import {
+  AppointmentPaymentComponent
+} from "./pages/appointment-details/appointment-payment/appointment-payment.component";
 
 
 const routes: Routes = [
@@ -72,7 +75,16 @@ const routes: Routes = [
     { path: 'login',          component: LoginComponent },
     { path: 'user-appointments/:id', component: AppointmentDetailsComponent},
     { path: 'prendre-rendez-vous', component: MakeAppointmentComponent},
-    { path: '', redirectTo: 'accueil', pathMatch: 'full' }
+    { path: '', redirectTo: 'accueil', pathMatch: 'full' },
+  {
+    path: "rendez-vous",
+    children: [
+      {
+        path: "paiement",
+        component: AppointmentPaymentComponent
+      }
+    ]
+  }
 ];
 
 @NgModule({

@@ -41,6 +41,8 @@ import {servicesReducer} from "./store/services/services.reducer";
 import {FooterLinkComponent} from './shared/footer/footer-link/footer-link.component';
 import {teamMemberReducer} from "./store/team-member/team-member.reducer";
 import {MatNativeDateModule} from "@angular/material/core";
+import { AppointmentPaymentComponent } from './pages/appointment-details/appointment-payment/appointment-payment.component';
+import { AppointmentGeneralInfoComponent } from './pages/appointment-details/appointment-general-info/appointment-general-info.component';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -57,7 +59,9 @@ registerLocaleData(localeFr, 'fr');
     HeaderLinkComponent,
     AppUserComponent,
     LogoComponent,
-    FooterLinkComponent
+    FooterLinkComponent,
+    AppointmentPaymentComponent,
+    AppointmentGeneralInfoComponent
   ],
   imports: [
     BrowserModule,
