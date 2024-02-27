@@ -1,14 +1,10 @@
 import {Component, ViewChild} from '@angular/core';
 import {
-  extract,
-  extractAndPipe,
   FormActionProps,
   InputList,
-  MultiSelectProps,
-  SelectProps
 } from "@common-components/interfaces";
 import {FormControl, Validators} from "@angular/forms";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Navigation, Router} from "@angular/router";
 import {Uppy, UppyOptions} from "@uppy/core";
 import AppStore from "../../../../store/Appstore";
 import XHR, {XHRUploadOptions} from "@uppy/xhr-upload";
@@ -22,11 +18,12 @@ import {CrudService} from "../../../../services/base-crud";
 import {HttpClient} from "@angular/common/http";
 import {ServiceDTO} from "../../../../dto/service.dto";
 import {DecimalPipe, formatNumber} from "@angular/common";
-import {Observable, Subject, takeUntil} from "rxjs";
+import {firstValueFrom, Observable, Subject, takeUntil} from "rxjs";
 import {ListComponent} from "@common-components/list/list.component";
 import {DomSanitizer} from "@angular/platform-browser";
 import {MatTableDataSource} from "@angular/material/table";
-import {showSuccess} from "@common-components/services/sweet-alert.util";
+import {showSuccess, startApiCall} from "@common-components/services/sweet-alert.util";
+import {ObserverObject} from "@common-components/services/util";
 
 @Component({
   selector: 'app-offer-form',
@@ -100,8 +97,8 @@ export class OfferFormComponent {
   serviceService: ICRUDService;
   serviceList?: ServiceDTO[]
   filteredServiceList: ServiceDTO[] = [];
-  excludedServiceList: ServiceDTO[] = [];
-  serviceFilter: FormControl = new FormControl();
+  excludedServiceList: string[] = [];
+  serviceFilter: FormControl = new FormControl("");
   _onDestroy = new Subject<void>();
 
   selectedService = new FormControl<ServiceDTO| undefined>(undefined);
@@ -121,10 +118,16 @@ export class OfferFormComponent {
     private store: Store<AppStore>,
     private router: Router,
     private http: HttpClient,
-    private sanitizer: DomSanitizer
+    private activatedRoute: ActivatedRoute
   ) {
     this.serviceService = new CrudService("services", this.http);
     this.offerService = new CrudService("offers", http);
+    const id = this.activatedRoute.snapshot.params["id"];
+    const navigation = this.router.getCurrentNavigation();
+    if (id) {
+      this.currentId = id
+      this.setUpdateMode(navigation);
+    }
   }
 
   ngOnInit() {
@@ -211,15 +214,16 @@ export class OfferFormComponent {
 
   filterServices() {
     const filterValue = this.serviceFilter.value;
+    console.log(filterValue);
     this.filteredServiceList = this.serviceList?.filter((service: ServiceDTO) => {
-      return service.name.toLowerCase().includes(filterValue.toLowerCase()) && !this.excludedServiceList.includes(service);
+      return service.name.toLowerCase().includes(filterValue.toLowerCase()) && !this.excludedServiceList.includes(service._id)
     }) || [];
   }
 
   addServiceToList() {
     if (this.selectedService.value) {
       const selected =this.selectedService.value;
-      this.excludedServiceList.push(selected);
+      this.excludedServiceList.push(selected?._id);
       selected.discount = 0;
       this.selectedServices = [...this.selectedServices,this.selectedService.value];
       this.selectedServicesDataSource.data = this.selectedServices;
@@ -253,7 +257,7 @@ export class OfferFormComponent {
   removeService(_id: string) {
     this.selectedServices = this.selectedServices.filter((service: ServiceDTO) => service._id !== _id);
     this.selectedServicesDataSource.data = this.selectedServices;
-    this.excludedServiceList = this.excludedServiceList.filter((service: ServiceDTO) => service._id !== _id);
+    this.excludedServiceList = this.excludedServiceList.filter((id: string) => id !== _id);
     this.filterServices()
   }
 
@@ -267,7 +271,10 @@ export class OfferFormComponent {
       services: this.selectedServices,
       pictureUrls: this.imageUrls,
     }
-    console.log(body);
+    if(this.currentId) {
+      body._id = this.currentId;
+      return this.offerService.update(body);
+    }
     return this.offerService.create(body);
   }
 
@@ -289,7 +296,68 @@ export class OfferFormComponent {
 
   onApiCallSuccess() {
     showSuccess(async () => {
-      await this.router.navigate(["management", "offer", "liste"]);
+      await this.router.navigate(["management", "offre", "liste"]);
     }, "Enregistré avec succès");
+  }
+  setUpdateMode(navigation: Navigation | null) {
+    this.title = "Modification d'une offre";
+    startApiCall(async (close) => {
+      await this.findServiceToUpdate(navigation);
+      close();
+    });
+  }
+
+  async findServiceToUpdate(navigation: Navigation | null){
+    if (!this.currentId) return;
+    try {
+      let service: any = await this.findService(navigation);
+      const {pictureUrls, ...rest} = service;
+      rest.startDate = rest.startDate ? rest.startDate.split("T")[0] : "";
+      rest.endDate = rest.endDate ? rest.endDate.split("T")[0] : "";
+      this.formDefaultValue = rest;
+      this.selectedServices = rest.services;
+      for (const service of this.selectedServices) {
+        this.excludedServiceList.push(service._id);
+      }
+      this.filterServices()
+      console.log(this.excludedServiceList);
+      this.selectedServicesDataSource.data = this.selectedServices;
+      this.imageUrls = await this.loadImagesIntoUploader(pictureUrls);
+      // hide  validate button on update form first load
+      this.displayUploaderValidateButton(false);
+    }
+    catch (e) {
+      new Observable(() => {
+        throw e
+      }).subscribe(ObserverObject());
+    }
+  }
+
+  async findService(navigation: Navigation | null) {
+    if (!this.currentId) throw new Error("update mode is not set");
+    let service = navigation?.extras.state;
+    if (service) return service;
+    // find service from API if it was not passed through the url state.
+    const response = await firstValueFrom(this.offerService.findById<DataDto<any>>(this.currentId));
+    return response.data;
+  }
+
+  async loadImagesIntoUploader(images: string[]): Promise<string[]> {
+    return await Promise.all(images.map(this.addImage.bind(this)));
+  }
+
+  async addImage(image: string) {
+    const array = image.split(".");
+    const ext = array.pop();
+    const name = array.pop();
+    const blob = await fetch(image).then(response => response.blob());
+    this.fileUploader.addFile({
+      name: `${name}.${ext}`,
+      data: blob,
+      meta: {
+        type: blob.type
+      }
+    })
+    return image;
   }
 }

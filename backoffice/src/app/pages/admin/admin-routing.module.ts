@@ -10,6 +10,7 @@ import {AppointmentListComponent} from "./appointment/appointment-list.component
 import {AppointmentDetailsComponent} from "./appointment-details/appointment-details.component";
 import {EditProfileComponent} from "../crm/edit-profile/edit-profile.component";
 import {EmployeeFormComponent} from "./employee/employee-form/employee-form.component";
+import {OfferListComponent} from "./offer/offer-list.component";
 
 const routes: Routes = [
   {
@@ -44,6 +45,16 @@ const routes: Routes = [
   },
   {
     path: "offre/ajout",
+    component: OfferFormComponent,
+    pathMatch: "full"
+  },
+  {
+    path: "offre/liste",
+    component: OfferListComponent,
+    pathMatch: "full"
+  },
+  {
+    path: "offre/modification/:id",
     component: OfferFormComponent,
     pathMatch: "full"
   },

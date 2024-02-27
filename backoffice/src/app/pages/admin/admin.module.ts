@@ -35,6 +35,7 @@ import {AppointmentListComponent} from "./appointment/appointment-list.component
 import { AppointmentDetailsComponent } from './appointment-details/appointment-details.component';
 import {AppointmentStatusPipe} from "../../pipe/AppointmentStatus.pipe";
 import { EmployeeFormComponent } from './employee/employee-form/employee-form.component';
+import {OfferListComponent} from "./offer/offer-list.component";
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { EmployeeFormComponent } from './employee/employee-form/employee-form.co
     ProfitChartComponent,
     AppointmentListComponent,
     AppointmentDetailsComponent,
-    EmployeeFormComponent
+    EmployeeFormComponent,
+    OfferListComponent
   ],
   exports: [
     ServiceListComponent

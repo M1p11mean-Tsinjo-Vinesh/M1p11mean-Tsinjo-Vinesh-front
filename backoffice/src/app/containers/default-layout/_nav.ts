@@ -27,6 +27,10 @@ export const navItems: INavData[] = [
         url: "/management/offre/ajout"
       },
       {
+        name: "Liste des offres",
+        url: "/management/offre/liste"
+      },
+      {
         name: "Gestion des dépenses",
         url: "/management/depense"
       },
