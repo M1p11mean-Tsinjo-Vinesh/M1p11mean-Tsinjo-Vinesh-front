@@ -5,6 +5,8 @@ import AppStore from "../../store/Appstore";
 import {setServices} from "../../store/services/services.action";
 import {TeamMemberService} from "../team-member/team-member.service";
 import {setTeamMembers} from "../../store/team-member/team-member.action";
+import {startApiCall} from "../sweet-alert.util";
+import {firstValueFrom} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -18,11 +20,13 @@ export class SharedService {
   ) { }
 
   load() {
-    this.servicesService.findServices().subscribe(list => {
-      this.store.dispatch(setServices({list}));
-    })
+    startApiCall(async close => {
+      let [services, members] = await Promise.all([
+        await firstValueFrom(this.servicesService.findServices()),
+        await firstValueFrom(this.memberService.findTeamMembers())
+      ])
 
-    this.memberService.findTeamMembers().subscribe(list => {
+      this.store.dispatch(setServices({list: services}));
       const images = [
         "https://res.cloudinary.com/dje2mveih/image/upload/v1708810354/assets/gallery-7_urlwlc.jpg",
         "https://res.cloudinary.com/dje2mveih/image/upload/v1708810354/assets/image-gallery-02_nsmzdx.jpg",
@@ -36,12 +40,15 @@ export class SharedService {
         "https://res.cloudinary.com/dje2mveih/image/upload/v1709019952/members/iStock-1221840954-filter-scaled_bg9ojy.jpg",
         "https://res.cloudinary.com/dje2mveih/image/upload/v1709019952/members/timely-rent-a-chair-hero-1400x800_uio9ew.jpg",
       ]
-      list = list.sort((e1, e2) => e1._id.localeCompare(e2._id)).map((elt, index) => {
+
+      members = members.sort((e1, e2) => e1._id.localeCompare(e2._id)).map((elt, index) => {
         elt.image = images[index % images.length]
         return elt;
       })
-      this.store.dispatch(setTeamMembers({list}));
-    })
+
+      this.store.dispatch(setTeamMembers({list: members}));
+      close();
+    });
   }
 
 }
