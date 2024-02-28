@@ -66,10 +66,12 @@ export class AppointmentService implements IAppointmentService {
   
   findById(id: string): Observable<AppointmentDto> {
     return new Observable<AppointmentDto>((subscriber) => {
-      this.http.get(baseUrl(`appointments/${id}`)).subscribe((response: DataDto<AppointmentDto>) => {
+      const apiCall = (close: Function) => this.http.get(baseUrl(`appointments/${id}`)).subscribe(ObserverObject((response: DataDto<AppointmentDto>) => {
         subscriber.next(response.data);
         subscriber.complete();
-      })
+        close()
+      }))
+      startApiCall(apiCall);
     })
   }
 }
