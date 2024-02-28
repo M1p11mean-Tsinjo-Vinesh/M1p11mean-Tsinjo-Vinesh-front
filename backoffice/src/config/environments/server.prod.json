@@ -1,5 +1,5 @@
 {
-  "backendUrl": "https://m1p11mean-tsinjo-vinesh-backend.vercel.app",
+  "backendUrl": "https://m1p11mean-tsinjo-vinesh-backend.vercel.app/",
   "webServerUrl": "https://webserver.com",
   "headerKey": "API_KEY",
   "userKey": "user",
