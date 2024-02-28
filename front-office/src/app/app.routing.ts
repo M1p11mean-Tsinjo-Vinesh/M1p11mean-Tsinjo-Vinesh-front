@@ -16,6 +16,7 @@ import {AppointmentHistoryComponent} from "./pages/profile/appointment-history/a
 import {
   AppointmentPaymentComponent
 } from "./pages/appointment-details/appointment-payment/appointment-payment.component";
+import {NotificationsComponent} from "./pages/notifications/notifications.component";
 
 
 const routes: Routes = [
@@ -84,6 +85,10 @@ const routes: Routes = [
         component: AppointmentPaymentComponent
       }
     ]
+  },
+  {
+    path: "notifications",
+    component: NotificationsComponent
   }
 ];
 

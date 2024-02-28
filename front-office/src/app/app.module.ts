@@ -45,6 +45,7 @@ import { AppointmentPaymentComponent } from './pages/appointment-details/appoint
 import { AppointmentGeneralInfoComponent } from './pages/appointment-details/appointment-general-info/appointment-general-info.component';
 import {AuthInterceptor} from "./interceptors/auth.interceptor";
 import { NotificationComponent } from './shared/navbar/notification/notification.component';
+import { NotificationsComponent } from './pages/notifications/notifications.component';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -64,7 +65,8 @@ registerLocaleData(localeFr, 'fr');
     FooterLinkComponent,
     AppointmentPaymentComponent,
     AppointmentGeneralInfoComponent,
-    NotificationComponent
+    NotificationComponent,
+    NotificationsComponent
   ],
   imports: [
     BrowserModule,
