@@ -68,7 +68,8 @@
                 [state]="appointment"
             >Payer</button>
               <button
-                  *ngIf="appointment.status <= EApointmentStatus.VALIDATED"
+                  *ngIf="appointment.status <= EApointmentStatus.VALIDATED && appointment.status != EApointmentStatus.CANCELED"
+                  (click)="cancelAppointment()"
                   class="btn btn-light">
                   Annuler ma demande
               </button>

@@ -2,8 +2,9 @@ import {Component} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {AppointmentService} from "../../services/appointment/appointment.service";
 import {AppointmentDto} from "../../data/dto/appointment.dto";
-import {getStatusBadge} from "../../utils/status.utils";
 import {EApointmentStatus} from "../../data/enum/appointmentStatus.enum";
+import {ObserverObject} from "../../services/util";
+import {startApiCall} from "../../services/sweet-alert.util";
 
 @Component({
   selector: 'app-appointment-details',
@@ -11,20 +12,33 @@ import {EApointmentStatus} from "../../data/enum/appointmentStatus.enum";
   styleUrls: ['./appointment-details.component.scss']
 })
 export class AppointmentDetailsComponent {
-  protected readonly getStatusBadge = getStatusBadge;
+
   appointment: AppointmentDto;
   displayedColumns: string[] = ["service","employee","duration","price"];
+  appointmentId!: string;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private appointmentService: AppointmentService
   ) {}
   
   ngOnInit() {
-    const appointmentId = this.activatedRoute.snapshot.paramMap.get('id');
-    this.appointmentService.findById(appointmentId).subscribe((appointment) => {
+    this.appointmentId = this.activatedRoute.snapshot.paramMap.get('id');
+    this.load();
+  }
+
+  load() {
+    this.appointmentService.findById(this.appointmentId).subscribe((appointment) => {
       this.appointment = appointment;
     })
   }
   
   protected readonly EApointmentStatus = EApointmentStatus;
+
+  cancelAppointment() {
+    const apiCall = () => this.appointmentService.cancelAppointment(this.appointment._id).subscribe(ObserverObject(res => {
+      this.load();
+    }));
+    startApiCall(apiCall);
+  }
 }
