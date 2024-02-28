@@ -14,6 +14,7 @@ export const imageUrl = (path: string) => env.webServerUrl.concat(path);
  */
 export const baseUrl = (url: string) => env.backendUrl.concat(url);
 
+export const wsUrl = env.backendUrl.replace("http:", "ws:").replace("https:", "wss:");
 
 /**
  * this fonction is the function for error handling when subscribing

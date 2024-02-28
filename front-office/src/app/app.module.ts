@@ -18,7 +18,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {MatTableModule} from "@angular/material/table";
 import {AppointmentStatusPipe} from "./pipe/AppointmentStatus.pipe";
-import {registerLocaleData} from "@angular/common";
+import {NgForOf, registerLocaleData} from "@angular/common";
 import localeFr from '@angular/common/locales/fr';
 import {DurationPipe} from "./pipe/Duration.pipe";
 import {MatPaginatorModule} from "@angular/material/paginator";
@@ -41,11 +41,17 @@ import {servicesReducer} from "./store/services/services.reducer";
 import {FooterLinkComponent} from './shared/footer/footer-link/footer-link.component';
 import {teamMemberReducer} from "./store/team-member/team-member.reducer";
 import {MatNativeDateModule} from "@angular/material/core";
-import { AppointmentPaymentComponent } from './pages/appointment-details/appointment-payment/appointment-payment.component';
-import { AppointmentGeneralInfoComponent } from './pages/appointment-details/appointment-general-info/appointment-general-info.component';
+import {
+  AppointmentPaymentComponent
+} from './pages/appointment-details/appointment-payment/appointment-payment.component';
+import {
+  AppointmentGeneralInfoComponent
+} from './pages/appointment-details/appointment-general-info/appointment-general-info.component';
 import {AuthInterceptor} from "./interceptors/auth.interceptor";
-import { NotificationComponent } from './shared/navbar/notification/notification.component';
-import { NotificationsComponent } from './pages/notifications/notifications.component';
+import {NotificationComponent} from './shared/navbar/notification/notification.component';
+import {NotificationsComponent} from './pages/notifications/notifications.component';
+import {NotificationItemComponent} from './pages/notifications/notification-item/notification-item.component';
+import {notificationReducer} from "./store/notification/notification.reducer";
 
 registerLocaleData(localeFr, 'fr');
 
@@ -66,14 +72,16 @@ registerLocaleData(localeFr, 'fr');
     AppointmentPaymentComponent,
     AppointmentGeneralInfoComponent,
     NotificationComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    NotificationItemComponent
   ],
   imports: [
     BrowserModule,
     StoreModule.forRoot({
       user: userReducer,
       services: servicesReducer,
-      members: teamMemberReducer
+      members: teamMemberReducer,
+      notification: notificationReducer
     }),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
@@ -102,7 +110,8 @@ registerLocaleData(localeFr, 'fr');
     MatSelectModule,
     NgxMatSelectSearchModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    NgForOf
   ],
   providers: [
     { provide: LOCALE_ID, useValue: "fr-FR" },

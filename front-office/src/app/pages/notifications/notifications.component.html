@@ -7,3 +7,15 @@
 		</div>
 	</div>
 </div>
+<div class="container mb-8">
+	<div class="row">
+		<div class="col-md-12">
+			<div *ngFor="let notification of notifications">
+				<app-notification-item
+					[notification]="notification"
+					(click)="onNotificationClick(notification)"
+				/>
+			</div>
+		</div>
+	</div>
+</div>

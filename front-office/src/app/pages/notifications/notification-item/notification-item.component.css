@@ -1,0 +1,19 @@
+.notification-image {
+    width: 70px;
+    aspect-ratio: 1;
+    background-position: center;
+    background-size: cover;
+    border-radius: 100%;
+    border: 1px solid var(--pink-text);
+}
+
+.notification-unseen-mark {
+    width: 10px;
+    aspect-ratio: 1;
+    border-radius: 100%;
+    background-color: var(--pink-text);
+}
+
+.notification {
+    border-radius: 20px;
+}
