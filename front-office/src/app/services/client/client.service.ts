@@ -13,12 +13,18 @@ import {JwtDecoderService} from "../decoder/jwt-decoder.service";
 import {UserDTO, UserSignUpDTO, UserUpdateDTO} from "../../data/dto/user.dto";
 import {ObserverObject} from "../util";
 import {startApiCall} from "../sweet-alert.util";
+import {WsClientService} from "../notification/ws-client.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClientService implements IClientService {
-  constructor(private http: HttpClient, private store: Store<AppStore>, private jwtDecoder: JwtDecoderService) { }
+  constructor(
+    private http: HttpClient,
+    private store: Store<AppStore>,
+    private jwtDecoder: JwtDecoderService,
+    private ws: WsClientService
+    ) { }
 
   isMailAvailable(email: string): Observable<boolean> {
         return new Observable<boolean>(subscriber => {
@@ -45,6 +51,7 @@ export class ClientService implements IClientService {
           sessionStorage.setItem('token', jwt);
           tokenData.token = jwt;
           this.store.dispatch(setUser(tokenData));
+          this.ws.setup();
         }
         subscriber.next(response);
         subscriber.complete();

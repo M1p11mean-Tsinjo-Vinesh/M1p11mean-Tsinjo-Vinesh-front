@@ -31,6 +31,10 @@ export class WsClientService {
   constructor(
     private notificationService: NotificationService,
     private store: Store<AppStore>) {
+    this.setup();
+  }
+
+  setup() {
     this.store.subscribe(appstore => {
       if (!this.webSocket) {
         this.token = appstore.user.token;
@@ -43,7 +47,12 @@ export class WsClientService {
     })
     this.notificationService.countNotSeen().subscribe(response => {
       this.notificationCount = response.data;
+      this.store.dispatch(setNotification({count: this.notificationCount}));
     })
+  }
+
+  unsubscribe() {
+    this.webSocket.close();
   }
 
   private next(notification: NotificationProps) {

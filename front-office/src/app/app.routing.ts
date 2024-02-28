@@ -19,6 +19,7 @@ import {
 import {NotificationsComponent} from "./pages/notifications/notifications.component";
 import {userGuard} from "./guards/user.guard";
 import {visitorGuard} from "./guards/visitor/visitor.guard";
+import {DeconnectComponent} from "./pages/deconnect/deconnect.component";
 
 
 const routes: Routes = [
@@ -113,6 +114,11 @@ const routes: Routes = [
     path: "notifications",
     canActivate: [userGuard],
     component: NotificationsComponent
+  },
+  {
+    path: "se-deconnecter",
+    canActivate: [userGuard],
+    component: DeconnectComponent
   }
 ];
 

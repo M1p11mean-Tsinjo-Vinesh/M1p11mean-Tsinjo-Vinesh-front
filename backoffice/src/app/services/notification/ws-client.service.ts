@@ -16,6 +16,10 @@ export class WsClientService {
   private permission: string = "granted";
 
   constructor(private store: Store<AppStore>) {
+    this.setup();
+  }
+
+  setup() {
     this.store.subscribe(appstore => {
       if (!this.webSocket) {
         this.token = appstore.user.token;
@@ -26,6 +30,10 @@ export class WsClientService {
         };
       }
     })
+  }
+
+  unsubscribe() {
+    this.webSocket?.close();
   }
 
   private next(notification: NotificationProps) {

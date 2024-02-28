@@ -25,6 +25,10 @@ export class ProfileComponent implements OnInit {
     {
       link: "/profile/historique-rendez-vous",
       name: "Historiques RDV"
+    },
+    {
+      link: "/se-deconnecter",
+      name: "Se déconnecter"
     }
   ];
 

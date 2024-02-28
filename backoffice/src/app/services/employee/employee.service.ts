@@ -10,13 +10,19 @@ import AppStore from "../../store/Appstore";
 import {Store} from "@ngrx/store";
 import {setUser} from "../../store/user/user.action";
 import {startApiCall} from "@common-components/services/sweet-alert.util";
+import {WsClientService} from "../notification/ws-client.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeeService implements IEmployeeService{
 
-  constructor(private http: HttpClient, private jwtDecoder: JwtDecoderService, private store: Store<AppStore> ) { }
+  constructor(
+    private http: HttpClient,
+    private jwtDecoder: JwtDecoderService,
+    private store: Store<AppStore>,
+    private ws: WsClientService
+  ) { }
 
   login(email: string, password: string): Observable<DataDto<AuthDto>> {
     return new Observable<DataDto<AuthDto>>( subscriber => {
@@ -30,6 +36,7 @@ export class EmployeeService implements IEmployeeService{
           tokenData.token = jwt;
           this.store.dispatch(setUser(tokenData));
         }
+        this.ws.setup()
         subscriber.next(response);
         subscriber.complete();
       }));
