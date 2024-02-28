@@ -17,6 +17,10 @@ export class AppointmentService implements IAppointmentService {
 
   constructor(private http: HttpClient) { }
 
+  cancelAppointment(appointmentId: string) {
+    return this.http.delete(baseUrl("appointments/"+ appointmentId));
+  }
+
   payAppointment(appointmentId: string) {
     return this.http.put(baseUrl("payment/appointment/"+ appointmentId), {});
   }
