@@ -112,7 +112,7 @@ export class ClientService implements IClientService {
 
   async addServiceToFavorites(serviceId: string) {
     const {user} = await firstValueFrom(this.store)
-    user.favoriteServices.push(serviceId);
+    this.push(user, "favoriteServices", serviceId);
     this.registerUserModification(user);
   }
 
@@ -128,7 +128,7 @@ export class ClientService implements IClientService {
 
   async addEmployeeToFavorites(employeeId: string) {
     const {user} = await firstValueFrom(this.store)
-    user.favoriteEmployees.push(employeeId);
+    this.push(user, "favoriteEmployees", employeeId);
     this.registerUserModification(user);
   }
 
@@ -144,6 +144,11 @@ export class ClientService implements IClientService {
   registerUserModification(user: UserDTO) {
     this.store.dispatch(setUser(user));
     return this.updateUser(user, false).subscribe(res => {});
+  }
+
+  push(obj: object, key: string, value: string) {
+    if(!obj[key]) obj[key] = [];
+    obj[key].push(value);
   }
 
 

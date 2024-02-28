@@ -2,6 +2,8 @@ import {Component, Input} from '@angular/core';
 import {Store} from "@ngrx/store";
 import AppStore from "../../../app/store/Appstore";
 import {ClientService} from "../../../app/services/client/client.service";
+import {UserDTO} from "../../../app/data/dto/user.dto";
+import {Router} from "@angular/router";
 
 export interface TeamMemberProps {
   _id: string
@@ -22,6 +24,7 @@ export interface TeamMemberProps {
 export class TeamMemberCardComponent {
 
   value = 0;
+  user?: UserDTO;
 
   @Input({
     required: true
@@ -29,17 +32,28 @@ export class TeamMemberCardComponent {
 
   constructor(
     private store: Store<AppStore>,
-    private clientService: ClientService
+    private clientService: ClientService,
+    private router: Router
   ) {
   }
 
   ngOnInit() {
     this.store.subscribe(({user}) => {
-      this.value = (user.favoriteEmployees.includes(this.member._id) ? 1 : 0);
+      if(user.exp > 0) {
+        this.value = (user.favoriteEmployees?.includes(this.member._id) ? 1 : 0);
+        this.user = user;
+      }
+      else {
+        this.user = undefined;
+      }
     });
   }
 
   onStarClick() {
+    if(!this.user) {
+      this.router.navigate(["/login"]);
+      return;
+    }
     if(!this.value) {
       this.clientService.addEmployeeToFavorites(this.member._id);
     }
