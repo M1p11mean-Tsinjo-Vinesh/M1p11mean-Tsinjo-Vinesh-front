@@ -52,7 +52,7 @@ import {NotificationComponent} from './shared/navbar/notification/notification.c
 import {NotificationsComponent} from './pages/notifications/notifications.component';
 import {NotificationItemComponent} from './pages/notifications/notification-item/notification-item.component';
 import {notificationReducer} from "./store/notification/notification.reducer";
-import { DeconnectComponent } from './pages/deconnect/deconnect.component';
+import {DeconnectComponent} from './pages/deconnect/deconnect.component';
 
 registerLocaleData(localeFr, 'fr');
 

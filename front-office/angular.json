@@ -28,7 +28,7 @@
             ],
             "styles": [
               "src/styles.css",
-              "src/assets/scss/argon.scss"
+              "src/assets/scss/sinel-salon.scss"
             ],
             "scripts": []
           },
