@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {navItems} from './_nav';
 import {INavData} from "@coreui/angular";
 import {UserService} from "../../services/user/user.service";
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './default-layout.component.html',

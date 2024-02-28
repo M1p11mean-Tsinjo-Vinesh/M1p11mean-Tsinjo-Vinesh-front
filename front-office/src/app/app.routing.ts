@@ -79,7 +79,7 @@ const routes: Routes = [
   {
     path: "rendez-vous",
     children: [
-      { path: ':id', component: AppointmentDetailsComponent},
+      { path: 'details/:id', component: AppointmentDetailsComponent},
       {
         path: "paiement",
         component: AppointmentPaymentComponent

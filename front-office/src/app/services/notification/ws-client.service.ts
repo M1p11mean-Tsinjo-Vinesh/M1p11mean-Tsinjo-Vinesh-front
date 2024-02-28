@@ -3,6 +3,8 @@ import {wsUrl} from "../../../config/server.config";
 import {Store} from "@ngrx/store";
 import AppStore from "../../store/Appstore";
 import {Subject} from "rxjs";
+import {NotificationService} from "./notification.service";
+import {setNotification} from "../../store/notification/notification.action";
 
 export interface NotificationProps {
   _id: string
@@ -24,8 +26,11 @@ export class WsClientService {
   private token!: string;
   private subject = new Subject<NotificationProps>();
   private permission: string = "granted";
+  private notificationCount = 0;
 
-  constructor(private store: Store<AppStore>) {
+  constructor(
+    private notificationService: NotificationService,
+    private store: Store<AppStore>) {
     this.store.subscribe(appstore => {
       if (!this.webSocket) {
         this.token = appstore.user.token;
@@ -35,6 +40,9 @@ export class WsClientService {
           this.next(notification);
         };
       }
+    })
+    this.notificationService.countNotSeen().subscribe(response => {
+      this.notificationCount = response.data;
     })
   }
 
@@ -53,6 +61,8 @@ export class WsClientService {
       }
       this.pushNotification(notification);
     }
+    this.notificationCount++;
+    this.store.dispatch(setNotification({count : this.notificationCount}));
   }
 
   private pushNotification(notification: NotificationProps) {
@@ -64,7 +74,6 @@ export class WsClientService {
       pushedNotification.close();
       window.parent.focus();
     }
-    console.log(pushedNotification);
   }
 
 

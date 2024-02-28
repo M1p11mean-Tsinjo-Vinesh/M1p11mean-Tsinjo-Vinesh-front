@@ -1,0 +1,10 @@
+.notification-unseen-count {
+    background: var(--pink-text);
+    padding: 1px 7px 1px 7px;
+    border-radius: 100%;
+    font-size: 12px;
+    top: -5px;
+    right: -14px;
+    color: white;
+    font-weight: 600;
+}

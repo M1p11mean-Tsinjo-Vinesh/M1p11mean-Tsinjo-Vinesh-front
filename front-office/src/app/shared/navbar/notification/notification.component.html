@@ -1,7 +1,10 @@
-<div>
+<div class="position-relative">
 	<fa-icon
 		[icon]="faBell"
 		class="my-auto cursor-pointer"
 		routerLink="/notifications"
 	/>
+	<small class="position-absolute notification-unseen-count">
+		{{notificationCount}}
+	</small>
 </div>

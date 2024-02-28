@@ -55,11 +55,7 @@ export class AppointmentService implements IAppointmentService {
   
   makeAppointment(appointment: AppointmentSubmitDto): Observable<AppointmentDto> {
     return new Observable<AppointmentDto>((subscriber) => {
-      const apiCall = () => this.http.post(baseUrl('appointments'), appointment, {
-        headers: {
-          "Authorization": `Bearer ${sessionStorage.getItem('token')}`
-        }
-      }).subscribe(ObserverObject((response: DataDto<AppointmentDto>) => {
+      const apiCall = () => this.http.post(baseUrl('appointments'), appointment).subscribe(ObserverObject((response: DataDto<AppointmentDto>) => {
         subscriber.next(response.data);
         subscriber.complete();
       }))
@@ -70,11 +66,7 @@ export class AppointmentService implements IAppointmentService {
   
   findById(id: string): Observable<AppointmentDto> {
     return new Observable<AppointmentDto>((subscriber) => {
-      this.http.get(baseUrl(`appointments/${id}`), {
-        headers: {
-          "Authorization": `Bearer ${sessionStorage.getItem('token')}`
-        }
-      }).subscribe((response: DataDto<AppointmentDto>) => {
+      this.http.get(baseUrl(`appointments/${id}`)).subscribe((response: DataDto<AppointmentDto>) => {
         subscriber.next(response.data);
         subscriber.complete();
       })

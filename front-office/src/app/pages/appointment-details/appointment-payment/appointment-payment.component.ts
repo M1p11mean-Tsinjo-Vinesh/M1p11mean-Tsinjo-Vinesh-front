@@ -22,6 +22,7 @@ export class AppointmentPaymentComponent implements OnInit {
     private appointmentService: AppointmentService
   ) {
     this.appointment = this.router.getCurrentNavigation().extras.state as AppointmentDto;
+    console.log(this.appointment);
     if(!this.appointment) {
       this.router.navigate(["profile", "historique-rendez-vous"]);
     }
