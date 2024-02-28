@@ -1,4 +1,4 @@
-export const environment = {
+export const env = {
   production: true,
   backendUrl: "https://m1p11mean-tsinjo-vinesh-backend.vercel.app/",
   webServerUrl: "https://webserver.com",
