@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {LinkProps} from "./header-link/header-link.component";
 import {faBars, faX} from "@fortawesome/free-solid-svg-icons";
+import {faBell} from "@fortawesome/free-regular-svg-icons";
 
 @Component({
     selector: 'app-navbar',
@@ -36,4 +37,5 @@ export class NavbarComponent implements OnInit {
 
   protected readonly faBars = faBars;
   protected readonly faX = faX;
+  protected readonly faBell = faBell;
 }

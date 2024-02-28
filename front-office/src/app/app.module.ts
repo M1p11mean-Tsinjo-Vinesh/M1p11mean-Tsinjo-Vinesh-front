@@ -44,6 +44,7 @@ import {MatNativeDateModule} from "@angular/material/core";
 import { AppointmentPaymentComponent } from './pages/appointment-details/appointment-payment/appointment-payment.component';
 import { AppointmentGeneralInfoComponent } from './pages/appointment-details/appointment-general-info/appointment-general-info.component';
 import {AuthInterceptor} from "./interceptors/auth.interceptor";
+import { NotificationComponent } from './shared/navbar/notification/notification.component';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -62,7 +63,8 @@ registerLocaleData(localeFr, 'fr');
     LogoComponent,
     FooterLinkComponent,
     AppointmentPaymentComponent,
-    AppointmentGeneralInfoComponent
+    AppointmentGeneralInfoComponent,
+    NotificationComponent
   ],
   imports: [
     BrowserModule,

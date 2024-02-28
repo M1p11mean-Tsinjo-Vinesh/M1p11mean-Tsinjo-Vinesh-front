@@ -5,13 +5,15 @@
                 <app-logo/>
                 <div class="menu-container">
                     <app-header-link *ngFor="let link of links" [link]="link"/>
-                    <app-user class="ms-5" />
+										<app-notification class="ms-2" />
+                    <app-user class="ms-4" />
                 </div>
                 <div class="hamburger mobile-menu">
+										<app-notification class="me-4" />
                     <fa-icon
                         (click)="mobileMenuActive = true"
                         [icon]="faBars"
-                        class="hamburger-icon"
+                        class="hamburger-icon me-2"
                     />
                 </div>
             </div>
@@ -26,11 +28,13 @@
     <div class="position-fixed bg-white w-100 h-100 z-20 p-10">
         <div class="mb-6 flex justify-content-between">
             <app-logo />
-            <fa-icon
-                class="my-auto"
-                [icon]="faX"
-                (click)="mobileMenuActive = false"
-            />
+            <div class="my-auto flex">
+								<fa-icon
+									class="my-auto me-2"
+									[icon]="faX"
+									(click)="mobileMenuActive = false"
+								/>
+            </div>
         </div>
         <div *ngFor="let link of links" class="mobile-header-element">
             <app-header-link
