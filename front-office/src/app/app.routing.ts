@@ -17,6 +17,8 @@ import {
   AppointmentPaymentComponent
 } from "./pages/appointment-details/appointment-payment/appointment-payment.component";
 import {NotificationsComponent} from "./pages/notifications/notifications.component";
+import {userGuard} from "./guards/user.guard";
+import {visitorGuard} from "./guards/visitor/visitor.guard";
 
 
 const routes: Routes = [
@@ -45,41 +47,62 @@ const routes: Routes = [
       },
     ]
   },
-    {
-      path: 'profile',
-      component: ProfileComponent,
-      children: [
-        {
-          path: 'edit',
-          component: EditProfileComponent
-        },
-        {
-          path: 'favoris',
-          children: [
-            {
-              path: 'services',
-              component: ServicePreferencesComponent
-            },
-            {
-              path: 'employees',
-              component: EmployeePreferencesComponent
-            }
-          ]
-        },
-        {
-          path: "historique-rendez-vous",
-          component: AppointmentHistoryComponent
-        }
-      ]
-    },
-    { path: 'register',           component: SignupComponent,},
-    { path: 'login',          component: LoginComponent },
-    { path: 'prendre-rendez-vous', component: MakeAppointmentComponent},
-    { path: '', redirectTo: 'accueil', pathMatch: 'full' },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [userGuard],
+    children: [
+      {
+        path: 'edit',
+        component: EditProfileComponent
+      },
+      {
+        path: 'favoris',
+        children: [
+          {
+            path: 'services',
+            component: ServicePreferencesComponent
+          },
+          {
+            path: 'employees',
+            component: EmployeePreferencesComponent
+          }
+        ]
+      },
+      {
+        path: "historique-rendez-vous",
+        component: AppointmentHistoryComponent
+      }
+    ]
+  },
+  {
+    path: 'register',
+    component: SignupComponent,
+    canActivate: [visitorGuard]
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+    canActivate: [visitorGuard]
+  },
+  {
+    path: 'prendre-rendez-vous',
+    component: MakeAppointmentComponent,
+    canActivate: [userGuard]
+  },
+  {
+    path: '',
+    redirectTo: 'accueil',
+    pathMatch: 'full'
+  },
   {
     path: "rendez-vous",
+    canActivate: [userGuard],
     children: [
-      { path: 'details/:id', component: AppointmentDetailsComponent},
+      {
+        path: 'details/:id',
+        component: AppointmentDetailsComponent
+      },
       {
         path: "paiement",
         component: AppointmentPaymentComponent
@@ -88,6 +111,7 @@ const routes: Routes = [
   },
   {
     path: "notifications",
+    canActivate: [userGuard],
     component: NotificationsComponent
   }
 ];
@@ -96,7 +120,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     BrowserModule,
-    RouterModule.forRoot(routes,{
+    RouterModule.forRoot(routes, {
       useHash: true
     })
   ],
@@ -104,4 +128,5 @@ const routes: Routes = [
     RouterModule
   ],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}
