@@ -63,8 +63,14 @@ export class ClientService implements IClientService {
   register(user: UserSignUpDTO): Observable<DataDto<AuthDto>> {
     return new Observable<DataDto<AuthDto>>( subscriber => {
         const apiCall = () => this.http.post(baseUrl('clients/register'), user).subscribe(ObserverObject((response: DataDto<AuthDto>) => {
-          const tokenData = this.jwtDecoder.decode(response.data.jwt);
-          this.store.dispatch(setUser(tokenData));
+          if(response.data) {
+            const {jwt} = response.data;
+            const tokenData = this.jwtDecoder.decode(jwt);
+            sessionStorage.setItem('token', jwt);
+            tokenData.token = jwt;
+            this.store.dispatch(setUser(tokenData));
+            this.ws.setup();
+          }
           subscriber.next(response);
           subscriber.complete();
         }));
