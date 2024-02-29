@@ -37,7 +37,7 @@
     </c-widget-stat-a>
     <c-widget-stat-a
       class="mb-4 py-2"
-      [color]="totalPeriodProfit > 0 ? 'success' : 'danger'"
+      [color]="getMonthProfitMean() > 0 ? 'success' : 'danger'"
       [title]="'Bénéfices moyen (mensuel)'"
       >
         <ng-template cTemplateId="widgetValueTemplate">

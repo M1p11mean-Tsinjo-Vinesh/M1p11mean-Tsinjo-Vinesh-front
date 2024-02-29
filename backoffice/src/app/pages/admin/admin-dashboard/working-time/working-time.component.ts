@@ -28,24 +28,22 @@ export class WorkingTimeComponent {
 
   ngOnInit() {
     this.years = Array.from({length: 10}, (_, i) => new Date().getFullYear() - i);
-    const fetch = async () => {
-      await this.getMeanWorkingTime(this.workingTimeSelectedYear.value, new Date().getMonth() + 1);
-      this.closeLoading?.();
-    }
-    fetch().then()
+    this.getMeanWorkingTime(this.workingTimeSelectedYear.value, new Date().getMonth() + 1,true);
     merge(this.workingTimeSelectedYear.valueChanges, this.workingTimeSelectedMonth.valueChanges)
       .pipe(
         tap(() => {
-          this.getMeanWorkingTime(this.workingTimeSelectedYear.value, parseInt(this.workingTimeSelectedMonth.value) + 1).then();
+          this.getMeanWorkingTime(this.workingTimeSelectedYear.value, parseInt(this.workingTimeSelectedMonth.value) + 1);
         })
       )
       .subscribe()
   }
 
-  async getMeanWorkingTime(year: number, month: number) {
+  getMeanWorkingTime(year: number, month: number, closeLoading: boolean = false) {
     this.statsService.getMeanWorkingTime(year, month).subscribe(workingTimes => {
-
       this.workingTimeDataSource = workingTimes;
+      if(closeLoading) {
+        this.closeLoading?.();
+      }
     })
   }
 

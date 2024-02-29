@@ -44,18 +44,14 @@ export class SalesChartComponent {
 
   ngOnInit() {
     this.years = Array.from({length: 10}, (_, i) => new Date().getFullYear() - i);
-    const fetch = async () => {
-      await this.getSalesPerDay(this.selectedYear.value, new Date().getMonth() + 1);
-      this.closeLoading?.();
-    }
-    fetch().then()
+    this.getSalesPerDay(this.selectedYear.value, new Date().getMonth() + 1,true);
 
     merge(this.selectedYear.valueChanges, this.selectedMonth.valueChanges)
       .pipe(
         tap(() => {
 
           if(this.mode === "month") {
-            this.getSalesPerDay(this.selectedYear.value, parseInt(this.selectedMonth.value) + 1).then();
+            this.getSalesPerDay(this.selectedYear.value, parseInt(this.selectedMonth.value) + 1);
           } else {
             this.getSalesPerMonth(this.selectedYear.value);
           }
@@ -72,7 +68,7 @@ export class SalesChartComponent {
     this.chartRef?.update();
   }
 
-  async getSalesPerDay(year: number, month: number) {
+  getSalesPerDay(year: number, month: number, closeLoading: boolean = false) {
     console.log(year, month)
     const daysInMonth = getDaysInMonth(year, month);
     this.labels = Array.from({length: daysInMonth}, (_, i) => (i + 1).toString());
@@ -83,6 +79,9 @@ export class SalesChartComponent {
         return salesForDay?.sales || 0;
       });
       this.reloadChartData();
+      if (closeLoading) {
+        this.closeLoading?.();
+      }
     })
   }
 
@@ -107,7 +106,7 @@ export class SalesChartComponent {
   handleModeChange(mode: "month" | "year") {
     this.mode = mode;
     if(mode === "month") {
-      this.getSalesPerDay(this.selectedYear.value, this.selectedMonth.value + 1).then();
+      this.getSalesPerDay(this.selectedYear.value, this.selectedMonth.value + 1);
     } else {
       this.getSalesPerMonth(this.selectedYear.value);
     }

@@ -40,15 +40,11 @@ export class ProfitChartComponent {
 
   ngOnInit() {
     this.years = Array.from({length: 10}, (_, i) => new Date().getFullYear() - i);
-    const fetch = async () => {
-      await this.getProfitsByYear(this.selectedYear.value);
-      this.closeLoading?.();
-    }
+    this.getProfitsByYear(this.selectedYear.value,true)
 
     this.selectedYear.valueChanges.subscribe((year) => {
-      this.getProfitsByYear(year).then();
+      this.getProfitsByYear(year);
     })
-    fetch().then()
   }
 
   reloadChartData() {
@@ -61,12 +57,15 @@ export class ProfitChartComponent {
     }
   }
 
-  async getProfitsByYear(year: number) {
+  getProfitsByYear(year: number, closeLoading: boolean = false) {
     this.labels = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
     this.statsService.getProfitByYear(year).subscribe((data) => {
       this.dataset.data = data.result;
       this.totalPeriodProfit = data.total;
       this.reloadChartData()
+      if (closeLoading) {
+        this.closeLoading?.();
+      }
     })
   }
 

@@ -10,6 +10,7 @@ import {bind} from "sockjs-client";
 export class AdminDashboardComponent {
   waitingFor = 4;
   ngOnInit() {
+   this.waitingFor = 4;
    Swal.fire({
      title: 'Chargement...',
      allowOutsideClick: false,
