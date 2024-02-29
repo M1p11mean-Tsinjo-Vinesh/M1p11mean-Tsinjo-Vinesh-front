@@ -12,7 +12,7 @@ import {showSuccess} from "../../../components/services/sweet-alert.util";
 export class LoginComponent implements OnInit {
   loginForm = this.formBuilder.group({
     email: [
-        '',
+        'rk.tsiresy@yopmail.com',
         {
           updateOn: 'blur',
           validators: [
@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
         },
     ],
     password: [
-        '',[
+        'Mypass123',[
           Validators.required,
         ]
     ]
