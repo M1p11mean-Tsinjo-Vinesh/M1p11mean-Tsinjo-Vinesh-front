@@ -108,12 +108,12 @@
     <div class="modal-body">
       <mat-select
           [formControl]="employeeControl"
-          placeholder="Choisir un employe (optionnel)"
+          placeholder="Choisir un employé"
       >
         <mat-option>
           <ngx-mat-select-search
-              placeholderLabel="Rechercher un employe"
-              noEntriesFoundLabel="Aucun employe disponible"
+              placeholderLabel="Rechercher un employé"
+              noEntriesFoundLabel="Aucun employé disponible"
               [searching]="employees.length === 0"
           />
         </mat-option>
@@ -125,7 +125,6 @@
       </mat-select>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn" data-dismiss="modal" (click)="saveServiceWithoutEmployee()">Passer</button>
       <button type="button" class="btn btn-primary" (click)="assignEmployee()">Assigner</button>
     </div>
   </div>

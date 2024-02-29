@@ -15,3 +15,10 @@
     scale: 1.5;
     z-index: 9;
 }
+
+.discount-icon {
+    width: 100px;
+    position: absolute;
+    top: -25px;
+    left: -25px;
+}

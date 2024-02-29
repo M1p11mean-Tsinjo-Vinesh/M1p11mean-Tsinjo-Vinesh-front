@@ -11,7 +11,11 @@ export interface ServiceProps {
   pictureUrls: string[]
   duration: number
   price: number
-  commission: number
+  commission: number,
+  discountInformation?: {
+    value: number,
+    discountValue: number
+  }
 }
 
 @Component({
