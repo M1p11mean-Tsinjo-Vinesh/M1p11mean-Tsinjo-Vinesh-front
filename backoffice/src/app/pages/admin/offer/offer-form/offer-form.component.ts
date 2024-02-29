@@ -24,6 +24,7 @@ import {DomSanitizer} from "@angular/platform-browser";
 import {MatTableDataSource} from "@angular/material/table";
 import {showSuccess, startApiCall} from "@common-components/services/sweet-alert.util";
 import {ObserverObject} from "@common-components/services/util";
+import {isAfter, isBefore} from "date-fns"
 
 @Component({
   selector: 'app-offer-form',
@@ -266,6 +267,16 @@ export class OfferFormComponent {
       // simulate http error for util fn
       return this.onEmptyImages();
     }
+    const startDate = new Date(data.startDate);
+    const endDate = new Date(data.endDate);
+    if (isAfter(startDate,endDate)) {
+      return this.onWrongDate();
+    }
+    const now = new Date();
+    console.log(startDate, endDate, now)
+    if (isBefore(startDate, now) && isBefore(endDate,now)) {
+      return this.onPastDate();
+    }
     const body = {
       ...data,
       services: this.selectedServices,
@@ -282,6 +293,38 @@ export class OfferFormComponent {
     const errorFunction = () => {
       const error = new Error() as any;
       error.message = "Veuillez insérer et valider vos images";
+      error.status = 400;
+      error.error = {
+        error: {
+          code: 400,
+          message: error.message
+        }
+      }
+      throw error;
+    }
+    return new Observable(errorFunction)
+  }
+
+  onWrongDate() {
+    const errorFunction = () => {
+      const error = new Error() as any;
+      error.message = "La date de fin doit être supérieure à la date de début";
+      error.status = 400;
+      error.error = {
+        error: {
+          code: 400,
+          message: error.message
+        }
+      }
+      throw error;
+    }
+    return new Observable(errorFunction)
+  }
+
+  onPastDate() {
+    const errorFunction = () => {
+      const error = new Error() as any;
+      error.message = "La date de début ou de fin doit être supérieure à la date actuelle";
       error.status = 400;
       error.error = {
         error: {
