@@ -1,7 +1,7 @@
 <h1>Tableau de bord</h1>
 <div>
-  <app-profit-chart/>
-  <app-sales-chart/>
-  <app-appointment-count-chart/>
-  <app-working-time/>
+  <app-profit-chart [closeLoading]="close.bind(this)"/>
+  <app-sales-chart [closeLoading]="close.bind(this)" />
+  <app-appointment-count-chart [closeLoading]="close.bind(this)" />
+  <app-working-time [closeLoading]="close.bind(this)" />
 </div>

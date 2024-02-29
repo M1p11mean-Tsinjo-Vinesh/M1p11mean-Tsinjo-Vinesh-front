@@ -4,6 +4,7 @@ const close = () => {
   Swal.close();
 }
 
+
 export const startApiCall = (call: (close: () => any, error: (message:string) => any) => any ) => {
   Swal.fire({
     title: 'Chargement...',

@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {ChartData, ChartDataset, ChartOptions} from "chart.js";
 import {FormControl} from "@angular/forms";
 import {StatsService} from "../../../../services/stats/stats.service";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-profit-chart',
@@ -9,6 +10,9 @@ import {StatsService} from "../../../../services/stats/stats.service";
   styleUrls: ['./profit-chart.component.scss']
 })
 export class ProfitChartComponent {
+  @Input()
+  public closeLoading?: Function;
+
   years: number[] = []
   chartData: ChartData<"line"> = {
     labels: [],
@@ -36,10 +40,15 @@ export class ProfitChartComponent {
 
   ngOnInit() {
     this.years = Array.from({length: 10}, (_, i) => new Date().getFullYear() - i);
-    this.getProfitsByYear(this.selectedYear.value);
+    const fetch = async () => {
+      await this.getProfitsByYear(this.selectedYear.value);
+      this.closeLoading?.();
+    }
+
     this.selectedYear.valueChanges.subscribe((year) => {
-      this.getProfitsByYear(year);
+      this.getProfitsByYear(year).then();
     })
+    fetch().then()
   }
 
   reloadChartData() {
@@ -52,7 +61,7 @@ export class ProfitChartComponent {
     }
   }
 
-  getProfitsByYear(year: number) {
+  async getProfitsByYear(year: number) {
     this.labels = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
     this.statsService.getProfitByYear(year).subscribe((data) => {
       this.dataset.data = data.result;

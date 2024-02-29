@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {WorkingTimeDto} from "../../../../dto/workingTime.dto";
 import {FormControl} from "@angular/forms";
 import {merge, tap} from "rxjs";
@@ -12,6 +12,8 @@ import {getMonthName} from "../../../../utils/date.utils";
 })
 export class WorkingTimeComponent {
   protected readonly getMonthName = getMonthName;
+  @Input()
+  public closeLoading?: Function;
 
   months = [0,1,2,3,4,5,6,7,8,9,10,11]
   years: number[] = []
@@ -26,17 +28,21 @@ export class WorkingTimeComponent {
 
   ngOnInit() {
     this.years = Array.from({length: 10}, (_, i) => new Date().getFullYear() - i);
-    this.getMeanWorkingTime(this.workingTimeSelectedYear.value, new Date().getMonth() + 1);
+    const fetch = async () => {
+      await this.getMeanWorkingTime(this.workingTimeSelectedYear.value, new Date().getMonth() + 1);
+      this.closeLoading?.();
+    }
+    fetch().then()
     merge(this.workingTimeSelectedYear.valueChanges, this.workingTimeSelectedMonth.valueChanges)
       .pipe(
         tap(() => {
-          this.getMeanWorkingTime(this.workingTimeSelectedYear.value, parseInt(this.workingTimeSelectedMonth.value) + 1);
+          this.getMeanWorkingTime(this.workingTimeSelectedYear.value, parseInt(this.workingTimeSelectedMonth.value) + 1).then();
         })
       )
       .subscribe()
   }
 
-  getMeanWorkingTime(year: number, month: number) {
+  async getMeanWorkingTime(year: number, month: number) {
     this.statsService.getMeanWorkingTime(year, month).subscribe(workingTimes => {
 
       this.workingTimeDataSource = workingTimes;

@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import {ChartConfiguration, ChartData, ChartDataset, ChartOptions} from "chart.js";
+import {Component, Input} from '@angular/core';
+import {ChartData, ChartDataset, ChartOptions} from "chart.js";
 import {FormControl} from "@angular/forms";
 import {merge, tap} from "rxjs";
 import {StatsService} from "../../../../services/stats/stats.service";
@@ -12,6 +12,8 @@ import {getDaysInMonth, getMonthName} from "../../../../utils/date.utils";
 })
 export class SalesChartComponent {
   protected readonly getMonthName = getMonthName;
+  @Input()
+  public closeLoading?: Function;
 
   months = [0,1,2,3,4,5,6,7,8,9,10,11]
   years: number[] = []
@@ -42,14 +44,18 @@ export class SalesChartComponent {
 
   ngOnInit() {
     this.years = Array.from({length: 10}, (_, i) => new Date().getFullYear() - i);
-    this.getSalesPerDay(this.selectedYear.value, new Date().getMonth() + 1);
+    const fetch = async () => {
+      await this.getSalesPerDay(this.selectedYear.value, new Date().getMonth() + 1);
+      this.closeLoading?.();
+    }
+    fetch().then()
 
     merge(this.selectedYear.valueChanges, this.selectedMonth.valueChanges)
       .pipe(
         tap(() => {
 
           if(this.mode === "month") {
-            this.getSalesPerDay(this.selectedYear.value, parseInt(this.selectedMonth.value) + 1);
+            this.getSalesPerDay(this.selectedYear.value, parseInt(this.selectedMonth.value) + 1).then();
           } else {
             this.getSalesPerMonth(this.selectedYear.value);
           }
@@ -66,7 +72,7 @@ export class SalesChartComponent {
     this.chartRef?.update();
   }
 
-  getSalesPerDay(year: number, month: number) {
+  async getSalesPerDay(year: number, month: number) {
     console.log(year, month)
     const daysInMonth = getDaysInMonth(year, month);
     this.labels = Array.from({length: daysInMonth}, (_, i) => (i + 1).toString());
@@ -95,14 +101,13 @@ export class SalesChartComponent {
   handleChartRef($chartRef: any) {
     if ($chartRef) {
       this.chartRef = $chartRef;
-      console.log(this.chartRef)
     }
   }
 
   handleModeChange(mode: "month" | "year") {
     this.mode = mode;
     if(mode === "month") {
-      this.getSalesPerDay(this.selectedYear.value, this.selectedMonth.value + 1);
+      this.getSalesPerDay(this.selectedYear.value, this.selectedMonth.value + 1).then();
     } else {
       this.getSalesPerMonth(this.selectedYear.value);
     }

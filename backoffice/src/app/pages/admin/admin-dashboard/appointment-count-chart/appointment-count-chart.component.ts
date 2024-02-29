@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {ChartData, ChartDataset, ChartOptions} from "chart.js";
 import {FormControl} from "@angular/forms";
 import {merge, tap} from "rxjs";
@@ -12,6 +12,9 @@ import {getDaysInMonth, getMonthName} from "../../../../utils/date.utils";
 })
 export class AppointmentCountChartComponent {
   protected readonly getMonthName = getMonthName;
+  @Input()
+  public closeLoading?: Function;
+
   months = [0,1,2,3,4,5,6,7,8,9,10,11]
   years: number[] = []
   chartData: ChartData<"line"> = {
@@ -43,12 +46,16 @@ export class AppointmentCountChartComponent {
 
   ngOnInit() {
     this.years = Array.from({length: 10}, (_, i) => new Date().getFullYear() - i);
-    this.getAppointmentsPerDay(this.selectedYear.value, new Date().getMonth() + 1);
+    const fetch = async () => {
+      await this.getAppointmentsPerDay(this.selectedYear.value, new Date().getMonth() + 1);
+      this.closeLoading?.();
+    }
+    fetch().then()
     merge(this.selectedYear.valueChanges, this.selectedMonth.valueChanges)
       .pipe(
         tap(() => {
           if(this.mode === "month") {
-            this.getAppointmentsPerDay(this.selectedYear.value, parseInt(this.selectedMonth.value) + 1);
+            this.getAppointmentsPerDay(this.selectedYear.value, parseInt(this.selectedMonth.value) + 1).then();
           } else {
             this.getAppointmentsPerMonth(this.selectedYear.value);
           }
@@ -65,7 +72,7 @@ export class AppointmentCountChartComponent {
     this.chartRef?.update();
   }
 
-  getAppointmentsPerDay(year: number, month: number) {
+  async getAppointmentsPerDay(year: number, month: number) {
     const daysInMonth = getDaysInMonth(year, month);
     this.labels = Array.from({length: daysInMonth}, (_, i) => (i + 1).toString());
     this.statsService.getAppointmentsPerDay(year, month).subscribe(appointments => {
@@ -96,7 +103,7 @@ export class AppointmentCountChartComponent {
   handleModeChange(mode: "month" | "year") {
     this.mode = mode;
     if(mode === "month") {
-      this.getAppointmentsPerDay(this.selectedYear.value, this.selectedMonth.value + 1);
+      this.getAppointmentsPerDay(this.selectedYear.value, this.selectedMonth.value + 1).then();
     } else {
       this.getAppointmentsPerMonth(this.selectedYear.value);
     }
