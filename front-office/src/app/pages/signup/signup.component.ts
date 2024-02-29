@@ -69,7 +69,7 @@ export class SignupComponent implements OnInit {
         }
         this.clientService.register(user).subscribe(response => {
           showSuccess(
-            () => this.router.navigate(['/home']),
+            () => this.router.navigate(['/']),
             "Inscription réussie, vous êtes maintenant connecté à votre compte");
         })
       }

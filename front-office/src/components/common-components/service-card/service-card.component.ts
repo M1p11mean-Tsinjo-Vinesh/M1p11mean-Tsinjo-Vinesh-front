@@ -2,6 +2,8 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
 import AppStore from "../../../app/store/Appstore";
 import {ClientService} from "../../../app/services/client/client.service";
+import {UserDTO} from "../../../app/data/dto/user.dto";
+import {Router} from "@angular/router";
 
 export interface ServiceProps {
   _id: string
@@ -20,6 +22,7 @@ export interface ServiceProps {
 export class ServiceCardComponent implements OnInit {
 
   value = 0;
+  user?: UserDTO;
 
   @Input({
     required: true
@@ -28,18 +31,29 @@ export class ServiceCardComponent implements OnInit {
 
   constructor(
     private store: Store<AppStore>,
-    private clientService: ClientService
+    private clientService: ClientService,
+    private router: Router
   ) {
   }
 
   ngOnInit() {
     this.store.subscribe(({user}) => {
-      this.value = (user.favoriteServices.includes(this.service._id) ? 1 : 0);
+      if(user.exp > 0) {
+        this.value = (user.favoriteServices?.includes(this.service._id) ? 1 : 0);
+        this.user = user;
+      }
+      else {
+        this.user = undefined;
+      }
     });
   }
 
 
   onStarClick() {
+    if(!this.user) {
+      this.router.navigate(["/login"]);
+      return;
+    }
     if(!this.value) {
       this.clientService.addServiceToFavorites(this.service._id);
     }

@@ -63,8 +63,14 @@ export class ClientService implements IClientService {
   register(user: UserSignUpDTO): Observable<DataDto<AuthDto>> {
     return new Observable<DataDto<AuthDto>>( subscriber => {
         const apiCall = () => this.http.post(baseUrl('clients/register'), user).subscribe(ObserverObject((response: DataDto<AuthDto>) => {
-          const tokenData = this.jwtDecoder.decode(response.data.jwt);
-          this.store.dispatch(setUser(tokenData));
+          if(response.data) {
+            const {jwt} = response.data;
+            const tokenData = this.jwtDecoder.decode(jwt);
+            sessionStorage.setItem('token', jwt);
+            tokenData.token = jwt;
+            this.store.dispatch(setUser(tokenData));
+            this.ws.setup();
+          }
           subscriber.next(response);
           subscriber.complete();
         }));
@@ -106,7 +112,7 @@ export class ClientService implements IClientService {
 
   async addServiceToFavorites(serviceId: string) {
     const {user} = await firstValueFrom(this.store)
-    user.favoriteServices.push(serviceId);
+    this.push(user, "favoriteServices", serviceId);
     this.registerUserModification(user);
   }
 
@@ -122,7 +128,7 @@ export class ClientService implements IClientService {
 
   async addEmployeeToFavorites(employeeId: string) {
     const {user} = await firstValueFrom(this.store)
-    user.favoriteEmployees.push(employeeId);
+    this.push(user, "favoriteEmployees", employeeId);
     this.registerUserModification(user);
   }
 
@@ -138,6 +144,11 @@ export class ClientService implements IClientService {
   registerUserModification(user: UserDTO) {
     this.store.dispatch(setUser(user));
     return this.updateUser(user, false).subscribe(res => {});
+  }
+
+  push(obj: object, key: string, value: string) {
+    if(!obj[key]) obj[key] = [];
+    obj[key].push(value);
   }
 
 
