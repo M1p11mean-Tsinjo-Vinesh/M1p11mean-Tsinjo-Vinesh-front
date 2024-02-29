@@ -10,7 +10,6 @@ export class EventBusService {
   constructor() { }
 
   emit(event: EventData) {
-    console.log('event bus emit', event);
     this.subject.next(event);
   }
 

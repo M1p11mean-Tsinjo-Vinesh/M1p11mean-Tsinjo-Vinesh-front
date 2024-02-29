@@ -217,7 +217,6 @@ export class OfferFormComponent {
 
   filterServices() {
     const filterValue = this.serviceFilter.value;
-    console.log(filterValue);
     this.filteredServiceList = this.serviceList?.filter((service: ServiceDTO) => {
       return service.name.toLowerCase().includes(filterValue.toLowerCase()) && !this.excludedServiceList.includes(service._id)
     }) || [];
@@ -275,7 +274,6 @@ export class OfferFormComponent {
       return this.onWrongDate();
     }
     const now = new Date();
-    console.log(startDate, endDate, now)
     if (isBefore(startDate, now) && isBefore(endDate,now)) {
       return this.onPastDate();
     }
@@ -365,7 +363,6 @@ export class OfferFormComponent {
         this.excludedServiceList.push(service._id);
       }
       this.filterServices()
-      console.log(this.excludedServiceList);
       this.selectedServicesDataSource.data = this.selectedServices;
       this.imageUrls = await this.loadImagesIntoUploader(pictureUrls);
       // hide  validate button on update form first load

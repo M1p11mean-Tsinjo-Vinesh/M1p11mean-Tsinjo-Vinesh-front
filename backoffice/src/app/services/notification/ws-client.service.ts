@@ -62,7 +62,6 @@ export class WsClientService {
       pushedNotification.close();
       window.parent.focus();
     }
-    console.log(pushedNotification);
   }
 
 

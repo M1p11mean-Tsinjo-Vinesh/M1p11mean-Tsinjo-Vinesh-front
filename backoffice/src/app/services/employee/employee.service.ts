@@ -45,7 +45,6 @@ export class EmployeeService implements IEmployeeService{
   }
 
   updatePersonalInfo(data: object): Observable<any>  {
-    console.log(data);
     return this.http.put(baseUrl("employees-auth/update-info"), data);
   }
 

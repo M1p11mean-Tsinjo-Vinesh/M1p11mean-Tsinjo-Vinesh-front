@@ -72,7 +72,6 @@ export class ImageUploaderComponent implements ControlValueAccessor {
   }
 
   markAsTouched () {
-    console.log(true);
     if (!this.touched) {
       this.onTouched();
       this.touched  = true;

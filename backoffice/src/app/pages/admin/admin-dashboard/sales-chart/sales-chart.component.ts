@@ -69,7 +69,6 @@ export class SalesChartComponent {
   }
 
   getSalesPerDay(year: number, month: number, closeLoading: boolean = false) {
-    console.log(year, month)
     const daysInMonth = getDaysInMonth(year, month);
     this.labels = Array.from({length: daysInMonth}, (_, i) => (i + 1).toString());
     this.statsService.getSalesPerDay(year, month).subscribe(sales => {

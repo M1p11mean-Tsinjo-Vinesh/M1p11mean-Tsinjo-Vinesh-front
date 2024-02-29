@@ -3,6 +3,7 @@ import {AppointmentDetailsDto} from "../../../dto/appointmentDetails.dto";
 import {AppointmentService} from "../../../services/appointment/appointment.service";
 import {FormControl} from "@angular/forms";
 import {tap} from "rxjs";
+import {isAfter} from "date-fns";
 
 @Component({
   selector: 'app-tasklist',
@@ -22,7 +23,14 @@ export class TasklistComponent {
   ngOnInit() {
     this.fetchAppointments();
     this.selectedDate.valueChanges.pipe(
-      tap(() => this.fetchAppointments())
+      tap(() => {
+        const date = this.selectedDate.value
+        if (isAfter(date,new Date())) {
+          this.selectedDate.setValue(new Date())
+        } else {
+          this.fetchAppointments()
+        }
+      })
     ).subscribe()
 
   }

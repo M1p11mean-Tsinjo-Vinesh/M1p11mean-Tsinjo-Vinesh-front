@@ -101,7 +101,6 @@ export class CrudPageComponent {
     this._validActionTypes = val;
     // Filter row actions based on valid action types
     this.rowActions = this.defaultRowActions.filter(action => action.type && this._validActionTypes.indexOf(action.type) >= 0)
-    console.log(this.rowActions);
   }
 
   @Input()
@@ -142,7 +141,6 @@ export class CrudPageComponent {
           res.elements = res.elements.filter(this.listFilter)
           res.count = res.elements.length;
         }
-        console.log(res);
         this.res = res;
         close();
       }))

@@ -192,7 +192,6 @@ export class EmployeeFormComponent {
     }
     this.employee.shifts.push(newShift);
     this.employee.shifts = this.employee.shifts.filter((shift: any) => shift.daysOfWeek.length != 0 );
-    console.log(this.employee.shifts)
     this.buildEvents()
   }
 

@@ -67,7 +67,6 @@ export class AppointmentService implements IAppointmentService {
   }
 
   formatDate(date: Date): string {
-    console.log(date.toJSON())
     return format(date,"yyyy-MM-dd'T'HH:mm:ss.SSS");
   }
 

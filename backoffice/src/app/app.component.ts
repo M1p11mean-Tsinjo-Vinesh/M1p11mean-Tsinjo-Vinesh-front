@@ -37,7 +37,6 @@ export class AppComponent implements OnInit {
       }
     });
     this.eventBusSub = this.eventBusService.on('logout', () => {
-      console.log('logout event received');
       this.router.navigate(['/login']);
       localStorage.removeItem('user');
       this.store.dispatch(clearNotification());
