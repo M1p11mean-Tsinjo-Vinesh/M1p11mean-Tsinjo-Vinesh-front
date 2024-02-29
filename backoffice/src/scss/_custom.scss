@@ -44,13 +44,13 @@
 .btn-primary {
   --cui-btn-color: white;
   --cui-btn-hover-color: white;
-  --cui-btn-bg: black;
-  --cui-btn-border-color: black;
-  --cui-btn-hover-bg: rgba(0, 0, 0, 0.8);
-  --cui-btn-hover-border-color: black;
-  --cui-btn-disabled-bg: #000;
-  --cui-btn-disabled-border-color: #000;
-  --cui-btn-active-bg: black
+  --cui-btn-bg: #ee6567;
+  --cui-btn-border-color: #ee6567;
+  --cui-btn-hover-bg: rgb(238, 101, 103,0.8);
+  --cui-btn-hover-border-color: rgb(238, 101, 103,0.8);
+  --cui-btn-disabled-bg: rgb(238, 101, 103,0.6);
+  --cui-btn-disabled-border-color: rgb(238, 101, 103,0.6);
+  --cui-btn-active-bg: #ee6567
 }
 
 .btn {
@@ -62,7 +62,7 @@
 }
 
 :root {
-  --primary-color: black;
+  --primary-color: #ee6567;
 }
 
 .btn-secondary {
