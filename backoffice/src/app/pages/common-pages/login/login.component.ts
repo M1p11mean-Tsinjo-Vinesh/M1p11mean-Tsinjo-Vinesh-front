@@ -13,8 +13,8 @@ import {ObserverElt, ObserverObject} from "@common-components/services/util";
 export class LoginComponent {
 
   loginForm = this.formBuilder.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required]]
+    email: ['admin-p11@yopmail.com', [Validators.required, Validators.email]],
+    password: ['1234', [Validators.required]]
   });
 
   constructor(
