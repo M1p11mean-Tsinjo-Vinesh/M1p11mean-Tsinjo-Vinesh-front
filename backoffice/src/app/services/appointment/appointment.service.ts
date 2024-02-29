@@ -19,6 +19,12 @@ export class AppointmentService implements IAppointmentService {
 
   getAppointmentDetailsList(): Observable<AppointmentDetailsDto[]> {
     return new Observable<AppointmentDetailsDto[]>(subscriber => {
+      const data = localStorage.getItem('user');
+      if (!data) {
+        subscriber.error();
+        subscriber.complete();
+        return;
+      }
       this.http.get(baseUrl('employee/appointments'), {
         headers: {
           "Authorization": `Bearer ${sessionStorage.getItem('token')}`

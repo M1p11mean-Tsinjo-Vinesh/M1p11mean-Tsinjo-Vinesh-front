@@ -3,6 +3,27 @@
     <h2 class="m-0">Mon planning</h2>
   </c-card-header>
   <c-card-body>
+    <div class="mb-4">
+      <h2 class="m-0">Légendes</h2>
+      <div class="legends d-flex flex-column gap-2">
+        <div class="legend d-flex">
+          <div class="legend-color" style="background-color: #f0ad4e;"></div>
+          <div class="text">Tâche à faire</div>
+        </div>
+        <div class="legend d-flex">
+          <div class="legend-color" style="background-color: #5cb85c;"></div>
+          <div class="text">Tâche effectuée</div>
+        </div>
+        <div class="legend d-flex">
+          <div class="legend-color" style="background-color: #d9534f;"></div>
+          <div class="text">Tâche annulée</div>
+        </div>
+        <div class="legend d-flex">
+          <div class="legend-color" style="background-color: #d3d3d3;"></div>
+          <div class="text">Tâche en attente de validation</div>
+        </div>
+      </div>
+    </div>
     <full-calendar [options]="calendarOptions"></full-calendar>
   </c-card-body>
 </c-card>

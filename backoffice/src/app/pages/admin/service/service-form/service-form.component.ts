@@ -48,17 +48,17 @@ export class ServiceFormComponent implements OnInit {
       validators: Validators.required
     },
     duration: {
-      label: "Duration du service",
+      label: "Durée du service (min)",
       type: "number",
       validators: [Validators.required, Validators.min(1)]
     },
     price: {
-      label: "Prix",
+      label: "Prix (MGA)",
       type: "number",
       validators: [Validators.required, Validators.min(1)]
     },
     commission: {
-      label: "Commission de l'employé",
+      label: "Commission de l'employé (%)",
       type: "number",
       validators: [Validators.required, Validators.min(1), Validators.max(100)]
     }

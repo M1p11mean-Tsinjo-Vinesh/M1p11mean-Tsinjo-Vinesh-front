@@ -10,8 +10,10 @@ import {AppointmentDetailsDto} from "../../../../dto/appointmentDetails.dto";
 import {showSuccess} from "@common-components/services/sweet-alert.util";
 
 const statusColor: {[key:number]: EPlanningStatusColor} = {
-  10: EPlanningStatusColor.TODO,
+  10: EPlanningStatusColor.DISABLED,
+  20: EPlanningStatusColor.TODO,
   30: EPlanningStatusColor.DONE,
+  "-10": EPlanningStatusColor.CANCELED
 }
 
 @Component({
@@ -24,6 +26,7 @@ export class PlanningComponent implements OnInit{
   appointmentDetailsList: AppointmentDetailsDto[] = [];
   public confirmVisible = false;
   currentAppointmentDetailsId = "";
+  isManager = false;
 
   calendarOptions: CalendarOptions = {
     initialView: 'timeGridWeek',
@@ -37,7 +40,42 @@ export class PlanningComponent implements OnInit{
     slotMaxTime: "18:00:00",
     themeSystem: "bootstrap5",
     height: "auto",
-    eventClick: ($event) => this.selectEvent($event)
+    eventClick: ($event) => this.selectEvent($event),
+    eventMouseEnter: (event) => {
+      const tooltipDiv = document.createElement('div');
+
+      // Set the attributes and styles for the <div>
+      tooltipDiv.className = 'tooltipevent';
+      tooltipDiv.style.background = event.event.backgroundColor;
+      tooltipDiv.style.color = 'white';
+      tooltipDiv.style.position = 'absolute';
+      tooltipDiv.style.zIndex = '10001';
+      // Set the content of the <div> (assuming `event.event.title` contains the desired text)
+      const title = document.createElement('div');
+      title.innerText = event.event.title;
+      const time = document.createElement('div');
+      time.innerText = `De ${event.event.start?.toLocaleTimeString()} à ${event.event.end?.toLocaleTimeString()}`;
+      tooltipDiv.appendChild(time);
+      tooltipDiv.appendChild(title);
+
+      document.body.appendChild(tooltipDiv);
+
+      event.el.addEventListener('mouseover', function(e) {
+        event.el.style.zIndex = '10000';
+        tooltipDiv.style.display = 'block';
+        tooltipDiv.style.opacity = '1.9';
+      });
+
+      event.el.addEventListener('mousemove', function(e) {
+        tooltipDiv.style.top = e.pageY + 10 + 'px';
+        tooltipDiv.style.left = e.pageX + 20 + 'px';
+      });
+      // make the function above without jquery
+    },
+    eventMouseLeave: (event) => {
+      event.el.style.zIndex = 'auto';
+      document.querySelector('.tooltipevent')?.remove();
+    }
   }
 
   constructor(private appointmentService: AppointmentService) {
@@ -45,6 +83,11 @@ export class PlanningComponent implements OnInit{
 
   ngOnInit() {
     this.loadAppointmentsDetails();
+    const data = localStorage.getItem('user');
+    if (data) {
+      const user = JSON.parse(data);
+      this.isManager = user.role === "MANAGER";
+    }
   }
 
   loadAppointmentsDetails() {
@@ -67,7 +110,11 @@ export class PlanningComponent implements OnInit{
   }
 
   selectEvent(event: any) {
-    if (event.event.extendedProps.status === 30) return;
+    if (
+      this.isManager ||
+      event.event.extendedProps.status !== 20 ||
+      event.event.start.getTime() > new Date().getTime()
+    ) return;
     this.currentAppointmentDetailsId = event.event.extendedProps.detailsId;
     this.confirmVisible = true;
   }

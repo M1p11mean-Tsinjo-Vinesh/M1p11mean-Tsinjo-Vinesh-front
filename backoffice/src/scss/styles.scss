@@ -65,3 +65,17 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .clickable {
   cursor: pointer;
 }
+
+.tooltipevent {
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  width: 200px;
+}
+
+.legend-color {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  margin-right: 5px;
+  border-radius: 50%;
+}
