@@ -15,7 +15,6 @@
                     <mat-label>Choose a date</mat-label>
                     <input
                         matInput
-                        (input)="changeDate($event)"
                         (change)="changeDate($event)"
                         value="{{startDate |date: 'yyyy-MM-ddTHH:mm'}}"
                         type="datetime-local"
