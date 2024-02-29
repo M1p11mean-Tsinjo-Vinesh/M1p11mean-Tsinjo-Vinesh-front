@@ -117,6 +117,7 @@ export class MakeAppointmentComponent {
   assignEmployee() {
     const service = this.serviceControl.value;
     const employee = this.employeeControl.value;
+    if(!employee) return;
     const endDateBase = this.lastDate ?? this.startDate;
     const startDate = this.lastDate ?? this.startDate;
     const endDate = addMinutes(endDateBase,service.duration).toJSON();

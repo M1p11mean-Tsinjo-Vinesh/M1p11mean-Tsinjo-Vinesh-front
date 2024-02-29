@@ -18,6 +18,17 @@
             class="preference-btn"
             (starClickChange)="onStarClick()"
         />
+      <img
+        *ngIf="service.discountInformation"
+        class="discount-icon"
+        src="https://res.cloudinary.com/dje2mveih/image/upload/v1709186826/assets/sale-icon_vu7i3d.webp"
+           alt="discount sale">
     </div>
-    <h5 class="text-center">{{service.name}}</h5>
+    <div class="text-center">
+      <h5>{{service.name}}</h5>
+      <small>
+        {{service.price | number}}Ar
+        <span *ngIf="service.discountInformation">({{ - service.price + service.discountInformation.value | number}} Ar économisé)</span>
+      </small>
+    </div>
 </div>
