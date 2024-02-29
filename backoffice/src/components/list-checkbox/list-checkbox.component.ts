@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {ListComponent} from "../list/list.component";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-list-checkbox',
@@ -47,4 +48,5 @@ export class ListCheckboxComponent extends ListComponent {
     return this.checkedList.indexOf(element) >= 0;
   }
 
+  protected readonly NgIf = NgIf;
 }

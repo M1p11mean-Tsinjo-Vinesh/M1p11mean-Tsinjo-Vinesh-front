@@ -104,6 +104,9 @@ export class CrudPageComponent {
     console.log(this.rowActions);
   }
 
+  @Input()
+  listFilter?: (row: any) => boolean;
+
   @ViewChild("list") list!: ListCheckboxComponent;
 
   constructor(
@@ -135,6 +138,11 @@ export class CrudPageComponent {
     startApiCall(close => {
       // Call the CRUD service to fetch data with current parameters
       this.service.findAllWithParams(params).subscribe(ObserverElt(res => {
+        if (this.listFilter) {
+          res.elements = res.elements.filter(this.listFilter)
+          res.count = res.elements.length;
+        }
+        console.log(res);
         this.res = res;
         close();
       }))

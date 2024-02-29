@@ -21,6 +21,7 @@ import {Router} from "@angular/router";
 			[sorts]="sorts"
 			[service]="service"
 			[rowActions]="rowActions"
+      [listFilter]="listFilter"
 			#crudPageComponent
 		/>
 	`,
@@ -60,6 +61,10 @@ export class ServiceListComponent {
 			type: "delete"
 		}
 	];
+
+  listFilter = (row: any) => {
+    return row.discountInformation === undefined;
+  }
 
 	constructor(
 		private decimalPipe: DecimalPipe,

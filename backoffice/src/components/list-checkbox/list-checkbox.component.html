@@ -37,7 +37,7 @@
             <th [class.d-none]="actions && actions.length <= 0" mat-header-cell *matHeaderCellDef>Actions</th>
             <td [class.d-none]="actions && actions.length <= 0" mat-cell *matCellDef="let element; index as i">
                 <ng-container *ngFor="let action of actions">
-                    <button mat-icon-button [color]="action.color" (click)="action.onclick(element, i)">
+                    <button mat-icon-button [color]="action.color" (click)="action.onclick(element, i)" *ngIf="action.visible ? action.visible(element) : true">
                         <mat-icon>{{action.icon}}</mat-icon>
                     </button>
                 </ng-container>

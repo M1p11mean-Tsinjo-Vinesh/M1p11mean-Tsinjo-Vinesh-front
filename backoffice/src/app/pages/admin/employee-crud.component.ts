@@ -29,8 +29,8 @@ export class EmployeeCrudComponent {
 
   title = "Liste des employés";
   urlToAddPage = ["management", "employee", "ajout"];
-
   criteria: InputList = {};
+  currentUserId: string = "";
 
   inputs: InputList = {
     firstName: {
@@ -77,6 +77,7 @@ export class EmployeeCrudComponent {
       color: "warn",
       icon: "delete",
       onclick: (row: any) => askConfirmation(() => this.service.delete(row)),
+      visible: (row: any) => row._id !==this.currentUserId,
       type: "delete"
     }
   ]
@@ -95,6 +96,9 @@ export class EmployeeCrudComponent {
 
   constructor(private http: HttpClient, private router: Router) {
     this.service = new CrudService("employees", http);
-
+    const data = localStorage.getItem("user");
+    if (data) {
+      this.currentUserId = JSON.parse(data)._id;
+    }
   }
 }

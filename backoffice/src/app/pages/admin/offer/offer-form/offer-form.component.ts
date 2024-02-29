@@ -178,7 +178,9 @@ export class OfferFormComponent {
 
   fetchServices() {
     this.serviceService.findAll().subscribe((services: any) => {
-      this.serviceList = services.data;
+      this.serviceList = services.data.filter((element: any) => {
+       return element.discountInformation === undefined;
+      });
       if (this.serviceList) {
         this.filteredServiceList = this.serviceList;
       }

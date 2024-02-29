@@ -55,6 +55,7 @@ export interface RowAction {
   color: ThemePalette,
   icon: string,
   onclick: (row: any, index: number) => any,
+  visible?: (row: any) => boolean,
   type?: "edit" | "delete" | string
 }
 
