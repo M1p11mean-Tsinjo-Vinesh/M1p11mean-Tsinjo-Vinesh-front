@@ -4,7 +4,7 @@ import {AppointmentDto} from "../../../dto/appointment.dto";
 import {getStatusBadge} from "../../../../utils/status.utils";
 import {AppointmentService} from "../../../services/appointment/appointment.service";
 import {EApointmentStatus} from "../../../enum/appointmentStatus.enum";
-import {askConfirmation, showError, showSuccess} from "@common-components/services/sweet-alert.util";
+import {askConfirmation, showError, showSuccess, startApiCall} from "@common-components/services/sweet-alert.util";
 
 
 @Component({
@@ -26,8 +26,11 @@ export class AppointmentDetailsComponent {
 
   ngOnInit() {
     const appointmentId = this.activatedRoute.snapshot.paramMap.get('id')!;
-    this.appointmentService.findById(appointmentId).subscribe((appointment) => {
-      this.appointment = appointment;
+    startApiCall(async (close) => {
+      this.appointmentService.findById(appointmentId).subscribe((appointment) => {
+        this.appointment = appointment;
+        close();
+      })
     })
   }
 
@@ -42,15 +45,19 @@ export class AppointmentDetailsComponent {
   }
 
   validateAppointment(appointmentId: string) {
-    this.appointmentService.validateAppointment(appointmentId).subscribe({
-      next: () => {
-        showSuccess(() => {
-          this.appointment!.status = EApointmentStatus.VALIDATED;
-        },'Rendez-vous validé avec succès.');
-      },
-      error: (error) => {
-        showError("Une erreur est survenue lors de la validation du rendez-vous. Veuillez réessayer.")
-      }
+    startApiCall(async (close) => {
+      this.appointmentService.validateAppointment(appointmentId).subscribe({
+        next: () => {
+          close();
+          showSuccess(() => {
+            this.appointment!.status = EApointmentStatus.VALIDATED;
+          },'Rendez-vous validé avec succès.');
+        },
+        error: (error) => {
+          close();
+          showError("Une erreur est survenue lors de la validation du rendez-vous. Veuillez réessayer.")
+        },
+      })
     })
   }
 
@@ -61,15 +68,19 @@ export class AppointmentDetailsComponent {
   }
 
   denyAppointment(appointmentID: string) {
-    this.appointmentService.denyAppointment(appointmentID).subscribe({
-      next: () => {
-        showSuccess(() => {
-          this.appointment!.status = EApointmentStatus.CANCELED;
-        },'Rendez-vous refusé avec succès.');
-      },
-      error: () => {
-        showError("Une erreur est survenue lors de l'annulation du rendez-vous. Veuillez réessayer.")
-      }
+    startApiCall(async (close) => {
+      this.appointmentService.denyAppointment(appointmentID).subscribe({
+        next: () => {
+          close();
+          showSuccess(() => {
+            this.appointment!.status = EApointmentStatus.CANCELED;
+          }, 'Rendez-vous refusé avec succès.');
+        },
+        error: () => {
+          close();
+          showError("Une erreur est survenue lors de l'annulation du rendez-vous. Veuillez réessayer.")
+        }
+      })
     })
   }
 }

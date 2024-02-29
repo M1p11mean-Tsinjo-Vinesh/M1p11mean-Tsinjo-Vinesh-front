@@ -3,7 +3,6 @@ import { Component, Input } from '@angular/core';
 // Define interface for User data
 export interface User {
   name: string; // User's name
-  path: string; // Path to user's avatar
 }
 
 @Component({

@@ -26,10 +26,14 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
+    const data = localStorage.getItem('user');
     this.user = {
-      name: "Sinel Vinesh",
-      path: "/assets/images/Vinesh.jpg "
+      name: "Utilisateur"
     };
+    if (data) {
+      const user = JSON.parse(data);
+      this.user.name = `${user.firstName} ${user.lastName}`;
+    }
     this.ws.register().subscribe(notification => {
       this.dispatchNotificationCount(this.notificationCount + 1);
     })

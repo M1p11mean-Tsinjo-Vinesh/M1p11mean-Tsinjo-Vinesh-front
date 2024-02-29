@@ -25,7 +25,7 @@ import {EApointmentStatus} from "../../../enum/appointmentStatus.enum";
 			[service]="service"
 			[rowActions]="rowActions"
       [showAddButton]="false"
-      [showFilterButton]="true"
+      [showFilterButton]="false"
       [criteria]="criteria"
 			#crudPageComponent
 		/>
@@ -39,7 +39,7 @@ export class AppointmentListComponent {
 	titles: string[] = ["Id", "Date", "Client", "Statut"]
 	getters: GetterFn[] = [
 		extract("_id"),
-		extractAndPipe("date", this.datePipe),
+    row => this.datePipe.transform(row.appointmentDate, "dd MMMM YYYY à HH:mm"),
     row => row.client.name,
 		row => `<c-badge [color]="${getStatusBadge(row.status)}">${this.appointmentStatusPipe.transform(row.status)}</c-badge>`,
 	]
@@ -60,7 +60,7 @@ export class AppointmentListComponent {
 	];
 
   sorts: SortParam = {
-    Date: "date",
+    Date: "appointmentDate",
     Statut: "status"
   }
 

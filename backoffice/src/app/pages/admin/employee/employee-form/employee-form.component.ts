@@ -8,12 +8,13 @@ import frLocale from "@fullcalendar/core/locales/fr";
 import timegridPlugin from "@fullcalendar/timegrid";
 import bootstrap5Plugin from "@fullcalendar/bootstrap5";
 import {DataDto} from "../../../../dto/data.dto";
-import {showError, showSuccess} from "@common-components/services/sweet-alert.util";
+import {showError, showSuccess, startApiCall} from "@common-components/services/sweet-alert.util";
 import {UserEditableInfo} from "../../../crm/edit-profile/edit-profile.component";
 import interactionPlugin from '@fullcalendar/interaction';
 import {format} from "date-fns";
 import {EmployeeService} from "../../../../services/employee/employee.service";
 import {ActivatedRoute} from "@angular/router";
+import value from "*.json";
 
 
 @Component({
@@ -69,7 +70,9 @@ export class EmployeeFormComponent {
           ...data,
           shifts: this.employee.shifts
         }
-        this.updateEmployee();
+        startApiCall(async (close) => {
+          await this.updateEmployee(close);
+        })
       }
     },
     {
@@ -112,10 +115,13 @@ export class EmployeeFormComponent {
     const id = this.activedRoute.snapshot.paramMap.get('id');
     this.currentId = id;
     if (id) {
-      this.employeeService.findById(id).subscribe((employee) => {
-        this.employee = employee.data;
-        this.buildEvents()
-      });
+      startApiCall(async (close) => {
+        this.employeeService.findById(id).subscribe((employee) => {
+          this.employee = employee.data;
+          this.buildEvents()
+          close();
+        });
+      })
     } else {
       this.editProfileInputs["password"] = {
         label: "Mot de passe",
@@ -165,14 +171,18 @@ export class EmployeeFormComponent {
   }
 
   updateEmployeeShifts(info: any) {
-    console.log(info.oldEvent)
     const oldDate = info.oldEvent.start!;
+    const date = info.event.start!;
+    if (format(oldDate, "dd/MM/yyyy") !== format(date, "dd/MM/yyyy")) {
+      info.revert();
+      return;
+    }
+
     const oldDay = oldDate.getDay()
     const oldHours = format(oldDate, "HH:mm");
     const shift = this.employee.shifts.find((shift: any) => shift.daysOfWeek.includes(oldDay) && shift.startTime === oldHours);
     shift.daysOfWeek.splice(shift.daysOfWeek.indexOf(oldDay), 1);
 
-    const date = info.event.start!;
     const day = date.getDay()
     const hours = format(date, "HH:mm");
     const newShift = {
@@ -186,16 +196,28 @@ export class EmployeeFormComponent {
     this.buildEvents()
   }
 
-  updateEmployee() {
+  async updateEmployee(close: Function) {
     if (this.currentId) {
       this.employeeService.updateEmployee(this.currentId,this.employee).subscribe({
-        next: this.onEditSuccess,
-        error: (error) => showError(error.error.message)
+        next: (value) => {
+          close();
+          this.onEditSuccess(value)
+        },
+        error: (error) => {
+          close();
+          showError(error.error.message)
+        }
       });
     } else {
       this.employeeService.createEmployee(this.employee).subscribe({
-        next: this.onEditSuccess,
-        error: (error) => showError(error.error.message)
+        next: (value) => {
+          close();
+          this.onEditSuccess(value)
+        },
+        error: (error) => {
+          close();
+          showError(error.error.message)
+        }
       });
     }
   }
